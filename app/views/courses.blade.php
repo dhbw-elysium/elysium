@@ -2,25 +2,26 @@
 
 @section('title')
 @parent
-:: Kurse
+:: Vorlesungen
 @stop
 
 @section('content')
-<h1>Kurse und Kursgruppen</h1>
+<h1>Vorlesungen und Themenbereiche</h1>
 
-<div class="modal fade" id="modalCourse" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- Modal	course -->
+<div class="modal fade" id="modalCourse" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title">Kurs</h4>
+        <h4 class="modal-title">Vorlesung</h4>
       </div>
       <div class="modal-body">
 		{{ Form::open(array('url' => 'course/update', 'class' => '')) }}
 		{{ Form::hidden('cid', '0'); }}
 
 			<div class="form-group">
-            	<label for="recipient-name" class="control-label">Gruppe</label>
+            	<label for="course-cgid" class="control-label">Themenbereich</label>
             	<select class="form-control" id="course-cgid">
             		@if (count($groups = CourseGroup::orderBy('title')->get()))
 						@foreach ($groups as $group)
@@ -30,7 +31,7 @@
 				</select>
           	</div>
 			<div class="form-group">
-				<label for="message-text" class="control-label">Titel</label>
+				<label for="course-title" class="control-label">Titel</label>
             	<input type="text" class="form-control" id="course-title">
 			</div>
 		{{ Form::close() }}
@@ -43,18 +44,44 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<!-- Modal	courseGroup -->
+<div class="modal fade" id="modalCourseGroup" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title">Vorlesung</h4>
+      </div>
+      <div class="modal-body">
+		{{ Form::open(array('url' => 'course_group/update', 'class' => '')) }}
+		{{ Form::hidden('cgid', '0'); }}
+			<div class="form-group">
+				<label for="course-group-title" class="control-label">Titel</label>
+            	<input type="text" class="form-control" id="course-group-title">
+			</div>
+		{{ Form::close() }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+        <button type="button" class="btn btn-primary">Speichern</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <div class="row">
 	<div class="col-md-7">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h2 class="panel-title">Kurse</h2>
+				<h2 class="panel-title">Vorlesungen</h2>
 			</div>
 		 	<div class="panel-body">
 				<table class="table table-striped">
 				  <thead>
 					<tr>
 						<th>#</th>
-						<th>Gruppe</th>
+						<th>Themenbereich</th>
 						<th>Titel</th>
 						<th style="width:70px;">Aktion</th>
 					</tr>
@@ -78,7 +105,7 @@
 						@endforeach
 					@else
 						<tr>
-							<td colspan="4"><i>Keine Kurse eingetragen</i></td>
+							<td colspan="4"><i>Keine Vorlesungen eingetragen</i></td>
 						</tr>
 					@endif
 				  </tbody>
@@ -94,7 +121,7 @@
 	<div class="col-md-5">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h2 class="panel-title">Kursgruppen</h2>
+				<h2 class="panel-title">Themenbereiche</h2>
 			</div>
 		 	<div class="panel-body">
 				<table class="table table-striped">
@@ -112,7 +139,7 @@
 							<td>{{{$group->cgid}}}</td>
 							<td>{{{$group->title}}}</td>
 							<td>
-								<button type="button" class="btn btn-default btn-xs" value="">
+								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalCourseGroup" data-cgid="{{{$group->cgid}}}" data-title="{{$group->title}}">
 								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 								</button>
 								<button type="button" class="btn btn-danger btn-xs">
@@ -123,7 +150,7 @@
 						@endforeach
 					@else
 						<tr>
-							<td colspan="3"><i>Keine Kursgruppen eingetragen</i></td>
+							<td colspan="3"><i>Keine Themenbereiche eingetragen</i></td>
 						</tr>
 					@endif
 				  </tbody>
