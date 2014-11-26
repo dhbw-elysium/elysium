@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-:: Home
+:: Start
 @stop
 
 @section('content')

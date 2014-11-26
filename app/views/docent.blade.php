@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-:: Secret
+:: Dozent
 @stop
 
 @section('content')

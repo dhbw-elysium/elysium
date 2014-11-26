@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-:: Secret
+:: Kurse
 @stop
 
 @section('content')
