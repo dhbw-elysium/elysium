@@ -20,7 +20,7 @@ class CreateDocentTable extends Migration {
             $table->string('graduation', 64);
             $table->string('first_name');
             $table->string('last_name');
-            $table->integer('private_aid', false, true);
+            $table->integer('private_aid', false, true)->nullable();
             $table->string('email')->nullable();
             $table->string('website')->nullable();
             $table->date('birth_day')->nullable();

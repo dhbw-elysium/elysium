@@ -14,9 +14,9 @@
 		  <thead>
 			<tr>
 				<th>#</th>
-				<th>Gruppe</th>
-				<th>Titel</th>
-				<th style="width:70px;">Aktion</th>
+				<th>Name</th>
+				<th>Status</th>
+				<th>Kurse</th>
 			</tr>
 		  </thead>
 		  <tbody>
@@ -24,16 +24,8 @@
 				@foreach ($docents as $docent)
 				<tr>
 					<td>{{{$docent->did}}}</td>
-
+					<td>{{{$docent->first_name.' '.$docent->last_name}}}</td>
 					<td>{{{$docent->title}}}</td>
-					<td>
-						<button type="button" class="btn btn-default btn-xs">
-						  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-						</button>
-						<button type="button" class="btn btn-default btn-xs">
-						  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-						</button>
-					</td>
 				</tr>
 				@endforeach
 			@else
