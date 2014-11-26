@@ -1,0 +1,42 @@
+{
+	"name": "theoboldt/elysium",
+	"description": "Elysium application based on laravel framework to manage docents.",
+	"keywords": ["elysium", "laravel", "docent", "dhbw"],
+	"license": "MIT",
+	"type": "project",
+	"require": {
+		"laravel/framework": "4.2.*",
+		"caouecs/laravel4-lang": "dev-master",
+		"phpoffice/phpexcel": "1.8"
+	},
+	"autoload": {
+		"classmap": [
+			"app/commands",
+			"app/controllers",
+			"app/models",
+			"app/database/migrations",
+			"app/database/seeds",
+			"app/tests/TestCase.php"
+		],
+		 "psr-4": {
+            "Elysium\\": "app/lib/Elysium"
+        }
+	},
+	"scripts": {
+		"post-install-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-update-cmd": [
+			"php artisan clear-compiled",
+			"php artisan optimize"
+		],
+		"post-create-project-cmd": [
+			"php artisan key:generate"
+		]
+	},
+	"config": {
+		"preferred-install": "dist"
+	},
+	"minimum-stability": "stable"
+}
