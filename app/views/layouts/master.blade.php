@@ -46,7 +46,7 @@
 							<li><a href="{{{ URL::to('') }}}">Start</a></li>
 							<li><a href="{{{ URL::to('docents') }}}">Dozenten</a></li>
 							<li><a href="{{{ URL::to('docent') }}}">Dozent</a></li>
-							<li><a href="{{{ URL::to('courses') }}}">Fachrichtungen</a></li>
+							<li><a href="{{{ URL::to('courses') }}}">Vorlesungen &amp; Themenbereiche</a></li>
 							<li><a href="{{{ URL::to('') }}}">Benutzer</a></li>
                             <li>{{ HTML::link('logout', 'Logout') }}</li>
                         @endif
