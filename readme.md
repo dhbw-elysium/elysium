@@ -1,3 +1,7 @@
+# Elysium
+
+This application is used to manage docents at dhbw stuttgart 
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
