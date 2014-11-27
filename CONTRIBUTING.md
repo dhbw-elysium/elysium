@@ -5,3 +5,4 @@ Please submit all issues and pull requests to the [laravel/framework](http://git
 #Contributoors
 Erik Theoboldt
 Baris Er
+Sarah Freudenberger
