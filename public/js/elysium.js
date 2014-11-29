@@ -5,7 +5,7 @@ $('#modalCourse').on('show.bs.modal', function (event) {
 		title = button.data('title'),
 		modal = $(this);
 
-	modal.find('#modalCourse .modal-title').text('Vorlesung bearbeiten: ' + title);
+	modal.find('.modal-title').text('Vorlesung bearbeiten (' + title + ')');
 	modal.find('#courseCid').val(cid);
 	modal.find('#courseCgid').val(cgid);
 	modal.find('#courseTitle').val(title);
@@ -44,7 +44,7 @@ $('#modalCourseGroup').on('show.bs.modal', function (event) {
 		title = button.data('title'),
 		modal = $(this);
 
-	modal.find('.modal-title').text('Themenbereich bearbeiten: ' + title);
+	modal.find('.modal-title').text('Themenbereich bearbeiten (' + title + ')');
 	modal.find('#courseGroupCgid').val(cgid);
 	modal.find('#courseGroupTitle').val(title);
 
