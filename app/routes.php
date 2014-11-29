@@ -18,6 +18,9 @@ Route::get('/', 'HomeController@showWelcome');
 Route::get('login', array('as' => 'login', 'uses' => 'AuthController@showLogin'));
 Route::post('login', 'AuthController@postLogin');
 
+Route::when('*', 'csrf', array('post', 'put', 'delete'));
+
+
 Route::group(array('before' => 'auth'), function() {
     Route::get('home', 'HomeController@showWelcome');
 	Route::get('logout', 'AuthController@getLogout');
