@@ -10,18 +10,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	use UserTrait, RemindableTrait;
 
 	/**
-	 * Primary key of a user
-	 *
-	 * @var string
-	 */
-	protected $primaryKey = 'uid';
-
-	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
 	protected $table = 'user';
+
+	/**
+	 * Primary key of a user
+	 *
+	 * @var string
+	 */
+	protected $primaryKey = 'uid';
 
 	/**
 	 * The attributes excluded from the model's JSON form.

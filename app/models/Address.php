@@ -14,6 +14,12 @@ class Address extends Eloquent implements RemindableInterface {
 	 */
 	protected $table = 'address';
 
+	/**
+	 * Primary key
+	 *
+	 * @var string
+	 */
+	protected $primaryKey = 'aid';
 
 
 }

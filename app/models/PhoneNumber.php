@@ -14,6 +14,13 @@ class PhoneNumber extends Eloquent implements RemindableInterface {
 	 */
 	protected $table = 'phone_number';
 
+	/**
+	 * Primary key
+	 *
+	 * @var string
+	 */
+	protected $primaryKey = 'pid';
+
 
 	public function docent()
     {

@@ -14,6 +14,13 @@ class Course extends Eloquent implements RemindableInterface {
 	 */
 	protected $table = 'course';
 
+	/**
+	 * Primary key
+	 *
+	 * @var string
+	 */
+	protected $primaryKey = 'cid';
+
 
 	public function courseGroup()
     {

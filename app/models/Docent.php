@@ -14,6 +14,14 @@ class Docent extends Eloquent implements RemindableInterface {
 	 */
 	protected $table = 'docent';
 
+	/**
+	 * Primary key
+	 *
+	 * @var string
+	 */
+	protected $primaryKey = 'did';
+
+
 
 	public function privateAddress()
     {
