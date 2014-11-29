@@ -82,7 +82,11 @@
 						<th>#</th>
 						<th>Themenbereich</th>
 						<th>Titel</th>
-						<th style="width:70px;">Aktion</th>
+						<th style="width:70px;">
+							<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="0" data-cgid="" data-title="" title="Neue Vorlesung hinzufügen">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</th>
 					</tr>
 				  </thead>
 				  <tbody>
@@ -128,7 +132,11 @@
 					<tr>
 						<th>#</th>
 						<th>Titel</th>
-						<th style="width:70px;">Aktion</th>
+						<th style="width:70px;">
+							<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalCourseGroup" data-cgid="0" data-title="" title="Neuen Themenbereich hinzufügen">
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</button>
+						</th>
 					</tr>
 				  </thead>
 				  <tbody>
