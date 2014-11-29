@@ -87,6 +87,7 @@
 		<!-- Scripts are placed here -->
         {{ HTML::script('js/jquery-1.11.1.min.js') }}
         {{ HTML::script('js/bootstrap.min.js') }}
+        {{ HTML::script('js/jquery.toaster.js') }}
         {{ HTML::script('js/elysium.js') }}
     </body>
 </html>
