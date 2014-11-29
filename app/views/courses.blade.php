@@ -16,13 +16,12 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title">Vorlesung</h4>
       </div>
+	  {{ Form::open(array('url' => 'course/update')) }}
+	  {{ Form::hidden('cid', '0', array('id' => 'courseCid')); }}
       <div class="modal-body">
-		{{ Form::open(array('url' => 'course/update', 'class' => '')) }}
-		{{ Form::hidden('cid', '0'); }}
-
 			<div class="form-group">
-            	<label for="course-cgid" class="control-label">Themenbereich</label>
-            	<select class="form-control" id="course-cgid">
+            	<label for="courseCgid" class="control-label">Themenbereich</label>
+            	<select class="form-control" id="courseCgid">
             		@if (count($groups = CourseGroup::orderBy('title')->get()))
 						@foreach ($groups as $group)
 							<option value="{{{$group->cgid}}}">{{{$group->title}}}</option>
@@ -31,15 +30,15 @@
 				</select>
           	</div>
 			<div class="form-group">
-				<label for="course-title" class="control-label">Titel</label>
-            	<input type="text" class="form-control" id="course-title">
+				<label for="courseTitle" class="control-label">Titel</label>
+            	<input type="text" class="form-control" id="courseTitle">
 			</div>
-		{{ Form::close() }}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-        <button type="button" class="btn btn-primary">Speichern</button>
+		{{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
       </div>
+	  {{ Form::close() }}
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
@@ -52,19 +51,19 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
         <h4 class="modal-title">Vorlesung</h4>
       </div>
+	  {{ Form::open(array('url' => 'course_group/update')) }}
+	  {{ Form::hidden('cgid', '0', array('id' => 'courseGroupCgid')); }}
       <div class="modal-body">
-		{{ Form::open(array('url' => 'course_group/update', 'class' => '')) }}
-		{{ Form::hidden('cgid', '0'); }}
 			<div class="form-group">
-				<label for="course-group-title" class="control-label">Titel</label>
-            	<input type="text" class="form-control" id="course-group-title">
+				<label for="courseGroupTitle" class="control-label">Titel</label>
+            	<input type="text" class="form-control" id="courseGroupTitle">
 			</div>
-		{{ Form::close() }}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
         <button type="button" class="btn btn-primary">Speichern</button>
       </div>
+	  {{ Form::close() }}
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
