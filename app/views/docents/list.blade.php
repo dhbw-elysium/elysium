@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('...layouts.master')
 
 @section('title')
 @parent
@@ -9,6 +9,14 @@
 <h1>Dozenten</h1>
 
 <div class="row">
+	<nav class="navbar navbar-default" role="navigation">
+	  <div class="container-fluid">
+		<div class="navbar-header">
+		  <a class="navbar-brand" href="#">
+		  </a>
+		</div>
+	  </div>
+	</nav>
 	<div class="">
 		<table class="table table-striped table-grid">
 		  <thead>
@@ -47,6 +55,14 @@
 			{{ $docents->links() }}
 		</div>
 	</div>
+	<div>
+		<div class="btn-group" role="group" style="float:right;">
+		  <a href="docents/import/upload" class="btn btn-default"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Importieren</a>
+		  <a href="docents/export" class="btn btn-default"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> Exportieren</a>
+		</div>
+	</div>
+
+
 
 </div>
 

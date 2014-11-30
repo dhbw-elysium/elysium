@@ -3,6 +3,6 @@ class DocentsController extends BaseController {
 
     public function showDocents()
     {
-        return View::make('docents');
+        return View::make('docents.list');
     }
 }
