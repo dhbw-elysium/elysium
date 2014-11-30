@@ -3,6 +3,6 @@
 namespace Elysium\Import;
 
 
-class ImportDocents {
+class DocentParser {
 
 }
