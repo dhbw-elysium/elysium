@@ -43,6 +43,28 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<!-- Modal	course -->
+<div class="modal fade" id="modalCourseDelete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+        <h4 class="modal-title">Vorlesung löschen</h4>
+      </div>
+	  {{ Form::open(array('url' => 'course/delete')) }}
+	  {{ Form::hidden('cid', '0', array('id' => 'courseDeleteCid')); }}
+      <div class="modal-body">
+		Möchten Sie die Vorlesung &raquo;<span id="courseDeleteTitle" style="color:#454545;"></span>&laquo; wirklich löschen?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+		{{ Form::submit('Vorlesung löschen', array('class' => 'btn btn-primary')) }}
+      </div>
+	  {{ Form::close() }}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- Modal	courseGroup -->
 <div class="modal fade" id="modalCourseGroup" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
@@ -51,7 +73,7 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
         <h4 class="modal-title">Vorlesung</h4>
       </div>
-	  {{ Form::open(array('url' => 'course_group/update')) }}
+	  {{ Form::open(array('url' => 'courseGroup/update')) }}
 	  {{ Form::hidden('cgid', '0', array('id' => 'courseGroupCgid')); }}
       <div class="modal-body">
 			<div class="form-group">
@@ -61,7 +83,29 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-        <button type="button" class="btn btn-primary">Speichern</button>
+		{{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
+      </div>
+	  {{ Form::close() }}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal	course group -->
+<div class="modal fade" id="modalCourseGroupDelete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+        <h4 class="modal-title">Themenbereich löschen</h4>
+      </div>
+	  {{ Form::open(array('url' => 'courseGroup/delete')) }}
+	  {{ Form::hidden('cgid', '0', array('id' => 'courseGroupDeleteCgid')); }}
+      <div class="modal-body">
+		Möchten Sie den Themenbereich &raquo;<span id="courseGroupDeleteTitle" style="color:#454545;"></span>&laquo; wirklich löschen?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+		{{ Form::submit('Themenbereich löschen', array('class' => 'btn btn-primary')) }}
       </div>
 	  {{ Form::close() }}
     </div><!-- /.modal-content -->
@@ -76,13 +120,13 @@
 				<h2 class="panel-title">Vorlesungen</h2>
 			</div>
 		 	<div class="panel-body">
-				<table class="table table-striped">
+				<table class="table table-striped table-grid">
 				  <thead>
 					<tr>
-						<th>#</th>
+						<th class="row-id">#</th>
 						<th>Themenbereich</th>
 						<th>Titel</th>
-						<th style="width:70px;">
+						<th class="row-action">
 							<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="0" data-cgid="" data-title="" title="Neue Vorlesung hinzufügen">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							</button>
@@ -90,17 +134,17 @@
 					</tr>
 				  </thead>
 				  <tbody>
-					@if (count($courses	= Course::orderBy('title')->paginate(2)))
+					@if (count($courses	= Course::orderBy('title')->paginate(15)))
 						@foreach ($courses as $course)
 						<tr>
-							<td>{{{$course->cid}}}</td>
+							<td class="row-id">{{{$course->cid}}}</td>
 							<td>{{{$course->courseGroup->title}}}</td>
 							<td>{{{$course->title}}}</td>
-							<td>
+							<td class="row-action">
 								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="{{{$course->cid}}}" data-cgid="{{{$course->cgid}}}" data-title="{{$course->title}}">
 								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 								</button>
-								<button type="button" class="btn btn-danger btn-xs">
+								<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalCourseDelete" data-cid="{{{$course->cid}}}" data-title="{{$course->title}}">
 								  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								</button>
 							</td>
@@ -127,12 +171,12 @@
 				<h2 class="panel-title">Themenbereiche</h2>
 			</div>
 		 	<div class="panel-body">
-				<table class="table table-striped">
+				<table class="table table-striped table-grid">
 				  <thead>
 					<tr>
-						<th>#</th>
+						<th class="row-id">#</th>
 						<th>Titel</th>
-						<th style="width:70px;">
+						<th class="row-action">
 							<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalCourseGroup" data-cgid="0" data-title="" title="Neuen Themenbereich hinzufügen">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							</button>
@@ -143,13 +187,13 @@
 					@if (count($groups	= CourseGroup::orderBy('title')->get()))
 						@foreach ($groups as $group)
 						<tr>
-							<td>{{{$group->cgid}}}</td>
+							<td class="row-id">{{{$group->cgid}}}</td>
 							<td>{{{$group->title}}}</td>
-							<td>
+							<td class="row-action">
 								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalCourseGroup" data-cgid="{{{$group->cgid}}}" data-title="{{$group->title}}">
 								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 								</button>
-								<button type="button" class="btn btn-danger btn-xs">
+								<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalCourseGroupDelete" data-cgid="{{{$group->cgid}}}" data-title="{{$group->title}}">
 								  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								</button>
 							</td>

@@ -1,0 +1,10 @@
+table.table-grid td.row-action,
+table.table-grid th.row-action {
+	width:70px;
+	text-align: right;
+}
+
+table.table-grid td.row-id,
+table.table-grid th.row-id {
+	display: none;
+}

@@ -11,6 +11,11 @@ class CoursesController extends BaseController {
         return View::make('courses');
     }
 
+	/**
+	 * Create or update a course
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
 	public function postCourseUpdate()
     {
         $data = array(
@@ -45,7 +50,37 @@ class CoursesController extends BaseController {
 		return Response::make('', 405);
     }
 
+	/**
+	 * Delete a course
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function postCourseDelete()
+    {
 
+		$cid	= Input::get('courseCid');
+
+		/** @var \Illuminate\Validation\Validator $validator */
+		$validator = Validator::make(
+			array('cid' => $cid),
+			array('cid' => 'required|numeric')
+		);
+
+
+        if ($validator->passes()) {
+			Course::destroy($cid);
+
+			return Response::make('', 200);
+		}
+
+		return Response::make('', 405);
+    }
+
+	/**
+	 * Update or create a course group
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
 	public function postCourseGroupUpdate()
     {
         $data = array(
@@ -77,5 +112,28 @@ class CoursesController extends BaseController {
 		return Response::make('', 405);
     }
 
+	/**
+	 * Delete a course group
+	 *
+	 * @return \Illuminate\Http\Response
+	 */
+	public function postCourseGroupDelete()
+    {
+
+		$cgid	= Input::get('courseGroupCgid');
+
+		/** @var \Illuminate\Validation\Validator $validator */
+		$validator = Validator::make(
+			array('cgid' => $cgid),
+			array('cgid' => 'required|numeric')
+		);
+
+
+        if ($validator->passes() && CourseGroup::destroy($cgid)) {
+			return Response::make('', 200);
+		}
+
+		return Response::make('', 405);
+    }
 
 }
