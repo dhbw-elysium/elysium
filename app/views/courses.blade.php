@@ -124,8 +124,8 @@
 				  <thead>
 					<tr>
 						<th class="row-id">#</th>
-						<th>Themenbereich</th>
 						<th>Titel</th>
+						<th>Themenbereich</th>
 						<th class="row-action">
 							<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="0" data-cgid="" data-title="" title="Neue Vorlesung hinzufügen">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
@@ -138,8 +138,8 @@
 						@foreach ($courses as $course)
 						<tr>
 							<td class="row-id">{{{$course->cid}}}</td>
-							<td>{{{$course->courseGroup->title}}}</td>
 							<td>{{{$course->title}}}</td>
+							<td>{{{$course->courseGroup->title}}}</td>
 							<td class="row-action">
 								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="{{{$course->cid}}}" data-cgid="{{{$course->cgid}}}" data-title="{{$course->title}}">
 								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
