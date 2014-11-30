@@ -31,6 +31,9 @@ class CreateDocentTable extends Migration {
             $table->string('company_job');
             $table->string('company_name');
             $table->integer('company_aid', false, true)->nullable();
+            $table->string('bank_name');
+            $table->string('bank_iban');
+            $table->string('bank_bic');
 
 
 			$table->timestamps();
