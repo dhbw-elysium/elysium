@@ -35,6 +35,8 @@ class AuthController extends BaseController {
         // Validate the inputs.
         $validator = Validator::make($userdata, $rules);
 
+		usleep(rand(0,60));
+
         // Check if the form validates with success.
         if ($validator->passes())
         {
