@@ -39,5 +39,9 @@ class Docent extends Eloquent implements RemindableInterface {
         return $this->hasMany('PhoneNumber');
     }
 
+	public function courses()
+    {
+        return $this->belongsToMany('Course', 'docent_course', 'did', 'cid');
+    }
 
 }

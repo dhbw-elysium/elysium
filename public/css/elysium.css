@@ -8,3 +8,7 @@ table.table-grid td.row-id,
 table.table-grid th.row-id {
 	display: none;
 }
+
+span.label-course-tag {
+	font-size: 12px;
+}

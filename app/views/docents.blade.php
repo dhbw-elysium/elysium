@@ -10,10 +10,10 @@
 
 <div class="row">
 	<div class="">
-		<table class="table table-striped">
+		<table class="table table-striped table-grid">
 		  <thead>
 			<tr>
-				<th>#</th>
+				<th class="row-id">#</th>
 				<th>Name</th>
 				<th>Status</th>
 				<th>Kurse</th>
@@ -23,9 +23,17 @@
 			@if (count($docents	= Docent::paginate(2)))
 				@foreach ($docents as $docent)
 				<tr>
-					<td>{{{$docent->did}}}</td>
+					<td class="row-id">{{{$docent->did}}}</td>
 					<td>{{{$docent->first_name.' '.$docent->last_name}}}</td>
 					<td>{{{$docent->title}}}</td>
+					<td>
+					@if (count($courses	= $docent->courses))
+						@foreach ($courses as $course)
+						<span class="label label-primary label-course-tag">{{{$course->title}}}</span>
+						@endforeach
+					@endif
+					</td>
+
 				</tr>
 				@endforeach
 			@else
