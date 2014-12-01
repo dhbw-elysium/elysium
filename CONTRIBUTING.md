@@ -6,3 +6,4 @@ Please submit all issues and pull requests to the [laravel/framework](http://git
 Erik Theoboldt
 Baris Er
 Sarah Freudenberger
+Adrian Schäufler
