@@ -25,7 +25,11 @@ Route::group(array('before' => 'auth'), function() {
     Route::get('home', 'HomeController@showWelcome');
 	Route::get('logout', 'AuthController@getLogout');
 	Route::get('courses', 'CoursesController@showCourses');
+
 	Route::get('docents', 'DocentsController@showDocents');
+	Route::get('docents/import/upload', 'DocentsImportController@docentsImportUpload');
+	Route::any('docents/import/process', 'DocentsImportController@docentsImportProcess');
+
 	Route::get('docent', 'DocentController@showDocent');
 
 	Route::post('course/update', 'CoursesController@postCourseUpdate');
