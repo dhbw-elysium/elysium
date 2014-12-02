@@ -2,6 +2,12 @@
 
 This application is used to manage docents at dhbw stuttgart 
 
+## Requirements
+
+The elysium application needs the following php extensions enabled (which are usually disabled on a windows xampp installation):
+* php_openssl
+* php_fileinfo
+
 ## Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
