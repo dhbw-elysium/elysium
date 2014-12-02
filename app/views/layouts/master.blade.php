@@ -48,7 +48,9 @@
 							<li><a href="{{{ URL::to('docents') }}}">Dozenten</a></li>
 							<li><a href="{{{ URL::to('docent') }}}">Dozent</a></li>
 							<li><a href="{{{ URL::to('courses') }}}">Vorlesungen &amp; Themenbereiche</a></li>
-							<li><a href="{{{ URL::to('') }}}">Benutzer</a></li>
+							@if(Auth::user()->isAdmin())
+							    <li><a href="{{{ URL::to('user') }}}">Benutzer</a></li>
+							@endif
                             <li>{{ HTML::link('logout', 'Logout') }}</li>
                         @endif
                     </ul>

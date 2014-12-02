@@ -32,6 +32,8 @@ Route::group(array('before' => 'auth'), function() {
 
 	Route::get('docent', 'DocentController@showDocent');
 
+    Route::get('user', 'UserController@showUsers');
+
 	Route::post('course/update', 'CoursesController@postCourseUpdate');
 	Route::post('course/delete', 'CoursesController@postCourseDelete');
 	Route::post('courseGroup/update', 'CoursesController@postCourseGroupUpdate');
