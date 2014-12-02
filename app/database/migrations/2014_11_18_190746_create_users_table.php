@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration {
             $table->string('email', 128);
             $table->string('password', 64);
             $table->string('remember_token', 100)->nullable();
+            $table->string('role', 64)->default(User::ROLE_ADMIN);
 			$table->timestamps();
 		});
 	}
