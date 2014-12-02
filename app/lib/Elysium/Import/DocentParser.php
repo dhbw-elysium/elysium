@@ -58,6 +58,7 @@ class DocentParser {
 		'company_street'			=> 'Straße Nr.',
 		'company_plz'				=> 'PLZ',
 		'company_city'				=> 'Ort',
+		'company_phone_phone'		=> 'Telefon',
 		'company_phone_fax'			=> 'Fax',
 		'company_phone_mobile'		=> 'Mobil',
 		'is_exdhbw'					=> 'Ehemalige/r BA-/DHBW-Student/in',
@@ -116,6 +117,7 @@ class DocentParser {
 		'company_street'			=> null,
 		'company_plz'				=> null,
 		'company_city'				=> null,
+		'company_phone'				=> null,
 		'company_phone_fax'			=> null,
 		'company_phone_mobile'		=> null,
 		'is_exdhbw'					=> null,
@@ -231,5 +233,17 @@ class DocentParser {
 	public function parse() {
 		$columnIndexDefinition	= $this->columnIndexDefinition();
 		$courseGroupDefinition	= $this->columnCourseGroupIndexDefinition();
+		$lastRow				= $this->_sheet->getHighestDataRow();
+
+		for($r = 2; $r <= $lastRow; $r++) {
+			$lastName	= $this->_sheet->getCellByColumnAndRow($columnIndexDefinition['last_name'], $r)->getValue();
+
+			if ($lastName) {
+				//skip rows which have no last name entered
+				continue;
+			}
+		}
+
 	}
+
 }
