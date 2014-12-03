@@ -18,7 +18,10 @@ class DocentsImportController extends BaseController {
 
 			if ($file->getMimeType() == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
 				$parser	= DocentParser::fromFile($file->getRealPath());
-				$parser->parse();
+				$docents	= $parser->docents();
+
+				return View::make('docents.importprocess')->with('docents', $docents);
+
 			} else {
 				return View::make('docents.importprocess')->with('danger', 'Import Fehlgeschlagen');
 			}
