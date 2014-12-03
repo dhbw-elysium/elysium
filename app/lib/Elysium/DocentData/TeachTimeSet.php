@@ -54,6 +54,22 @@ class TeachTimeSet {
 	protected $_unknownTimes	= array();
 
 	/**
+	 * Create a new time from a list of time titles
+	 *
+	 * @param	array			$timeTitles			A list of time titles
+	 * @return	TeachTimeSet						A new teach time set
+	 */
+	public static function fromTimeTitleList(array $timeTitles) {
+		$set	= new self();
+
+		foreach ($timeTitles as $title) {
+			$set->enableTimeByTitle($title);
+		}
+
+		return $set;
+	}
+
+	/**
 	 * Get the valid teach times
 	 *
 	 * @param	boolean	$keysOnly		Set to true to get an numeric array only contianing the time keys
@@ -85,17 +101,6 @@ class TeachTimeSet {
 		return isset($timeTitlesAvailable[$timeTitle]);
 	}
 
-
-	public static function fromTimeTitleList(array $timeTitles) {
-		$set	= new self();
-
-		foreach ($timeTitles as $title) {
-			$set->enableTimeByTitle($title);
-		}
-
-		return $set;
-	}
-
 	/**
 	 * Enable a time of this set
 	 *
@@ -124,7 +129,6 @@ class TeachTimeSet {
 		}
 	}
 
-
 	/**
 	 * Enable a time of this set
 	 *
@@ -143,4 +147,12 @@ class TeachTimeSet {
 		$this->setTime($timeCode, false);
 	}
 
+	/**
+	 * Get a list of unknown times
+	 *
+	 * @return	array
+	 */
+	public function unknownTimeTitles() {
+		return $this->_unknownTimes;
+	}
 }
