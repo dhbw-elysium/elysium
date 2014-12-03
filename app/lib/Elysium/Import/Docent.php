@@ -57,6 +57,13 @@ class Docent {
 	);
 
 	/**
+	 * Course groups and courses
+	 *
+	 * @var array
+	 */
+	protected $_courses	= array();
+
+	/**
 	 * Migration comments
 	 *
 	 * @var array
@@ -89,6 +96,16 @@ class Docent {
 		} else {
 			throw new \InvalidArgumentException('Given property "'.$property.'" does not exist');
 		}
+	}
+
+	/**
+	 * Add a list of courses
+	 *
+	 * @param	string	$courseGroup		Name of the course group
+	 * @param	array	$courses			A list of courses
+	 */
+	public function addCourseGroup($courseGroup, array $courses) {
+		$this->_courses[$courseGroup]	= $courses;
 	}
 
 	/**

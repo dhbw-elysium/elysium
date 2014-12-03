@@ -230,12 +230,13 @@ class DocentParser {
 
 
 	/**
-	 * Parse the file
+	 * Parse the excel file
 	 */
 	public function parse() {
 		$columnIndexDefinition	= $this->columnIndexDefinition();
 		$courseGroupDefinition	= $this->columnCourseGroupIndexDefinition();
 		$lastRow				= $this->_sheet->getHighestDataRow();
+		$this->_docents			= array();
 
 		for($r = 2; $r <= $lastRow; $r++) {
 			$lastName	= $this->_sheet->getCellByColumnAndRow($columnIndexDefinition['last_name'], $r)->getValue();
@@ -314,9 +315,35 @@ class DocentParser {
 
 			}
 
+			foreach($courseGroupDefinition as $group => $c) {
+				$cellValue	= trim($this->_sheet->getCellByColumnAndRow($c, $r)->getFormattedValue());
+				if ($cellValue) {
+					$courses	= array();
+					foreach(preg_split( '/\r\n|\r|\n/', $cellValue) as $course) {
+						$courses[]	= trim($course);
+					}
+
+					if (count($courses)) {
+						$docent->addCourseGroup($group, $courses);
+					}
+				}
+			}
+
 			$this->_docents[]	= $docent;
 		}
-
 	}
 
+
+	/**
+	 * Get the docents which were parsed
+	 *
+	 * @return	array			A list of docents
+	 */
+	public function docents() {
+		if ($this->_docents === null) {
+			$this->parse();
+		}
+
+		return $this->_docents;
+	}
 }
