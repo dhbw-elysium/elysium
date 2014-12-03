@@ -67,10 +67,39 @@ class Docent {
 		'imported_at'				=> null
 	);
 
+	/**
+	 * Migration comments
+	 *
+	 * @var array
+	 */
+	protected $_comments	= array();
 
 	public function __construct() {
 
 	}
 
+	/**
+	 * Add data
+	 *
+	 * @param	string		$property		Property to set
+	 * @param	mixed		$value			Value of the property
+	 * @throws	\InvalidArgumentException	If the transmitted property is unknown
+	 */
+	public function addData($property, $value) {
+		if (array_key_exists($property, $this->_data)) {
+			$this->_data[$property]	= $value;
+		} else {
+			throw new \InvalidArgumentException('Given property "'.$property.'" does not exist');
+		}
+	}
+
+	/**
+	 * Add a migration comment
+	 *
+	 * @param	string	$comment		Comment message
+	 */
+	public function addComment($comment) {
+		$this->_comments[]	= $comment;
+	}
 }
 

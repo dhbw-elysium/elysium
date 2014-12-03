@@ -2,6 +2,7 @@
 
 namespace Elysium\Import;
 
+use Elysium\DocentData;
 
 class DocentParser {
 
@@ -210,6 +211,7 @@ class DocentParser {
 
 			$this->_columnIndexDefinitionParsed	= true;
 		}
+
 		return $this->_columnIndexDefinition;
 	}
 
@@ -238,10 +240,42 @@ class DocentParser {
 		for($r = 2; $r <= $lastRow; $r++) {
 			$lastName	= $this->_sheet->getCellByColumnAndRow($columnIndexDefinition['last_name'], $r)->getValue();
 
-			if ($lastName) {
+			if (!$lastName) {
 				//skip rows which have no last name entered
 				continue;
 			}
+
+			$docent	= new Docent();
+
+			$docentData	= array();
+			foreach($columnIndexDefinition as $data => $c) {
+				if ($c === null) {
+					//if there is no such column in given excel available continue
+					continue;
+				}
+				$cell		= $this->_sheet->getCellByColumnAndRow($c, $r);
+				$cellValue	= $cell->getValue();
+
+				switch($data) {
+					case 'time':
+						$docent->addData($data, DocentData\TeachTimeSet::fromTimeTitleList(preg_split( '/\r\n|\r|\n/', $cellValue)));
+						break;
+					case 'imported_at':
+						if(\PHPExcel_Shared_Date::isDateTime($cell)) {
+							$importDate	= \DateTime::createFromFormat('U', \PHPExcel_Shared_Date::ExcelToPHP($cellValue));
+							$docent->addData($data, $importDate->format('Y-m-d')); //format it directly to fixed date to prevent timezone switching issues
+						} else {
+							$docent->addComment('Eingangsdatum der Bewerbung konnte nicht gelesen werden');
+						}
+					case 'private_address':
+						break;
+					default:
+						$docent->addData($data, $cellValue);
+						break;
+				}
+			}
+
+
 		}
 
 	}
