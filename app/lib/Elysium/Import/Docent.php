@@ -48,18 +48,7 @@ class Docent {
 		),
 		'is_exdhbw'					=> null,
 		'course_group'				=> null,
-		'time'						=> array(
-			'time_mo_am' => null,
-			'time_mo_pm' => null,
-			'time_tu_am' => null,
-			'time_tu_pm' => null,
-			'time_we_am' => null,
-			'time_we_pm' => null,
-			'time_th_am' => null,
-			'time_th_pm' => null,
-			'time_fr_am' => null,
-			'time_fr_pm' => null
-		),
+		'time'						=> null,
 		'activity_teach'			=> null,
 		'activity_practical'		=> null,
 		'course_extra'				=> null,
@@ -76,6 +65,15 @@ class Docent {
 
 	public function __construct() {
 
+	}
+
+	/**
+	 * Get the data
+	 *
+	 * @return	array
+	 */
+	public function data() {
+		return $this->_data;
 	}
 
 	/**

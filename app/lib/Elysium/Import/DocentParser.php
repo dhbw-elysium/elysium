@@ -42,8 +42,8 @@ class DocentParser {
 		'private_address_plz'		=> 'PLZ',
 		'private_address_city'		=> 'Ort',
 		'company_job'				=> 'Beruf',
-		'private_phone_phone'		=> 'Telefon',
-		'private_phone_mobile'		=> 'Mobil',
+		'phone_private_phone'		=> 'Telefon',
+		'phone_private_mobile'		=> 'Mobil',
 		'email'						=> 'E-Mail',
 		'website'					=> 'Webseite',
 		'birth_day'					=> 'Geburtsdatum',
@@ -56,12 +56,12 @@ class DocentParser {
 		'lbv'						=> 'LBV-Nr.',
 		'company_name'				=> 'Arbeitgeber Firma',
 		'company_department'		=> 'Abteilung',
-		'company_street'			=> 'Straße Nr.',
-		'company_plz'				=> 'PLZ',
-		'company_city'				=> 'Ort',
-		'company_phone_phone'		=> 'Telefon',
-		'company_phone_fax'			=> 'Fax',
-		'company_phone_mobile'		=> 'Mobil',
+		'company_address_street'	=> 'Straße Nr.',
+		'company_address_plz'		=> 'PLZ',
+		'company_address_city'		=> 'Ort',
+		'phone_company_phone'		=> 'Telefon',
+		'phone_company_fax'			=> 'Fax',
+		'phone_company_mobile'		=> 'Mobil',
 		'is_exdhbw'					=> 'Ehemalige/r BA-/DHBW-Student/in',
 		'course_group'				=> 'Bevorzugtes Studienfach',
 		'time'						=> 'Bevorzugte Vorlesungszeiten',
@@ -101,8 +101,8 @@ class DocentParser {
 		'private_address_plz'		=> null,
 		'private_address_city'		=> null,
 		'company_job'				=> null,
-		'private_phone_phone'		=> null,
-		'private_phone_mobile'		=> null,
+		'phone_private_phone'		=> null,
+		'phone_private_mobile'		=> null,
 		'email'						=> null,
 		'website'					=> null,
 		'birth_day'					=> null,
@@ -115,12 +115,12 @@ class DocentParser {
 		'lbv'						=> null,
 		'company_name'				=> null,
 		'company_department'		=> null,
-		'company_street'			=> null,
-		'company_plz'				=> null,
-		'company_city'				=> null,
-		'company_phone'				=> null,
-		'company_phone_fax'			=> null,
-		'company_phone_mobile'		=> null,
+		'company_address_street'	=> null,
+		'company_address_plz'		=> null,
+		'company_address_city'		=> null,
+		'phone_company_phone'		=> null,
+		'phone_company_fax'			=> null,
+		'phone_company_mobile'		=> null,
 		'is_exdhbw'					=> null,
 		'course_group'				=> null,
 		'time'						=> null,
@@ -245,37 +245,76 @@ class DocentParser {
 				continue;
 			}
 
-			$docent	= new Docent();
+			$sheet				= $this->_sheet;
+			$docent				= new Docent();
+			$docentProperties	= $docent->data();
 
-			$docentData	= array();
-			foreach($columnIndexDefinition as $data => $c) {
-				if ($c === null) {
-					//if there is no such column in given excel available continue
-					continue;
-				}
-				$cell		= $this->_sheet->getCellByColumnAndRow($c, $r);
-				$cellValue	= $cell->getValue();
+			/**
+			 * Get a cell by passing the wanted property
+			 *
+			 * @param	string				$property		Property name
+			 * @return	\PHPExcel_Cell						The respective cell
+			 */
+			$cellByProperty	= function($property) use ($columnIndexDefinition, $r, $sheet) {
+				return $sheet->getCellByColumnAndRow($columnIndexDefinition[$property], $r);
+			};
 
-				switch($data) {
+			foreach($docentProperties as $property => $subProperties) {
+				switch($property) {
+					case 'birth_day':
+						$cell 	= $cellByProperty($property);
+						if (\PHPExcel_Shared_Date::isDateTime($cell)) {
+							$docent->addData($property, \PHPExcel_Style_NumberFormat::toFormattedString($cell->getValue(), 'YYYY-MM-DD'));
+						} else {
+							$docent->addComment('Das Geburtstdatum konnte nicht gelesen werden');
+						}
+						break;
 					case 'time':
-						$docent->addData($data, DocentData\TeachTimeSet::fromTimeTitleList(preg_split( '/\r\n|\r|\n/', $cellValue)));
+						$docent->addData($property, DocentData\TeachTimeSet::fromTimeTitleList(preg_split( '/\r\n|\r|\n/', $cellByProperty($property)->getFormattedValue())));
+						break;
+					case 'is_exdhbw':
+						$value	= $cellByProperty($property)->getFormattedValue();
+						$docent->addData($property, ($value == 'ja'));
 						break;
 					case 'imported_at':
+						$cell	= $cellByProperty($property);
 						if(\PHPExcel_Shared_Date::isDateTime($cell)) {
-							$importDate	= \DateTime::createFromFormat('U', \PHPExcel_Shared_Date::ExcelToPHP($cellValue));
-							$docent->addData($data, $importDate->format('Y-m-d')); //format it directly to fixed date to prevent timezone switching issues
+							$importDate	= \DateTime::createFromFormat('U', \PHPExcel_Shared_Date::ExcelToPHP($cell->getValue()));
+							$docent->addData($property, $importDate->format('Y-m-d')); //format it directly to fixed date to prevent timezone switching issues
 						} else {
 							$docent->addComment('Eingangsdatum der Bewerbung konnte nicht gelesen werden');
 						}
+						break;
 					case 'private_address':
+					case 'company_address':
+						$address	= array(
+							'street'	=> $cellByProperty($property.'_street')->getFormattedValue(),
+							'plz' 		=> $cellByProperty($property.'_plz')->getFormattedValue(),
+							'city' 		=> $cellByProperty($property.'_city')->getFormattedValue()
+						);
+						if ($address == 'company_address') {
+						dd($address, $property);
+
+						}
+						$docent->addData($property, $address);
+						break;
+					case 'phone_number':
+						$phoneNumbers	= array_keys($subProperties);
+						$phoneData		= array();
+						foreach($phoneNumbers as $phoneNumber) {
+							$phoneData[$phoneNumber]	= $cellByProperty('phone_'.$phoneNumber)->getFormattedValue();
+						}
+						$docent->addData($property, $phoneData);
+
 						break;
 					default:
-						$docent->addData($data, $cellValue);
+						$docent->addData($property, $cellByProperty($property)->getFormattedValue());
 						break;
 				}
+
 			}
 
-
+			$this->_docents[]	= $docent;
 		}
 
 	}
