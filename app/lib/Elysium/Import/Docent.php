@@ -77,9 +77,18 @@ class Docent {
 	/**
 	 * Get the data
 	 *
+	 * @param	null|string		$element		An element to select. Set to null if you want to get the whole data structure
 	 * @return	array
+	 * @throws	\InvalidArgumentException		If the transmitted property is unknown
 	 */
-	public function data() {
+	public function data($element = null) {
+		if ($element) {
+			if (array_key_exists($element, $this->_data)) {
+				return $this->_data[$element];
+			}
+			throw new \InvalidArgumentException('Given property "'.$element.'" does not exist');
+		}
+
 		return $this->_data;
 	}
 
