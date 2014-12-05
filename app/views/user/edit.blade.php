@@ -54,7 +54,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="btn btn-default" >Abbrechen</button>
+                <a class="btn btn-default" href="{{{ URL::to('user/list/') }}}">Abbrechen</a>
 		            {{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
 
          @endif
