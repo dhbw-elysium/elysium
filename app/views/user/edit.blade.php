@@ -10,9 +10,11 @@
 
 <div class="row">
     <div class="col-md-8">
+            {{ Form::open(array('url' => 'user/edit/update','class'=> 'form-horizontal'))}}
 
-        {{ Form::open(array('class'=> 'form-horizontal'))}}
-            @if ($user	= User::find($uid))
+@if ($user	= User::find($uid))
+
+                {{ Form::hidden('uid',$uid)}}
 
 
                 <div class="form-group">
@@ -55,8 +57,9 @@
                 <button type="button" class="btn btn-default" >Abbrechen</button>
 		            {{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
 
-            @endif
+         @endif
          {{ Form::close() }}
+
     </div>
 </div>
 @stop
