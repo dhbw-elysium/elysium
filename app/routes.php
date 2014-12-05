@@ -27,6 +27,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('courses', 'CoursesController@showCourses');
 
 	Route::get('docents', 'DocentsController@showDocents');
+	Route::get('docents/import', 'DocentsImportController@docentsImportUpload');
 	Route::get('docents/import/upload', 'DocentsImportController@docentsImportUpload');
 	Route::any('docents/import/process', 'DocentsImportController@docentsImportProcess');
 
