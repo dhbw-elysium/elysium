@@ -14,8 +14,16 @@ class UserController extends BaseController {
 
     }
     public function showUserEdit($uid){
-        $uid= (int)$uid;
 
-        return View::make('user.edit')->with('uid',$uid);
+        if (Auth::user()->isAdmin())
+        {
+
+
+            return View::make('user.edit')->with('uid',(int)$uid);  // yes
+        }
+        else
+        {
+            return View::make('home');   // no
+        }
     }
 }
