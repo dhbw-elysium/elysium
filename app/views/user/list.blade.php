@@ -31,7 +31,7 @@
 							<td>{{{$user->firstname}}}</td>
 							<td>{{{$user->role}}}</td>
 							<td class="row-action">
-								<a class="btn btn-default btn-xs" href="{{{ URL::to('user/edit') }}}">
+								<a class="btn btn-default btn-xs" href="{{{ URL::to('user/edit/'.$user->uid) }}}">
 								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 								</a>
 								<button type="button" class="btn btn-danger btn-xs">

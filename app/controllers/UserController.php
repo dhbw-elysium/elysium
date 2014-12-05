@@ -13,7 +13,9 @@ class UserController extends BaseController {
         }
 
     }
-    public function showUserEdit(){
-        return View::make('user.edit');
+    public function showUserEdit($uid){
+        $uid= (int)$uid;
+
+        return View::make('user.edit')->with('uid',$uid);
     }
 }

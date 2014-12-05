@@ -8,5 +8,4 @@
 @section('content')
 <h1>Benutzer</h1>
 
-
 @stop

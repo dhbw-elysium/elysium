@@ -35,7 +35,8 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::get('user', 'UserController@showUsers');
     Route::get('user/list', 'UserController@showUsers');
-    Route::get('user/edit', 'UserController@showUserEdit');
+    Route::get('user/edit', 'UserController@showUsers');
+    Route::get('user/edit/{uid}', 'UserController@showUserEdit');
 
 	Route::post('course/update', 'CoursesController@postCourseUpdate');
 	Route::post('course/delete', 'CoursesController@postCourseDelete');
