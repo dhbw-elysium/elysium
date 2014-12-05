@@ -5,12 +5,15 @@ class UserController extends BaseController {
     {
         if (Auth::user()->isAdmin())
         {
-            return View::make('user');   // yes
+            return View::make('user.list');   // yes
         }
         else
         {
             return View::make('home');   // no
         }
 
+    }
+    public function showUserEdit(){
+        return View::make('user.edit');
     }
 }

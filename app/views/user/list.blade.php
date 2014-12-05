@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('...layouts.master')
 
 @section('title')
 @parent
@@ -31,10 +31,10 @@
 							<td>{{{$user->firstname}}}</td>
 							<td>{{{$user->role}}}</td>
 							<td class="row-action">
-								<button type="button" class="btn btn-default btn-xs">
+								<a class="btn btn-default btn-xs" href="{{{ URL::to('user/edit') }}}">
 								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-danger btn-xs"">
+								</a>
+								<button type="button" class="btn btn-danger btn-xs">
 								  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								</button>
 							</td>
