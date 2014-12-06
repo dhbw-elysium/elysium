@@ -55,7 +55,8 @@ class UserController extends BaseController {
 
 
                 }
-                return View::make('user.edit')->with('uid',(int)$uid);//
+               // return View::make('user.edit')->with('uid',(int)$uid);//
+                return View::make('user.list');
             }else{
                 return View::make('user.list');
             }
