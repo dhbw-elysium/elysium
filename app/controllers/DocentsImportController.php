@@ -29,7 +29,7 @@ class DocentsImportController extends BaseController {
 
 				$inputTemplate	= '<input class="form-control" placeholder="(leer)" name="%s" type="%s" value="%s">';
 				$groupTemplate	= '
-					<div class="col-sm-6 col-lg-6">
+					<div class="%s">
 						<div class="form-group">
 							<label for="%s" class="col-md-4 control-label">%s</label>
 							<div class="col-md-8">
@@ -41,11 +41,13 @@ class DocentsImportController extends BaseController {
 					$data			= $docents[$id]->data($property);
 					$elementKey		= sprintf('docent[%d][%s]', $id, $property);
 					$element		= '';
+					$groupClass		= array('col-sm-6', 'col-lg-6');
 
 					if (is_array($data)) {
 						switch($property) {
 							case 'bank_classic':
-								$element	= '
+								$groupClass[]	= 'form-group-elements-3';
+								$element		= '
 									<label for="'.$elementKey.'[name]" class="control-label">Kreditinstitut:</label>
 									<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[name]" type="text" value="'.(($posted) ? Input::old($elementKey.'[name]') : $data['name']).'">
 
@@ -57,7 +59,8 @@ class DocentsImportController extends BaseController {
 									';
 								break;
 							case 'bank_modern':
-								$element	= '
+								$groupClass[]	= 'form-group-elements-3';
+									$element	= '
 									<label for="'.$elementKey.'[iban]" class="control-label" title="International Bank Account Number">IBAN:</label>
 									<input class="form-control" placeholder="(leer)" iban="'.$elementKey.'[iban]" type="text" value="'.(($posted) ? Input::old($elementKey.'[iban]') : $data['iban']).'">
 
@@ -139,7 +142,7 @@ class DocentsImportController extends BaseController {
 
 						$element		= sprintf($inputTemplate, $elementKey, $type, $elementValue);
 					}
-						return sprintf($groupTemplate, $elementKey, $title, $element);
+						return sprintf($groupTemplate, implode(' ', $groupClass), $elementKey, $title, $element);
 				});
 
 

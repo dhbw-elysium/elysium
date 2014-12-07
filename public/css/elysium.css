@@ -12,3 +12,15 @@ table.table-grid th.row-id {
 span.label-course-tag {
 	font-size: 12px;
 }
+
+@media only screen and (min-width:768px){
+	form .form-group-elements-3 {
+		min-height: 226px;
+	}
+}
+
+@media only screen and (min-width:992px){
+	form .form-group-elements-3 {
+		min-height: 199px;
+	}
+}
