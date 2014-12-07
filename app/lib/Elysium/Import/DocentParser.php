@@ -42,8 +42,8 @@ class DocentParser {
 		'private_address_plz'		=> 'PLZ',
 		'private_address_city'		=> 'Ort',
 		'company_job'				=> 'Beruf',
-		'phone_private_phone'		=> 'Telefon',
-		'phone_private_mobile'		=> 'Mobil',
+		'phone_number_private_phone'	=> 'Telefon',
+		'phone_number_private_mobile'	=> 'Mobil',
 		'email'						=> 'E-Mail',
 		'website'					=> 'Webseite',
 		'birth_day'					=> 'Geburtsdatum',
@@ -59,9 +59,9 @@ class DocentParser {
 		'company_address_street'	=> 'Straße Nr.',
 		'company_address_plz'		=> 'PLZ',
 		'company_address_city'		=> 'Ort',
-		'phone_company_phone'		=> 'Telefon',
-		'phone_company_fax'			=> 'Fax',
-		'phone_company_mobile'		=> 'Mobil',
+		'phone_number_company_phone'	=> 'Telefon',
+		'phone_number_company_fax'		=> 'Fax',
+		'phone_number_company_mobile'	=> 'Mobil',
 		'is_exdhbw'					=> 'Ehemalige/r BA-/DHBW-Student/in',
 		'course_group'				=> 'Bevorzugtes Studienfach',
 		'time'						=> 'Bevorzugte Vorlesungszeiten',
@@ -101,8 +101,8 @@ class DocentParser {
 		'private_address_plz'		=> null,
 		'private_address_city'		=> null,
 		'company_job'				=> null,
-		'phone_private_phone'		=> null,
-		'phone_private_mobile'		=> null,
+		'phone_number_private_phone'	=> null,
+		'phone_number_private_mobile'	=> null,
 		'email'						=> null,
 		'website'					=> null,
 		'birth_day'					=> null,
@@ -118,9 +118,9 @@ class DocentParser {
 		'company_address_street'	=> null,
 		'company_address_plz'		=> null,
 		'company_address_city'		=> null,
-		'phone_company_phone'		=> null,
-		'phone_company_fax'			=> null,
-		'phone_company_mobile'		=> null,
+		'phone_number_company_phone'	=> null,
+		'phone_number_company_fax'		=> null,
+		'phone_number_company_mobile'	=> null,
 		'is_exdhbw'					=> null,
 		'course_group'				=> null,
 		'time'						=> null,
@@ -299,11 +299,12 @@ class DocentParser {
 						}
 						$docent->addData($property, $address);
 						break;
-					case 'phone_number':
+					case 'phone_number_private':
+					case 'phone_number_company':
 						$phoneNumbers	= array_keys($subProperties);
 						$phoneData		= array();
 						foreach($phoneNumbers as $phoneNumber) {
-							$phoneData[$phoneNumber]	= $cellByProperty('phone_'.$phoneNumber)->getFormattedValue();
+							$phoneData[$phoneNumber]	= $cellByProperty($property.'_'.$phoneNumber)->getFormattedValue();
 						}
 						$docent->addData($property, $phoneData);
 

@@ -21,12 +21,14 @@ class Docent {
 			'plz' 		=> null,
 			'city' 		=> null
 		),
-		'phone_number'				=> array(
-			'private_phone'		=> null,
-			'private_mobile'	=> null,
-			'company_phone'		=> null,
-			'company_fax' 		=> null,
-			'company_mobile' 	=> null
+		'phone_number_private'				=> array(
+			'phone'		=> null,
+			'mobile'	=> null,
+		),
+		'phone_number_company'				=> array(
+			'phone'		=> null,
+			'fax' 		=> null,
+			'mobile' 	=> null
 		),
 		'company_job'				=> null,
 		'email'						=> null,
