@@ -24,3 +24,14 @@ span.label-course-tag {
 		min-height: 199px;
 	}
 }
+
+
+.table-docent-time tbody td,
+.table-docent-time thead th {
+	text-align: center;
+}
+
+.table-docent-time tbody th {
+	width: 100px;
+	text-align: right;
+}

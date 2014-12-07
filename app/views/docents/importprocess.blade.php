@@ -66,6 +66,24 @@
 
 
 			{{ Form::docentBlock($id, 'company_job', 'Beruf:') }}
+			{{ Form::docentBlock($id, 'company_name', 'Arbeitgeber:') }}
+
+			{{ Form::docentBlock($id, 'company_department', 'Abteilung:') }}
+
+			<div class="col-sm-6 col-lg-6">
+				<div class="form-group">
+					<label for="docent[{{$id}}][is_exdhbw]" class="col-md-4 control-label">Ehemaliger:</label>
+					<div class="col-md-8">
+						{{Form::checkbox('docent['.$id.'][is_exdhbw]', 'is_exdhbw', ($posted) ? Input::old('docent['.$id.'][is_exdhbw]') : $docent->data('is_exdhbw'))}}
+						<label for="docent[{{$id}}][is_exdhbw]" class="control-label"> Ehemalige/r BA-/DHBW-Student/in</label>
+					</div>
+				</div>
+			</div>
+
+			{{ Form::docentTimeBlock($id) }}
+
+
+
 
 		</div><!-- /.row this actually does not appear to be needed with the form-horizontal -->
 	  </div><!-- form -->

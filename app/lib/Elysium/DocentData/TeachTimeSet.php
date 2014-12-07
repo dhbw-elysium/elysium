@@ -102,6 +102,19 @@ class TeachTimeSet {
 	}
 
 	/**
+	 * Get the title of a time by its code
+	 *
+	 * @param	string		$timeCode		A time code
+	 * @return	string						A time title
+	 */
+	public static function timeTitleByCode($timeCode) {
+		if (isset(self::$_availableTimes[$timeCode])) {
+			return self::$_availableTimes[$timeCode];
+		}
+		throw new \InvalidArgumentException('Given time code "'.$timeCode.'" is not available');
+	}
+
+	/**
 	 * Enable a time of this set
 	 *
 	 * @param	boolean	$state			Set to true to enable, set to false to disbale the selected time
@@ -154,5 +167,14 @@ class TeachTimeSet {
 	 */
 	public function unknownTimeTitles() {
 		return $this->_unknownTimes;
+	}
+
+	/**
+	 * Get the list of times
+	 *
+	 * @return array
+	 */
+	public function times() {
+		return $this->_enabledTimes;
 	}
 }

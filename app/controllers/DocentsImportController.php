@@ -1,6 +1,7 @@
 <?php
 
 use \Elysium\Import\DocentParser;
+use \Elysium\DocentData\TeachTimeSet;
 
 class DocentsImportController extends BaseController {
 
@@ -143,6 +144,76 @@ class DocentsImportController extends BaseController {
 						$element		= sprintf($inputTemplate, $elementKey, $type, $elementValue);
 					}
 						return sprintf($groupTemplate, implode(' ', $groupClass), $elementKey, $title, $element);
+				});
+
+				Form::macro('docentTimeBlock', function($id) use ($docents, $posted, $groupTemplate) {
+					/** @var TeachTimeSet $times */
+					$timeSet 	= $docents[$id]->data('time');
+					$elementKey = sprintf('docent[%d][time]', $id);
+
+					$timeCells	= array();
+					foreach($timeSet->times() as $timeCode => $state) {
+						$timeTitle		= TeachTimeSet::timeTitleByCode($timeCode);
+						$elementSubKey	= $elementKey.'['.$timeCode.']';
+						$state			= (($posted) ? Input::old($elementSubKey) : $state);
+
+						$timeCells[$timeCode]	= Form::checkbox($elementSubKey, $timeCode, $state, array('title' => $timeTitle)).' <label for="'.$elementSubKey.'" class="sr-only">'.$timeTitle.'</label>';
+					}
+
+					$elementTemplate	= '
+						<table class="table table-condensed table-bordered table-docent-time">
+							<thead>
+								<tr>
+									<th></th>
+									<th>Mo</th>
+									<th>Di</th>
+									<th>Mi</th>
+									<th>Do</th>
+									<th>Fr</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<th>Vormittags</th>
+									<td>%s</td>
+									<td>%s</td>
+									<td>%s</td>
+									<td>%s</td>
+									<td>%s</td>
+								</tr>
+								<tr>
+									<th>Nachmittags</th>
+									<td>%s</td>
+									<td>%s</td>
+									<td>%s</td>
+									<td>%s</td>
+									<td>%s</td>
+ 								</tr>
+
+							</tbody>
+						</table>';
+
+					$element	= sprintf(
+						$elementTemplate,
+						$timeCells['time_mo_am'],
+						$timeCells['time_tu_am'],
+						$timeCells['time_we_am'],
+						$timeCells['time_th_am'],
+						$timeCells['time_fr_am'],
+						$timeCells['time_mo_pm'],
+						$timeCells['time_tu_pm'],
+						$timeCells['time_we_pm'],
+						$timeCells['time_th_pm'],
+						$timeCells['time_fr_pm']
+					);
+
+					return sprintf(
+						$groupTemplate,
+						implode(' ', array('col-sm-6', 'col-lg-6')),
+						$elementKey,
+						'Vorlesungszeiten:',
+						$element
+					);
 				});
 
 
