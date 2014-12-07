@@ -13,8 +13,10 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      * Defines the name of the admin role in database
      */
     const ROLE_ADMIN = 'admin';
-
-
+    /**
+     * Defines the name of the user role in database
+     */
+    const ROLE_USER = 'user';
 	/**
 	 * The database table used by the model.
 	 *
