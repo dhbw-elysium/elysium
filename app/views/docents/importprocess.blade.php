@@ -25,7 +25,7 @@
 @if (count($docents))
 	@foreach ($docents as $id => $docent)
 
-<div class="panel panel-default" style="padding: 1em;">
+<div class="panel panel-default panel-docent-import-docent" style="padding: 1em;">
 	<div class="container-fluid">
 	  <div class="form-horizontal" role="form">
 
@@ -64,7 +64,6 @@
 			{{ Form::docentBlock($id, 'private_address', 'Privat-Adresse') }}
 			{{ Form::docentBlock($id, 'company_address', 'Firmen-Adresse') }}
 
-
 			{{ Form::docentBlock($id, 'company_job', 'Beruf:') }}
 			{{ Form::docentBlock($id, 'company_name', 'Arbeitgeber:') }}
 
@@ -82,14 +81,14 @@
 
 			{{ Form::docentTimeBlock($id) }}
 
+			{{ Form::docentBlock($id, 'activity_teach', 'Lehraufträge und Lehrtätigkeiten:') }}
+			{{ Form::docentBlock($id, 'activity_practical', 'Praktische Tätigkeiten:') }}
 
+			{{ Form::docentBlock($id, 'extra', 'Anmerkungen, Ergänzungen:') }}
 
 
 		</div><!-- /.row this actually does not appear to be needed with the form-horizontal -->
 	  </div><!-- form -->
-	  <p>Note: label text will occupy as much space as the text takes regardless of the
-		  column size, so be sure to validate your spacing.
-	  </p>
 	</div><!-- /.container -->
 </div>
 </div>

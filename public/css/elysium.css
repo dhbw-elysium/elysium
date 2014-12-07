@@ -35,3 +35,7 @@ span.label-course-tag {
 	width: 100px;
 	text-align: right;
 }
+
+.panel-docent-import-docent textarea {
+	min-height: 200px;
+}
