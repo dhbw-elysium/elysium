@@ -35,11 +35,15 @@ class Docent {
 		'website'					=> null,
 		'birth_day'					=> null,
 		'birth_place'				=> null,
-		'bank_name'					=> null,
-		'bank_blz'					=> null,
-		'bank_bic'					=> null,
-		'bank_iban'					=> null,
-		'bank_number'				=> null,
+		'bank_classic'				=> array(
+			'name'		=> null,
+			'blz'		=> null,
+			'number'	=> null
+		),
+		'bank_modern'				=> array(
+			'iban'	=> null,
+			'bic'	=> null
+		),
 		'lbv'						=> null,
 		'company_name'				=> null,
 		'company_department'		=> null,

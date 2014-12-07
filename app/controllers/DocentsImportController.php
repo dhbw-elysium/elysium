@@ -44,6 +44,28 @@ class DocentsImportController extends BaseController {
 
 					if (is_array($data)) {
 						switch($property) {
+							case 'bank_classic':
+								$element	= '
+									<label for="'.$elementKey.'[name]" class="control-label">Kreditinstitut:</label>
+									<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[name]" type="text" value="'.(($posted) ? Input::old($elementKey.'[name]') : $data['name']).'">
+
+									<label for="'.$elementKey.'[blz]" class="control-label" title="Bankleitzahl">BLZ:</label>
+									<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[blz]" type="text" value="'.(($posted) ? Input::old($elementKey.'[blz]') : $data['blz']).'">
+
+									<label for="'.$elementKey.'[number]" class="control-label">Kontonummer:</label>
+									<input class="form-control" numberholder="(leer)" name="'.$elementKey.'[number]" type="text" value="'.(($posted) ? Input::old($elementKey.'[number]') : $data['number']).'">
+									';
+								break;
+							case 'bank_modern':
+								$element	= '
+									<label for="'.$elementKey.'[iban]" class="control-label" title="International Bank Account Number">IBAN:</label>
+									<input class="form-control" placeholder="(leer)" iban="'.$elementKey.'[iban]" type="text" value="'.(($posted) ? Input::old($elementKey.'[iban]') : $data['iban']).'">
+
+									<label for="'.$elementKey.'[bic]" class="control-label" title="Bank Identifier Code">BIC:</label>
+									<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[bic]" type="text" value="'.(($posted) ? Input::old($elementKey.'[bic]') : $data['bic']).'">
+									';
+								break;
+
 							case 'phone_number_company':
 							case 'phone_number_private':
 								$element	= '';

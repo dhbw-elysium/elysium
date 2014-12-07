@@ -54,8 +54,8 @@
 			{{ Form::docentBlock($id, 'birth_day', 'Geburstdatum:') }}
 			{{ Form::docentBlock($id, 'birth_place', 'Geburtsort:') }}
 
-
-
+			{{ Form::docentBlock($id, 'bank_classic', 'Bankverbindung (Klassisch):') }}
+			{{ Form::docentBlock($id, 'bank_modern', 'Bankverbindung (modern):') }}
 
 
 			{{ Form::docentBlock($id, 'phone_number_private', 'Telefon (Privat)') }}

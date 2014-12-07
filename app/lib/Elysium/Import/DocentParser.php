@@ -48,11 +48,11 @@ class DocentParser {
 		'website'					=> 'Webseite',
 		'birth_day'					=> 'Geburtsdatum',
 		'birth_place'				=> 'Geburtsort',
-		'bank_name'					=> 'Bank',
-		'bank_blz'					=> 'BLZ',
-		'bank_bic'					=> 'BIC',
-		'bank_iban'					=> 'IBAN',
-		'bank_number'				=> 'Kontonummer',
+		'bank_classic_name'				=> 'Bank',
+		'bank_classic_blz'				=> 'BLZ',
+		'bank_classic_number'			=> 'Kontonummer',
+		'bank_modern_bic'				=> 'BIC',
+		'bank_modern_iban'				=> 'IBAN',
 		'lbv'						=> 'LBV-Nr.',
 		'company_name'				=> 'Arbeitgeber Firma',
 		'company_department'		=> 'Abteilung',
@@ -107,11 +107,11 @@ class DocentParser {
 		'website'					=> null,
 		'birth_day'					=> null,
 		'birth_place'				=> null,
-		'bank_name'					=> null,
-		'bank_blz'					=> null,
-		'bank_bic'					=> null,
-		'bank_iban'					=> null,
-		'bank_number'				=> null,
+		'bank_classic_name'			=> null,
+		'bank_classic_blz'			=> null,
+		'bank_classic_number'		=> null,
+		'bank_modern_bic'			=> null,
+		'bank_modern_iban'			=> null,
 		'lbv'						=> null,
 		'company_name'				=> null,
 		'company_department'		=> null,
@@ -298,6 +298,19 @@ class DocentParser {
 
 						}
 						$docent->addData($property, $address);
+						break;
+					case 'bank_classic':
+						$docent->addData($property, array(
+							'name'		=> $cellByProperty($property.'_name')->getFormattedValue(),
+							'blz'		=> $cellByProperty($property.'_blz')->getFormattedValue(),
+							'number'	=> $cellByProperty($property.'_number')->getFormattedValue()
+						));
+						break;
+					case 'bank_modern':
+						$docent->addData($property, array(
+							'iban'		=> $cellByProperty($property.'_iban')->getFormattedValue(),
+							'bic'		=> $cellByProperty($property.'_bic')->getFormattedValue()
+						));
 						break;
 					case 'phone_number_private':
 					case 'phone_number_company':
