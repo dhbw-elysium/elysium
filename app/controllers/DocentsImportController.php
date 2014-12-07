@@ -102,8 +102,20 @@ class DocentsImportController extends BaseController {
 						}
 
 					} else {
+						$type			= 'text';
 						$elementValue	= ($posted) ? Input::old($elementKey) : $data;
-						$element		= sprintf($inputTemplate, $elementKey, 'text', $elementValue);
+
+						switch($property) {
+							case 'email':
+								$type	= 'email';
+								break;
+							case 'birth_day':
+								$elementValue	= new DateTime($elementValue);
+								$elementValue	= $elementValue->format('d.m.Y');
+								break;
+						}
+
+						$element		= sprintf($inputTemplate, $elementKey, $type, $elementValue);
 					}
 						return sprintf($groupTemplate, $elementKey, $title, $element);
 				});
