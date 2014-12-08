@@ -1,6 +1,6 @@
 <?php
 
-use \Elysium\Import\DocentParser;
+use \Elysium\Import\DocentParserExcel;
 use \Elysium\DocentData\TeachTimeSet;
 
 class DocentsImportController extends BaseController {
@@ -19,7 +19,7 @@ class DocentsImportController extends BaseController {
 			$file = Input::file('file');
 
 			if ($file->getMimeType() == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-				$parser = DocentParser::fromFile($file->getRealPath());
+				$parser = DocentParserExcel::fromFile($file->getRealPath());
 				$docents = $parser->docents();
 
 				Session::put('import_docents', $docents);
