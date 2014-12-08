@@ -13,7 +13,7 @@ class DocentsImportController extends BaseController {
     public function docentsImportProcess()
     {
 
-
+		$posted = (bool)(Input::old('posted') == 1);
 		if (Input::hasFile('file')) {
 			/** @var \Symfony\Component\HttpFoundation\File\UploadedFile $file */
 			$file = Input::file('file');
@@ -22,15 +22,14 @@ class DocentsImportController extends BaseController {
 				$parser = DocentParser::fromFile($file->getRealPath());
 				$docents = $parser->docents();
 
-				$posted = (bool)(Input::old('posted') == 1);
 				Session::put('import_docents', $docents);
 			}
 
 			Form::macro('docentLabel', function ($id, $property, $title) {
 				return '<label for="docent[' . $id . '][' . $property . ']" class="col-md-4 control-label">' . $title . '</label>';
 			});
-		} elseif (Session::has('docents')) {
-			$docents = Session::get('docents');
+		} elseif (Session::has('import_docents')) {
+			$docents = Session::get('import_docents');
 
 		}
 
