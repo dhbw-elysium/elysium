@@ -11,55 +11,55 @@ class Docent {
 	 * @var array
 	 */
 	protected $_data	= array(
-		'salution'					=> null,
-		'title'						=> null,
-		'last_name'					=> null,
-		'first_name'				=> null,
-		'graduation'				=> null,
-		'private_address'			=> array(
+		'salution'				=> null,
+		'title'					=> null,
+		'last_name'				=> null,
+		'first_name'			=> null,
+		'graduation'			=> null,
+		'private_address'		=> array(
 			'street' 	=> null,
 			'plz' 		=> null,
 			'city' 		=> null
 		),
-		'phone_number_private'				=> array(
+		'phone_number_private'	=> array(
 			'phone'		=> null,
 			'mobile'	=> null,
 		),
-		'phone_number_company'				=> array(
+		'phone_number_company'	=> array(
 			'phone'		=> null,
 			'fax' 		=> null,
 			'mobile' 	=> null
 		),
-		'company_job'				=> null,
-		'email'						=> null,
-		'website'					=> null,
-		'birth_day'					=> null,
-		'birth_place'				=> null,
-		'bank_classic'				=> array(
+		'company_job'			=> null,
+		'email'					=> null,
+		'website'				=> null,
+		'birth_day'				=> null,
+		'birth_place'			=> null,
+		'bank_classic'			=> array(
 			'name'		=> null,
 			'blz'		=> null,
 			'number'	=> null
 		),
-		'bank_modern'				=> array(
-			'iban'	=> null,
-			'bic'	=> null
+		'bank_modern'			=> array(
+			'iban'		=> null,
+			'bic'		=> null
 		),
-		'lbv'						=> null,
-		'company_name'				=> null,
-		'company_department'		=> null,
-		'company_address'			=> array(
+		'lbv'					=> null,
+		'company_name'			=> null,
+		'company_department'	=> null,
+		'company_address'		=> array(
 			'street'	=> null,
 			'plz'		=> null,
 			'city'		=> null
 		),
-		'is_exdhbw'					=> null,
-		'course_group'				=> null,
-		'time'						=> null,
-		'activity_teach'			=> null,
-		'activity_practical'		=> null,
-		'course_extra'				=> null,
-		'extra'						=> null,
-		'imported_at'				=> null
+		'is_exdhbw'				=> null,
+		'course_group'			=> null,
+		'time'					=> null,
+		'activity_teach'		=> null,
+		'activity_practical'	=> null,
+		'course_extra'			=> null,
+		'extra'					=> null,
+		'imported_at'			=> null
 	);
 
 	/**
@@ -76,9 +76,6 @@ class Docent {
 	 */
 	protected $_comments	= array();
 
-	public function __construct() {
-
-	}
 
 	/**
 	 * Get the data
