@@ -28,6 +28,13 @@ class DocentParser {
 	protected $_docents = null;
 
 	/**
+	 * A list of course groups of this import
+	 *
+	 * @var array|null
+	 */
+	protected $_courseGroups	= null;
+
+	/**
 	 * Stores the general definition which data is placed under which excel header
 	 *
 	 * @var array
@@ -359,5 +366,18 @@ class DocentParser {
 		}
 
 		return $this->_docents;
+	}
+
+	/**
+	 * Get the course groups which were found during parse
+	 *
+	 * @return	array			A list of course groups
+	 */
+	public function courseGroups() {
+		if ($this->_courseGroups === null) {
+			$this->parse();
+		}
+
+		return $this->_courseGroups;
 	}
 }

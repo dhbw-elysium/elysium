@@ -37,6 +37,21 @@
 		  	</div>
 	  	</div>
 
+		@if ($duplicates = Docent::duplicateCandidates($docent->data('last_name'), $docent->data('first_name')))
+		<div class="row">
+		  <div class="col-md-12">
+			<div class="alert alert-warning" role="alert">
+			<strong>Duplikatswarnung</strong> Einer oder mehrere Dozenten mit ähnlichem Namen sind bereits im System erfasst:
+			<ul>
+			@foreach ($duplicates as $duplicate)
+				<li>{{{$duplicate->last_name}}}, {{{$duplicate->first_name}}} </li>
+			@endforeach
+			</ul>
+			</div>
+			</div>
+			</div>
+		@endif
+
 		<div class="row">
 			{{ Form::docentBlock($id, 'salution', 'Anrede:') }}
 			{{ Form::docentBlock($id, 'title', 'Titel:') }}
@@ -74,7 +89,7 @@
 					<label for="docent[{{$id}}][is_exdhbw]" class="col-md-4 control-label">Ehemaliger:</label>
 					<div class="col-md-8">
 						{{Form::checkbox('docent['.$id.'][is_exdhbw]', 'is_exdhbw', ($posted) ? Input::old('docent['.$id.'][is_exdhbw]') : $docent->data('is_exdhbw'))}}
-						<label for="docent[{{$id}}][is_exdhbw]" class="control-label"> Ehemalige/r BA-/DHBW-Student/in</label>
+						<label for="docent[{{$id}}][is_exdhbw]" class="control-label" style="min-height: 34px;"> Ehemalige/r BA-/DHBW-Student/in</label>
 					</div>
 				</div>
 			</div>
@@ -85,6 +100,10 @@
 			{{ Form::docentBlock($id, 'activity_practical', 'Praktische Tätigkeiten:') }}
 
 			{{ Form::docentBlock($id, 'extra', 'Anmerkungen, Ergänzungen:') }}
+			{{ Form::docentBlock($id, 'course_extra', 'Weitere mögliche Vorlesungsbereiche sowie bereits gehaltene Vorlesungen:') }}
+
+			{{ Form::docentBlock($id, 'imported_at', 'Eingangsdatum:', 'Datum des Eingangs der Bewerbung') }}
+
 
 
 		</div><!-- /.row this actually does not appear to be needed with the form-horizontal -->

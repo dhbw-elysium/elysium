@@ -131,5 +131,14 @@ class Docent {
 	public function addComment($comment) {
 		$this->_comments[]	= $comment;
 	}
+
+	/**
+	 * Get the courses
+	 *
+	 * @return array
+	 */
+	public function courses() {
+		return $this->_courses;
+	}
 }
 

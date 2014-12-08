@@ -38,13 +38,13 @@ class DocentsImportController extends BaseController {
 			$groupTemplate	= '
 				<div class="%s">
 					<div class="form-group">
-						<label for="%s" class="col-md-4 control-label">%s</label>
+						<label for="%s" class="col-md-4 control-label"%s>%s</label>
 						<div class="col-md-8">
 							%s
 						</div>
 					</div>
 				</div>';
-			Form::macro('docentBlock', function($id, $property, $title) use ($docents, $posted, $inputTemplate, $groupTemplate) {
+			Form::macro('docentBlock', function($id, $property, $title, $tooltip = null) use ($docents, $posted, $inputTemplate, $groupTemplate) {
 				$data			= $docents[$id]->data($property);
 				$elementKey		= sprintf('docent[%d][%s]', $id, $property);
 				$element		= '';
@@ -124,7 +124,6 @@ class DocentsImportController extends BaseController {
 								';
 
 							break;
-						case 'birth_day':
 						default:
 							foreach($data as $subKey => $value) {
 								$elementSubKey	= $elementKey.'['.$subKey.']';
@@ -141,11 +140,13 @@ class DocentsImportController extends BaseController {
 						case 'activity_practical':
 						case 'activity_teach':
 						case 'extra':
+						case 'course_extra':
 							$type	= 'textarea';
 							break;
 						case 'email':
 							$type	= 'email';
 							break;
+						case 'imported_at':
 						case 'birth_day':
 							$elementValue	= new DateTime($elementValue);
 							$elementValue	= $elementValue->format('d.m.Y');
@@ -165,7 +166,12 @@ class DocentsImportController extends BaseController {
 							break;
 					}
 				}
-				return sprintf($groupTemplate, implode(' ', $groupClass), $elementKey, $title, $element);
+				$labelAttribute	= '';
+				if ($tooltip) {
+					$labelAttribute	= ' title="'.$tooltip.'"';
+				}
+
+				return sprintf($groupTemplate, implode(' ', $groupClass), $elementKey, $labelAttribute, $title, $element);
 			});
 
 			Form::macro('docentTimeBlock', function($id) use ($docents, $posted, $groupTemplate) {
@@ -233,6 +239,7 @@ class DocentsImportController extends BaseController {
 					$groupTemplate,
 					implode(' ', array('col-sm-6', 'col-lg-6')),
 					$elementKey,
+					'',
 					'Vorlesungszeiten:',
 					$element
 				);
