@@ -70,6 +70,23 @@ class TeachTimeSet {
 	}
 
 	/**
+	 * Create a new time from a list of time codes
+	 *
+	 * @param	array			$timeCodes			A list of time titles
+	 * @return	TeachTimeSet						A new teach time set
+	 */
+	public static function fromTimeCodeList(array $timeCodes) {
+		$set	= new self();
+
+		foreach ($timeCodes as $code) {
+			$set->enableTime($code);
+		}
+
+		return $set;
+	}
+
+
+	/**
 	 * Get the valid teach times
 	 *
 	 * @param	boolean	$keysOnly		Set to true to get an numeric array only contianing the time keys
@@ -87,7 +104,7 @@ class TeachTimeSet {
 	 */
 	public static function isTimeCodeAvailable($timeCode) {
 		$timeAvailable	= self::availableTimes(true);
-		return isset($timeAvailable[$timeCode]);
+		return in_array($timeCode, $timeAvailable);
 	}
 
 	/**
