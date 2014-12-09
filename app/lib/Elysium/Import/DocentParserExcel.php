@@ -125,19 +125,6 @@ class DocentParserExcel extends DocentParser {
 	);
 
 	/**
-	 * Create a new docent parser instance by a path to an excel file
-	 *
-	 * @param	string			$path
-	 * @return	DocentParser
-	 */
-	public static function fromFile($path) {
-
-		$workbook	= \PHPExcel_IOFactory::load($path);
-
-		return new self($workbook);
-	}
-
-	/**
 	 * Create a new docent parser
 	 *
 	 * @param	\PHPExcel	$workbook		The workbook to parse

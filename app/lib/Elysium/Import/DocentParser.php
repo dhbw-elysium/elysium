@@ -21,9 +21,27 @@ abstract class DocentParser {
 	protected $_courseGroups	= null;
 
 	/**
-	 * Parse the excel file
+	 * Create a new docent parser instance by a path to an excel file
+	 *
+	 * @param	string			$path
+	 * @return	DocentParser
 	 */
-	public abstract function parse();
+	public static function fromExcel($path) {
+
+		$workbook	= \PHPExcel_IOFactory::load($path);
+
+		return new DocentParserExcel($workbook);
+	}
+
+	/**
+	 * Create a new docent parser instance from received form input
+	 *
+	 * @param	array			$docents		Docent form data
+	 * @return	DocentParser
+	 */
+	public static function fromInput(array $docents) {
+		return new DocentParserInput($docents);
+	}
 
 	/**
 	 * Get the docents which were parsed

@@ -19,13 +19,13 @@
 
 
 {{ Form::open(array('url' => 'docents/import/process')) }}
-{{ Form::hidden('posted', '1') }}
+{{ Form::hidden('valid', '1') }}
 
 
 @if (count($docents))
 	@foreach ($docents as $id => $docent)
 
-<div class="panel panel-default panel-docent-import-docent" style="padding: 1em;">
+<div class="panel panel-default panel-docent-import-docent" style="padding: 1em;margin-top:1em;">
 	<div class="container-fluid">
 	  <div class="form-horizontal" role="form">
 
@@ -44,7 +44,7 @@
 			<strong>Duplikatswarnung</strong> Einer oder mehrere Dozenten mit ähnlichem Namen sind bereits im System erfasst:
 			<ul>
 			@foreach ($duplicates as $duplicate)
-				<li>{{{$duplicate->last_name}}}, {{{$duplicate->first_name}}} </li>
+				<li>{{{$duplicate->last_name}}}, {{{$duplicate->first_name}}} ({{{$duplicate->company_job}}})</li>
 			@endforeach
 			</ul>
 			</div>
@@ -88,7 +88,7 @@
 				<div class="form-group">
 					<label for="docent[{{$id}}][is_exdhbw]" class="col-md-4 control-label">Ehemaliger:</label>
 					<div class="col-md-8">
-						{{Form::checkbox('docent['.$id.'][is_exdhbw]', 'is_exdhbw', ($posted) ? Input::old('docent['.$id.'][is_exdhbw]') : $docent->data('is_exdhbw'))}}
+						{{Form::checkbox('docent['.$id.'][is_exdhbw]', 'is_exdhbw', $docent->data('is_exdhbw'))}}
 						<label for="docent[{{$id}}][is_exdhbw]" class="control-label" style="min-height: 34px;"> Ehemalige/r BA-/DHBW-Student/in</label>
 					</div>
 				</div>

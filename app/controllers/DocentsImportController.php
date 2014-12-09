@@ -1,6 +1,6 @@
 <?php
 
-use \Elysium\Import\DocentParserExcel;
+use \Elysium\Import\DocentParser;
 use \Elysium\DocentData\TeachTimeSet;
 
 class DocentsImportController extends BaseController {
@@ -13,24 +13,21 @@ class DocentsImportController extends BaseController {
     public function docentsImportProcess()
     {
 
-		$posted = (bool)(Input::old('posted') == 1);
 		if (Input::hasFile('file')) {
 			/** @var \Symfony\Component\HttpFoundation\File\UploadedFile $file */
 			$file = Input::file('file');
 
 			if ($file->getMimeType() == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-				$parser = DocentParserExcel::fromFile($file->getRealPath());
+				$parser = DocentParser::fromExcel($file->getRealPath());
 				$docents = $parser->docents();
-
-				Session::put('import_docents', $docents);
 			}
 
 			Form::macro('docentLabel', function ($id, $property, $title) {
 				return '<label for="docent[' . $id . '][' . $property . ']" class="col-md-4 control-label">' . $title . '</label>';
 			});
-		} elseif (Session::has('import_docents')) {
-			$docents = Session::get('import_docents');
-
+		} else {
+			$parser		= DocentParser::fromInput(Input::get('docent'));
+			$docents	= $parser->docents();
 		}
 
 		if (isset($docents) && is_array($docents)) {
@@ -44,7 +41,8 @@ class DocentsImportController extends BaseController {
 						</div>
 					</div>
 				</div>';
-			Form::macro('docentBlock', function($id, $property, $title, $tooltip = null) use ($docents, $posted, $inputTemplate, $groupTemplate) {
+			Form::macro('docentBlock', function($id, $property, $title, $tooltip = null) use ($docents, $inputTemplate, $groupTemplate) {
+
 				$data			= $docents[$id]->data($property);
 				$elementKey		= sprintf('docent[%d][%s]', $id, $property);
 				$element		= '';
@@ -56,23 +54,23 @@ class DocentsImportController extends BaseController {
 							$groupClass[]	= 'form-group-elements-3';
 							$element		= '
 								<label for="'.$elementKey.'[name]" class="control-label">Kreditinstitut:</label>
-								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[name]" type="text" value="'.(($posted) ? Input::old($elementKey.'[name]') : $data['name']).'">
+								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[name]" type="text" value="'.$data['name'].'">
 
 								<label for="'.$elementKey.'[blz]" class="control-label" title="Bankleitzahl">BLZ:</label>
-								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[blz]" type="text" value="'.(($posted) ? Input::old($elementKey.'[blz]') : $data['blz']).'">
+								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[blz]" type="text" value="'.$data['blz'].'">
 
 								<label for="'.$elementKey.'[number]" class="control-label">Kontonummer:</label>
-								<input class="form-control" numberholder="(leer)" name="'.$elementKey.'[number]" type="text" value="'.(($posted) ? Input::old($elementKey.'[number]') : $data['number']).'">
+								<input class="form-control" numberholder="(leer)" name="'.$elementKey.'[number]" type="text" value="'.$data['number'].'">
 								';
 							break;
 						case 'bank_modern':
 							$groupClass[]	= 'form-group-elements-3';
 								$element	= '
 								<label for="'.$elementKey.'[iban]" class="control-label" title="International Bank Account Number">IBAN:</label>
-								<input class="form-control" placeholder="(leer)" iban="'.$elementKey.'[iban]" type="text" value="'.(($posted) ? Input::old($elementKey.'[iban]') : $data['iban']).'">
+								<input class="form-control" placeholder="(leer)" iban="'.$elementKey.'[iban]" type="text" value="'.((isset($data['iban'])) ? $data['iban'] : '').'">
 
 								<label for="'.$elementKey.'[bic]" class="control-label" title="Bank Identifier Code">BIC:</label>
-								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[bic]" type="text" value="'.(($posted) ? Input::old($elementKey.'[bic]') : $data['bic']).'">
+								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[bic]" type="text" value="'.((isset($data['bic'])) ? $data['bic'] : '').'">
 								';
 							break;
 
@@ -105,7 +103,7 @@ class DocentsImportController extends BaseController {
 									$elementSubKey,
 									$typeTitle,
 									$elementSubKey,
-									(($posted) ? Input::old($elementSubKey) : $number)
+									$number
 							);
 
 							}
@@ -114,27 +112,27 @@ class DocentsImportController extends BaseController {
 						case 'company_address':
 							$element	= '
 								<label for="'.$elementKey.'[street]" class="control-label">Straße, Hausnummer:</label>
-								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[street]" type="text" value="'.(($posted) ? Input::old($elementKey.'[street]') : $data['street']).'">
+								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[street]" type="text" value="'.$data['street'].'">
 
 								<label for="'.$elementKey.'[plz]" class="control-label">PLZ:</label>
-								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[plz]" type="text" value="'.(($posted) ? Input::old($elementKey.'[plz]') : $data['plz']).'">
+								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[plz]" type="text" value="'.$data['plz'].'">
 
 								<label for="'.$elementKey.'[city]" class="control-label">Ort:</label>
-								<input class="form-control" cityholder="(leer)" name="'.$elementKey.'[city]" type="text" value="'.(($posted) ? Input::old($elementKey.'[city]') : $data['city']).'">
+								<input class="form-control" cityholder="(leer)" name="'.$elementKey.'[city]" type="text" value="'.$data['city'].'">
 								';
 
 							break;
 						default:
 							foreach($data as $subKey => $value) {
 								$elementSubKey	= $elementKey.'['.$subKey.']';
-								$element		.= sprintf($inputTemplate, $elementSubKey, 'text', (($posted) ? Input::old($elementSubKey) : $value));
+								$element		.= sprintf($inputTemplate, $elementSubKey, 'text', $value);
 							}
 							break;
 					}
 
 				} else {
 					$type			= 'text';
-					$elementValue	= ($posted) ? Input::old($elementKey) : $data;
+					$elementValue	= $data;
 
 					switch($property) {
 						case 'activity_practical':
@@ -174,7 +172,7 @@ class DocentsImportController extends BaseController {
 				return sprintf($groupTemplate, implode(' ', $groupClass), $elementKey, $labelAttribute, $title, $element);
 			});
 
-			Form::macro('docentTimeBlock', function($id) use ($docents, $posted, $groupTemplate) {
+			Form::macro('docentTimeBlock', function($id) use ($docents, $groupTemplate) {
 				/** @var TeachTimeSet $times */
 				$timeSet 	= $docents[$id]->data('time');
 				$elementKey = sprintf('docent[%d][time]', $id);
@@ -183,7 +181,6 @@ class DocentsImportController extends BaseController {
 				foreach($timeSet->times() as $timeCode => $state) {
 					$timeTitle		= TeachTimeSet::timeTitleByCode($timeCode);
 					$elementSubKey	= $elementKey.'['.$timeCode.']';
-					$state			= (($posted) ? Input::old($elementSubKey) : $state);
 
 					$timeCells[$timeCode]	= Form::checkbox($elementSubKey, $timeCode, $state, array('title' => $timeTitle)).' <label for="'.$elementSubKey.'" class="sr-only">'.$timeTitle.'</label>';
 				}
@@ -246,7 +243,7 @@ class DocentsImportController extends BaseController {
 			});
 
 
-			return View::make('docents.importprocess')->with('docents', $docents)->with('posted', $posted);
+			return View::make('docents.importprocess')->with('docents', $docents);
 
 		} else {
 			return View::make('docents.importprocess')->with('docents', array())->with('danger', 'Import Fehlgeschlagen');

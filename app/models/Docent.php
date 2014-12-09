@@ -45,7 +45,7 @@ class Docent extends Eloquent implements RemindableInterface {
     }
 
 	public static function duplicateCandidates($lastName, $firstName) {
-		$query	= DB::table('docent')->select('last_name', 'first_name');
+		$query	= DB::table('docent')->select('last_name', 'first_name', 'company_job');
 
 		if (strlen($lastName)) {
 			$query->where('last_name', 'LIKE', $lastName);
