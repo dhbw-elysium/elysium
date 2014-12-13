@@ -25,14 +25,15 @@
 @if (count($docents))
 	@foreach ($docents as $id => $docent)
 
-<div class="panel panel-default panel-docent-import-docent" style="padding: 1em;margin-top:1em;">
+<div class="panel panel-default panel-docent-import-docent import-docent-{{{$id}}}" style="padding: 1em;margin-top:1em;">
 	<div class="container-fluid">
 	  <div class="form-horizontal" role="form">
 
-		<div class="row">
+		<div class="row" display="hidden">
 			<div class="form-group">
 			  <div class="col-md-12">
-				<input type="checkbox" id="docent[{{$id}}][include]" checked="checked"> <label for="docent[{{$id}}][include]" class="control-label"> Diesen Dozenten-Datensatz beim Import mit aufnehmen</label>
+			  	{{Form::checkbox('docent['.$id.'][exclude]', 'value', Input::old('docent['.$id.'][exclude]'), array('class' => 'import-docent-exclude', 'data-docent-id' => $id))}}
+				<label for="docent[{{$id}}][exclude]" class="control-label"> Diesen Dozenten-Datensatz vom Import ausschließen</label>
 
 		  	</div>
 	  	</div>
@@ -117,7 +118,7 @@
 
 <div class="panel panel-default">
   <div class="panel-body">
-		{{ Form::submit('Importieren', array('class' => 'btn btn-primary')) }}
+	{{ Form::submit('Importieren', array('class' => 'btn btn-primary', 'name' => 'do-import')) }}
   </div>
 </div>
 @else

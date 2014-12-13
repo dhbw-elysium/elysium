@@ -156,3 +156,21 @@ $('#modalCourseGroupDelete').on('show.bs.modal', function (event) {
 		});
 	});
 });
+
+
+$('.import-docent-exclude').change(function (event) {
+	var checkbox = $(event.target),
+		docentId = parseInt(checkbox.attr('data-docent-id')),
+		disabled = false,
+		color = 'transparent';
+
+	if (checkbox.prop('checked')) {
+		color		= '#F8F8F8';
+		disabled	= true;
+	}
+
+	$('.import-docent-'+docentId).css('background-color', color);
+	$('.import-docent-'+docentId+' :input').attr("disabled", disabled);
+
+	checkbox.prop('disabled', false);
+});
