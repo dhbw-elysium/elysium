@@ -16,9 +16,9 @@ class CreateAddressTable extends Migration {
 		{
 			$table->integer('aid', true, true);
 
-			$table->string('address_street');
-            $table->string('address_plz', 16);
-            $table->string('address_city', 128);
+			$table->string('street');
+            $table->string('plz', 16);
+            $table->string('city', 128);
 
 			$table->timestamps();
 		});
