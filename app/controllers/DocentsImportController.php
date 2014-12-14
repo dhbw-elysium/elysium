@@ -30,7 +30,32 @@ class DocentsImportController extends BaseController {
 			$docents	= $parser->docents();
 		}
 
-		if (isset($docents) && is_array($docents)) {
+		if (isset($parser) && isset($docents) && is_array($docents)) {
+			if ($parser->valid() && Input::get('valid')) {
+				return View::make('docents.importsummary')->with('docents', $docents);
+			}
+
+			$docents	= $this->_processDcocents($docents);
+
+			return View::make('docents.importprocess')->with('docents', $docents);
+
+		} else {
+			return View::make('docents.importprocess')->with('docents', array())->with('danger', 'Import Fehlgeschlagen');
+		}
+
+
+
+        return View::make('docents.importprocess');
+    }
+
+
+	/**
+	 * Processes docents and provides form elements for docent import form
+	 *
+	 * @param	array		$docents		docents from parser
+	 * @return	array
+	 */
+	protected function _processDcocents(array $docents) {
 			$inputTemplate	= '<input class="form-control" placeholder="(leer)" name="%s" type="%s" value="%s">';
 			$groupTemplate	= '
 				<div class="%s">
@@ -296,17 +321,6 @@ class DocentsImportController extends BaseController {
 				return sprintf($courseTemplate, $elementKey, $courseGroupClass, e($courseGroup), $courseGroupHint, $form);
 			});
 
-
-
-			return View::make('docents.importprocess')->with('docents', $docents);
-
-		} else {
-			return View::make('docents.importprocess')->with('docents', array())->with('danger', 'Import Fehlgeschlagen');
-		}
-
-
-
-        return View::make('docents.importprocess');
-    }
-
+		return $docents;
+	}
 }
