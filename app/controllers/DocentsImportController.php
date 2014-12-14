@@ -32,7 +32,9 @@ class DocentsImportController extends BaseController {
 
 		if (isset($parser) && isset($docents) && is_array($docents)) {
 			if ($parser->valid() && Input::get('valid')) {
-				return View::make('docents.importsummary')->with('docents', $docents);
+				$docentsCount	= $this->_excuteImport($docents);
+
+				return View::make('docents.importsummary')->with('docentCount', $docentsCount);
 			}
 
 			$docents	= $this->_processDcocents($docents);
@@ -92,7 +94,7 @@ class DocentsImportController extends BaseController {
 							$groupClass[]	= 'form-group-elements-3';
 								$element	= '
 								<label for="'.$elementKey.'[iban]" class="control-label" title="International Bank Account Number">IBAN:</label>
-								<input class="form-control" placeholder="(leer)" iban="'.$elementKey.'[iban]" type="text" value="'.((isset($data['iban'])) ? $data['iban'] : '').'">
+								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[iban]" type="text" value="'.((isset($data['iban'])) ? $data['iban'] : '').'">
 
 								<label for="'.$elementKey.'[bic]" class="control-label" title="Bank Identifier Code">BIC:</label>
 								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[bic]" type="text" value="'.((isset($data['bic'])) ? $data['bic'] : '').'">
@@ -322,5 +324,23 @@ class DocentsImportController extends BaseController {
 			});
 
 		return $docents;
+	}
+
+	/**
+	 * Create docents and return number of docents created
+	 *
+	 * @param	array 		$docents		List of docents to create
+	 * @return	integer
+	 */
+	protected function _excuteImport(array $docents) {
+		$docentCount	= 0;
+
+		/** @var \Elysium\Import\Docent $docent */
+		foreach($docents as $docent) {
+			$docent->createEntity();
+			++$docentCount;
+		}
+
+		return $docentCount;
 	}
 }

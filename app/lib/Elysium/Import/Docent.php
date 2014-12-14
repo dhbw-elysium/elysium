@@ -150,5 +150,58 @@ class Docent {
 
 		return true;
 	}
+
+	/**
+	 * Create entity from this element
+	 */
+	public function createEntity() {
+		$data	= $this->_data;
+
+		//add time data
+		$data	= array_merge($data, $this->_data['time']->times());
+
+		//bank data
+		$data['bank_name']		= $data['bank_classic']['name'];
+		$data['bank_blz']		= $data['bank_classic']['blz'];
+		$data['bank_number']	= $data['bank_classic']['number'];
+		$data['bank_iban']		= $data['bank_modern']['iban'];
+		$data['bank_bic']		= $data['bank_modern']['bic'];
+
+		if (!isset($data['is_exdhbw'])) {
+			$data['is_exdhbw']	= false;
+		}
+
+		$docent	= \Docent::create($data);
+
+		//date
+		$birthDay	= $this->_data['birth_day'];
+		if ($birthDay && !$birthDay instanceof \DateTime) {
+			$birthDay			= new \DateTime($birthDay);
+			$docent->birth_day	= $birthDay;
+		}
+
+		//addresses
+		$addressPrivate	= \Address::create($data['private_address']);
+		$docent->private_aid = $addressPrivate->aid;
+
+		$addressCompany	= \Address::create($data['company_address']);
+		$docent->company_aid = $addressCompany->aid;
+
+		$docent->save();
+
+		//add courses
+		$docentCourseRelation	= array();
+		foreach($this->_courses as $courseGroupTitle => $courses) {
+			$courseGroup	= \CourseGroup::byTitle($courseGroupTitle, true);
+			foreach($courses as $courseTitle) {
+				$course					= \Course::byCgidAndTitle($courseGroup->cgid, $courseTitle, true);
+				$docentCourseRelation[]	= array('cid' => $course->cid, 'did' => $docent->did);
+			}
+		}
+
+		\DB::table('docent_course')->insert($docentCourseRelation);
+
+		return $docent;
+	}
 }
 

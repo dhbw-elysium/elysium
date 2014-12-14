@@ -17,6 +17,13 @@
   <li role="presentation" class="active"><a href="#">Zusammenfassung</a></li>
 </ul>
 
+<div class="row">
+	<div class="alert alert-success" role="alert">
+		<strong>Import erfolgreich</strong>
+		Es wurden {{$docentCount}} Dozenten importiert.
+	</div>
+
+</div>
 
 
 @stop
