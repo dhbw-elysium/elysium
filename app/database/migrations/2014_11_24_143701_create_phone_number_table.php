@@ -22,7 +22,7 @@ class CreatePhoneNumberTable extends Migration {
 
 			$table->boolean('is_private');
 			$table->enum('type', array('landline', 'mobile', 'fax'));
-            $table->string('phone_number_private', 32);
+            $table->string('number', 48);
 
 			$table->timestamps();
 		});
