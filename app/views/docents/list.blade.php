@@ -18,7 +18,7 @@
 	  </div>
 	</nav>
 	<div class="">
-		<table class="table table-striped table-grid">
+		<table class="table table-striped table-grid table-docent-list">
 		  <thead>
 			<tr>
 				<th class="row-id">#</th>
@@ -28,18 +28,20 @@
 			</tr>
 		  </thead>
 		  <tbody>
-			@if (count($docents	= Docent::paginate(2)))
+			@if (count($docents	= Docent::paginate(15)))
 				@foreach ($docents as $docent)
 				<tr>
 					<td class="row-id">{{{$docent->did}}}</td>
 					<td>{{{$docent->first_name.' '.$docent->last_name}}}</td>
 					<td>{{{$docent->title}}}</td>
-					<td>
+					<td class="tag-column">
+					<div>
 					@if (count($courses	= $docent->courses))
 						@foreach ($courses as $course)
 						<span class="label label-primary label-course-tag">{{{$course->title}}}</span>
 						@endforeach
 					@endif
+					</div>
 					</td>
 
 				</tr>

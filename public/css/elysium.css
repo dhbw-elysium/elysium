@@ -10,6 +10,7 @@ table.table-grid th.row-id {
 }
 
 span.label-course-tag {
+	line-height: 23px;
 	font-size: 12px;
 }
 
@@ -29,6 +30,10 @@ span.label-course-tag {
 .table-docent-time tbody td,
 .table-docent-time thead th {
 	text-align: center;
+}
+
+.table-docent-list td.tag-column {
+	max-width:300px;
 }
 
 .table-docent-time tbody th {
