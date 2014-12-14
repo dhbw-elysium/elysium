@@ -80,7 +80,7 @@ class Docent extends Eloquent implements RemindableInterface {
 
 	public function phoneNumbers()
     {
-        return $this->hasMany('PhoneNumber');
+        return $this->hasMany('PhoneNumber', 'did', 'did');
     }
 
 	public function courses()
@@ -100,6 +100,20 @@ class Docent extends Eloquent implements RemindableInterface {
 		}
 
 		return $query->get();
+	}
+
+	/**
+	 * Return the default private phone number (phone or mobile)
+	 *
+	 * @return string|boolean		Number or false if there is no stored
+	 */
+	public function phonePrivateDefault() {
+		$relation			= $this->phoneNumbers()->where('is_private', '=', true)->orderBy('type')->get();
+		$phoneNumberList	= $relation->toArray();
+		if (count($phoneNumberList)) {
+			return $phoneNumberList[0]['number'];
+		}
+		return false;
 	}
 
 }

@@ -201,6 +201,32 @@ class Docent {
 
 		\DB::table('docent_course')->insert($docentCourseRelation);
 
+		if(isset($data['phone_number_private'])) {
+			foreach($data['phone_number_private'] as $type => $number) {
+				$phoneNumber				= new \PhoneNumber();
+				$phoneNumber->did			= $docent->did;
+				$phoneNumber->is_private	= true;
+				$phoneNumber->type			= $type;
+				$phoneNumber->number		= $number;
+
+				$phoneNumber->save();
+			}
+		}
+
+		if(isset($data['phone_number_company'])) {
+			foreach($data['phone_number_company'] as $type => $number) {
+				$phoneNumber				= new \PhoneNumber();
+				$phoneNumber->did			= $docent->did;
+				$phoneNumber->is_private	= false;
+				$phoneNumber->type			= $type;
+				$phoneNumber->number		= $number;
+
+				$phoneNumber->save();
+
+			}
+		}
+
+
 		return $docent;
 	}
 }
