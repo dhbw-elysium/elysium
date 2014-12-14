@@ -242,6 +242,61 @@ class DocentsImportController extends BaseController {
 				);
 			});
 
+			$courseGroups	= array();
+			foreach(CourseGroup::all() as $courseGroup) {
+				$courses			= array();
+				$coursesDetailed	= $courseGroup->course->toArray();
+
+				foreach($coursesDetailed as $course) {
+					$courses[]	= $course['title'];
+				}
+
+				$courseGroups[$courseGroup->title]	= $courses;
+			}
+
+			$courseTemplate	= '
+				<div class="col-sm-6 col-lg-6">
+					<div class="form-group">
+						<label for="%s" class="col-md-4 control-label%s">%s%s:</label>
+						<div class="col-md-8 course-tag-list">
+							%s
+						</div>
+					</div>
+				</div>';
+
+			Form::macro('docentCourseBlock', function($id, $courseGroup, $courseList) use ($docents, $courseGroups, $courseTemplate) {
+				$elementKey			= sprintf('docent[%d][course][%s]', $id, e($courseGroup));
+				$courseGroupClass	= '';
+				$courseGroupHint	= '';
+ 				$form				= '';
+
+				$formTemplate	= '<span class="label label-primary" title="%s%s">%s%s</span><input type="hidden" name="%s[%s]" value="%s"> ';
+				foreach($courseList as $course) {
+					$badge		= '';
+					$courseHint	= '';
+
+					if (!array_key_exists($courseGroup, $courseGroups) || in_array($course, $courseGroups[$courseGroup])) {
+						$badge		= ' (*)';
+						$courseHint	= ' (wird neu angelegt)';
+					}
+
+					$form .= sprintf(
+						$formTemplate,
+						e($course),
+						$courseHint,
+						e($course),
+						$badge,
+						$elementKey,
+						e($course),
+						e($course)
+					);
+				}
+
+
+				return sprintf($courseTemplate, $elementKey, $courseGroupClass, e($courseGroup), $courseGroupHint, $form);
+			});
+
+
 
 			return View::make('docents.importprocess')->with('docents', $docents);
 

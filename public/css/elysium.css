@@ -39,3 +39,7 @@ span.label-course-tag {
 .panel-docent-import-docent textarea {
 	min-height: 200px;
 }
+
+form .form-group .course-tag-list {
+	font-size: 1.2em;
+}

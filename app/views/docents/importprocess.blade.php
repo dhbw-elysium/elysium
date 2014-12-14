@@ -36,20 +36,21 @@
 				<label for="docent[{{$id}}][exclude]" class="control-label"> Diesen Dozenten-Datensatz vom Import ausschließen</label>
 		  	  </div>
 	  		</div>
+		</div>
 
 		@if ($duplicates = Docent::duplicateCandidates($docent->data('last_name'), $docent->data('first_name')))
 		<div class="row">
 		  <div class="col-md-12">
 			<div class="alert alert-warning" role="alert">
-			<strong>Duplikatswarnung</strong> Einer oder mehrere Dozenten mit ähnlichem Namen sind bereits im System erfasst:
-			<ul>
-			@foreach ($duplicates as $duplicate)
-				<li>{{{$duplicate->last_name}}}, {{{$duplicate->first_name}}} ({{{$duplicate->company_job}}})</li>
-			@endforeach
-			</ul>
+				<strong>Duplikatswarnung</strong> Einer oder mehrere Dozenten mit ähnlichem Namen sind bereits im System erfasst:
+				<ul>
+				@foreach ($duplicates as $duplicate)
+					<li>{{{$duplicate->last_name}}}, {{{$duplicate->first_name}}} ({{{$duplicate->company_job}}})</li>
+				@endforeach
+				</ul>
 			</div>
-			</div>
-			</div>
+		  </div>
+		</div>
 		@endif
 
 		<div class="row">
@@ -106,10 +107,17 @@
 
 
 
-		</div><!-- /.row this actually does not appear to be needed with the form-horizontal -->
+		</div>
+
+
+		<div class="row">
+			@foreach ($docent->courses() as $courseGroup => $courseList)
+				{{ Form::docentCourseBlock($id, $courseGroup, $courseList) }}
+			@endforeach
+	  	</div>
+
 	  </div><!-- form -->
 	</div><!-- /.container -->
-</div>
 </div>
 
 	@endforeach

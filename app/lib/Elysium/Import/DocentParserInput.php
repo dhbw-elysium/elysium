@@ -23,6 +23,11 @@ class DocentParserInput extends DocentParser {
 						case 'time':
 							$data	= DocentData\TeachTimeSet::fromTimeCodeList($data);
 							break;
+						case 'course':
+							foreach($data as $courseGroup => $courses) {
+								$docent->addCourseGroup($courseGroup, $courses);
+							}
+							break 2;
 					}
 
 					$docent->addData($property, $data);
