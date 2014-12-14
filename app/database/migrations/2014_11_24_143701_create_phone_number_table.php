@@ -21,7 +21,7 @@ class CreatePhoneNumberTable extends Migration {
 											   ->onDelete('cascade');
 
 			$table->boolean('is_private');
-			$table->enum('type', array('landline', 'mobile', 'fax'));
+			$table->enum('type', array('phone', 'mobile', 'fax'));
             $table->string('number', 48);
 
 			$table->timestamps();
