@@ -32,6 +32,8 @@ class CreateDocentTable extends Migration {
             $table->string('bank_name')->nullable();
             $table->char('bank_bic', 11)->nullable();
             $table->char('bank_iban', 34)->nullable();
+            $table->string('bank_blz', 24)->nullable();
+            $table->string('bank_number', 36)->nullable();
 			$table->integer('preferred_course_group', false, true)->nullable();
 			$table->boolean('is_exdhbw');
 			$table->boolean('time_mo_am');
