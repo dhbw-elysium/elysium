@@ -22,6 +22,38 @@ class Docent extends Eloquent implements RemindableInterface {
 	protected $primaryKey = 'did';
 
 
+	/**
+	 * Mass assignable columns
+	 *
+	 * @var array
+	 */
+	protected $fillable	= array(
+		'salution',
+		'title',
+		'graduation',
+		'first_name',
+		'last_name',
+		'email',
+		'website',
+		'birth_place',
+		'lbv',
+		'company_job',
+		'company_name',
+		'company_aid',
+		'bank_name',
+		'bank_bic',
+		'bank_iban',
+		'is_exdhbw',
+		'activity_teach',
+		'activity_practical',
+		'course_extra',
+		'extra'
+	);
+
+	public function getDates()
+    {
+        return array('birth_day', 'created_at', 'updated_at');
+    }
 
 	public function privateAddress()
     {
