@@ -137,5 +137,18 @@ class Docent {
 	public function courses() {
 		return $this->_courses;
 	}
+
+	/**
+	 * Check if this docent data is valid
+	 *
+	 * @return bool
+	 */
+	public function valid() {
+		if (!$this->_data['last_name']) {
+			return false;
+		}
+
+		return true;
+	}
 }
 

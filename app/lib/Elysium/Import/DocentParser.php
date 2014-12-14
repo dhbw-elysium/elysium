@@ -68,4 +68,19 @@ abstract class DocentParser {
 
 		return $this->_courseGroups;
 	}
+
+	/**
+	 * Check if the parsed docents are valid
+	 *
+	 * @return bool
+	 */
+	public function valid() {
+		foreach ($this->_docents as $docent) {
+			if (!$docent->valid()) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }
