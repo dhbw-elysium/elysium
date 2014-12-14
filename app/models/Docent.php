@@ -121,4 +121,21 @@ class Docent extends Eloquent implements RemindableInterface {
 		return false;
 	}
 
+
+	public function addStatus($sid, $comment) {
+		$timestamp	= new \DateTime();
+
+		DB::table('docent_status')->insert(
+			array(
+				'did'			=> $this->did,
+				'sid'			=> $sid,
+				'comment'		=> $comment,
+				'created_at'	=> $timestamp,
+				'created_by'	=> Auth::id(),
+				'updated_at'	=> $timestamp,
+				'updated_by'	=> Auth::id()
+			)
+    	);
+	}
+
 }

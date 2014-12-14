@@ -171,6 +171,7 @@ class Docent {
 			$data['is_exdhbw']	= false;
 		}
 
+		/** @var \Docent $docent */
 		$docent	= \Docent::create($data);
 
 		//date
@@ -222,9 +223,10 @@ class Docent {
 				$phoneNumber->number		= $number;
 
 				$phoneNumber->save();
-
 			}
 		}
+
+		$docent->addStatus(1, 'Importiert aus Excel Datei');
 
 
 		return $docent;
