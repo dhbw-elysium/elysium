@@ -28,5 +28,32 @@ class Course extends Eloquent implements RemindableInterface {
     }
 
 
+	/**
+	 * Access a course group by its title
+	 *
+	 * @param	integer			$cgid					Course group id
+	 * @param	string			$title					The title of a course
+	 * @param	boolean			$createIfNotExist		Set to true if you want to silently create such an entity
+	 * 													if it does not yet exist
+	 * @return	CourseGroup								The requested course entity
+	 * @throws	\InvalidArgumentException				If no such course was found and shouldn't be created
+	 */
+	public static function byCgidAndTitle($cgid, $title, $createIfNotExist = false) {
+		$course	= self::where('title', '=', $title)->where('cgid', '=', $cgid)->get();
+
+
+		if (count($course)) {
+			return $course[0];
+		} elseif ($createIfNotExist) {
+			$course		= new self;
+			$course->cgid	= $cgid;
+			$course->title	= $title;
+			$course->save();
+
+			return $course;
+		}
+		throw new \InvalidArgumentException('Could not find this course');
+	}
+
 
 }
