@@ -8,23 +8,69 @@
 @section('content')
 <div class="row">
 	<div class="col-md-8">
-		<h2><small>Prof. Dr.</small> Sören Anschütz</h2>
-		<p>email@web.de</p>
-		<p>0711/73500000</p>
-		<ul class="nav nav-tabs">
-		  <li role="presentation" class="active"><a href="#">Kontaktdaten</a></li>
-		  <li role="presentation"><a href="#">Arbeitgeber</a></li>
-		  <li role="presentation"><a href="#">Qualifikationen</a></li>
-		  <li role="presentation"><a href="#">Qualifikationen</a></li>
-		</ul>
+		<h2>
+			@if($docent->title)
+			<small>{{{$docent->title}}}</small>
+			@endif
+			{{{$docent->first_name}}} {{{$docent->last_name}}}
+		</h2>
+		@if($docent->email)
+			<p><a href="mailto:{{{$docent->email}}}">{{{$docent->email}}}</a></p>
+		@endif
+		@if($phoneNumberDefault = $docent->phonePrivateDefault())
+		<p>{{{$phoneNumberDefault}}}</p>
+		@endif
+		<div role="tabpanel">
+		  <ul class="nav nav-tabs" role="tablist">
+			<li role="presentation" class="active"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Kontaktdaten</a></li>
+			<li role="presentation"><a href="#company" aria-controls="company" role="tab" data-toggle="tab">Arbeitgeber</a></li>
+			<li role="presentation"><a href="#qualification" aria-controls="qualification" role="tab" data-toggle="tab">Qualifikationen</a></li>
+		  </ul>
+
+		  <div class="tab-content">
+			<div role="tabpanel" class="tab-pane active" id="contact">
+				<div class="container-fluid form">
+					<div class="row">
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-6 control-label">E-Mail Adresse:</label>
+								<div class="col-md-6">{{$docent->email}}</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-6 control-label">Telefon:</label>
+								<div class="col-md-6">
+								@foreach($docent->phoneNumbers as $phoneNumber)
+									<div>{{$phoneNumber->number}}</div>
+								@endforeach
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="company">
+
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="qualification">
+
+			</div>
+		  </div>
+
+		</div>
 
 	</div>
 	<div class="col-md-4">
-		<h3>Fächer</h3>
+		<h3>Vorlesungen</h3>
 			<div>
-				<span class="label label-primary">Dienstleistungsmanagement</span>
-				<span class="label label-primary">XML</span>
-				<span class="label label-primary">Informatik</span>
+				@if($courses = $docent->courses->toArray())
+				@foreach($courses as $course)
+					<span class="label label-primary">{{$course['title']}}</span>
+				@endforeach
+				@endif
 			</div>
 		<h3>Verlauf</h3>
 

@@ -88,6 +88,11 @@ class Docent extends Eloquent implements RemindableInterface {
         return $this->belongsToMany('Course', 'docent_course', 'did', 'cid');
     }
 
+	public function status()
+    {
+        return $this->belongsToMany('Status', 'docent_status', 'did', 'sid');
+    }
+
 	public static function duplicateCandidates($lastName, $firstName) {
 		$query	= DB::table('docent')->select('last_name', 'first_name', 'company_job');
 
