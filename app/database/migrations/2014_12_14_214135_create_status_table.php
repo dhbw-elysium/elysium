@@ -18,7 +18,6 @@ class CreateStatusTable extends Migration {
 			$table->string('title');
 			$table->string('glyph')->nullable();
 
-
 			$table->timestamps();
 			$table->unsignedInteger('created_by');
 			$table->foreign('created_by')
@@ -33,6 +32,16 @@ class CreateStatusTable extends Migration {
 				  ->onUpdate('cascade')
 				  ->onDelete('cascade');
 		});
+
+		DB::table('status')->insert(
+			array(
+				'sid'	=> '1',
+				'title'	=> 'Importiert',
+				'glyph'	=> 'glyphicon glyphicon-import',
+				'created_by'	=> 1,
+				'updated_by'	=> 1
+			)
+    	);
 	}
 
 	/**
