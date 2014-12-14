@@ -24,7 +24,7 @@ class CourseGroup extends Eloquent implements RemindableInterface {
 
     public function course()
     {
-        return $this->belongsTo('Course', 'cgid', 'cgid');
+        return $this->hasMany('Course', 'cgid', 'cgid');
     }
 
 
