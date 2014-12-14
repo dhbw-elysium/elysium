@@ -46,7 +46,6 @@
                         @else
 							<li><a href="{{{ URL::to('') }}}">Start</a></li>
 							<li><a href="{{{ URL::to('docents') }}}">Dozenten</a></li>
-							<li><a href="{{{ URL::to('docent') }}}">Dozent</a></li>
 							<li><a href="{{{ URL::to('courses') }}}">Vorlesungen &amp; Themenbereiche</a></li>
 							@if(Auth::user()->isAdmin())
 							    <li><a href="{{{ URL::to('user/list') }}}">Benutzer</a></li>
