@@ -43,6 +43,8 @@ class Docent extends Eloquent implements RemindableInterface {
 		'bank_name',
 		'bank_bic',
 		'bank_iban',
+		'bank_blz',
+		'bank_number',
 		'time_mo_am',
 		'time_mo_pm',
 		'time_tu_am',
