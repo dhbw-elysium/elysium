@@ -21,7 +21,7 @@ class CreateCourseTable extends Migration {
 									->on('course_group')
 									->onDelete('cascade')
 									->onUpdate('cascade');
-			$table->string('title');
+			$table->string('title')->unique();
 
 			$table->timestamps();
 		});

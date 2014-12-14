@@ -15,7 +15,7 @@ class CreateCourseGroupTable extends Migration {
 		Schema::create('course_group', function(Blueprint $table)
 		{
 			$table->integer('cgid', true, true);
-			$table->string('title');
+			$table->string('title')->unique();
 			$table->timestamps();
 		});
 	}
