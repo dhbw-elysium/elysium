@@ -21,5 +21,15 @@ class Address extends Eloquent implements RemindableInterface {
 	 */
 	protected $primaryKey = 'aid';
 
+	/**
+	 * Mass assignable columns
+	 *
+	 * @var array
+	 */
+	protected $fillable	= array(
+		'street',
+		'plz',
+		'city'
+	);
 
 }
