@@ -91,6 +91,7 @@
         {{ HTML::script('js/jquery-1.11.1.min.js') }}
         {{ HTML::script('js/bootstrap.min.js') }}
         {{ HTML::script('js/bootstrap-table.min.js') }}
+        {{ HTML::script('js/bootstrap-table-de-DE.min.js') }}
         {{ HTML::script('js/jquery.toaster.js') }}
         {{ HTML::script('js/elysium.js') }}
     </body>
