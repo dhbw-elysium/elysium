@@ -226,7 +226,7 @@ class Docent {
 			}
 		}
 
-		$docent->addStatus(1, 'Importiert aus Excel Datei');
+		$docent->addStatus(\Status::STATUS_IMPORT, 'Importiert aus Excel Datei');
 
 
 		return $docent;
