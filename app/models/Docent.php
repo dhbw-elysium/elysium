@@ -161,4 +161,46 @@ class Docent extends Eloquent implements RemindableInterface {
     	);
 	}
 
+
+	/**
+	 * Get nested docent data including assigned courses and latest state
+	 *
+	 * @param	integer	$limit		List limit
+	 * @param	integer	$offset		List offset
+	 * @param	string	$sort		Sort parameter
+	 * @param	string	$order		Sort order
+	 */
+	public static function docentList($limit, $offset, $sort, $order) {
+
+		$docentsFlat	= DB::table('docent')->select('docent.did', 'docent.last_name', 'docent.first_name', 'status.title as status_title', 'status.glyph as status_glyph', 'course.cid as course_cid', 'course.title as course_title')
+							 ->join('docent_status', 'docent.did', '=', 'docent_status.did')
+							 ->join('status', 'docent_status.sid', '=', 'status.sid')
+							 ->join('docent_course', 'docent_course.did', '=', 'docent.did')
+							 ->join('course', 'docent_course.cid', '=', 'course.cid')
+
+
+				->get();
+
+		$docents	= array();
+
+		foreach ($docentsFlat as $docentData) {
+			$did	= (int)$docentData->did;
+
+			if (!isset($docents[$did])) {
+				$docents[$did]	= array(
+					'did'			=> $did,
+					'first_name'	=> $docentData->first_name,
+					'last_name'		=> $docentData->last_name,
+					'status_glyph'	=> $docentData->status_glyph,
+					'status'		=> $docentData->status_title,
+					'courses'		=> array($docentData->course_cid => $docentData->course_title)
+				);
+
+			} else {
+				$docents[$did]['courses'][$docentData->course_cid]	= $docentData->course_title;
+			}
+		}
+
+		return $docents;
+	}
 }

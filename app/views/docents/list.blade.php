@@ -9,6 +9,7 @@
 <h1>Dozenten</h1>
 
 <div class="row" id="docent-list-page">
+<!--
 	<nav class="navbar navbar-default" role="navigation">
 	  <div class="container-fluid">
 		<div class="navbar-header">
@@ -17,55 +18,21 @@
 		</div>
 	  </div>
 	</nav>
+	-->
 	<div class="">
-		<table class="table table-striped table-grid table-docent-list table-hover table-clickable" id="table-docent-list">
-		  <thead>
-			<tr>
-				<th class="row-id" data-field="did">#</th>
-				<th data-field="name">Name</th>
-				<th data-field="status">Status</th>
-				<th data-field="courses">Kurse</th>
-			</tr>
-		  </thead>
-		  <tbody>
-			@if (count($docents	= Docent::paginate(15)))
-				@foreach ($docents as $docent)
-				<tr data-did="{{{$docent->did}}}">
-					<td class="row-id">{{{$docent->did}}}</td>
-					<td><a href="docent/{{{$docent->did}}}">{{{$docent->first_name.' '.$docent->last_name}}}</a></td>
-					<td>
-						@if ($status = $docent->statusLatest())
-							@if ($status->glyph)
-							<span class="{{$status->glyph}}"></span>
-							@endif
-							{{{$status->title}}}
-						@else
-							<i>(leer)</i>
-						@endif
-					</td>
-					<td class="tag-column">
-					<div>
-					@if (count($courses	= $docent->courses))
-						@foreach ($courses as $course)
-						<span class="label label-primary label-course-tag">{{{$course->title}}}</span>
-						@endforeach
-					@endif
-					</div>
-					</td>
-
-				</tr>
-				@endforeach
-			@else
+		<table class="table table-striped table-grid table-docent-list table-hover table-clickable" data-toggle="table" data-url="docents/list.json" data-cache="false" data-pagination="true" data-show-refresh="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
+			<thead>
 				<tr>
-					<td colspan="4"><i>Keine Dozenten eingetragen</i></td>
+					<th data-field="did" data-sortable="true" data-visible="false">#</th>
+					<th data-field="name" data-sortable="true">Name</th>
+					<th data-field="status" data-sortable="true" data-formatter="docentStatusFormatter">Status</th>
+					<th data-field="course" data-sortable="false" class="tag-column">Kurs</th>
 				</tr>
-			@endif
-		  </tbody>
+			</thead>
+
 		</table>
-		<div>
-			{{ $docents->links() }}
-		</div>
-	</div>
+
+
 	<div>
 		<div class="btn-group" role="group" style="float:right;">
 		  <a href="docents/import/upload" class="btn btn-default"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Importieren</a>

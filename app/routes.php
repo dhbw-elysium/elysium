@@ -26,6 +26,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('logout', 'AuthController@getLogout');
 	Route::get('courses', 'CoursesController@showCourses');
 
+	Route::get('docents/list.json', 'DocentsController@docentListForTable');
 	Route::get('docents', 'DocentsController@showDocents');
 	Route::get('docents/import', 'DocentsImportController@docentsImportUpload');
 	Route::get('docents/import/upload', 'DocentsImportController@docentsImportUpload');

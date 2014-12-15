@@ -195,3 +195,9 @@ $(function () {
 	});
 
 });
+
+function docentStatusFormatter(value, row) {
+	return '<i class="glyphicon ' + row.status_glyph + '"></i> ' + value;
+}
+
+
