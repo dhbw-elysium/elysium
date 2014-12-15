@@ -121,7 +121,30 @@ class Docent extends Eloquent implements RemindableInterface {
 		return false;
 	}
 
+	/**
+	 * Get the latest docent state
+	 *
+	 * @return stdClass
+	 */
+	public function statusLatest() {
+		$query	= 'SELECT s.sid, s.title, s.glyph, ds.did, ds.created_at, ds.created_by, ds.updated_at, ds.updated_by
+					 FROM docent_status ds, status s
+					WHERE s.sid = ds.sid
+					  AND ds.did =?
+				 ORDER BY created_at ASC
+				    LIMIT 1';
 
+		$result	= DB::select($query, array($this->did));
+
+		return $result[0];
+	}
+
+	/**
+	 * Add status change
+	 *
+	 * @param	integer	$sid			Status id
+	 * @param	string	$comment		Status content
+	 */
 	public function addStatus($sid, $comment) {
 		$timestamp	= new \DateTime();
 

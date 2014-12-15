@@ -32,6 +32,10 @@ span.label-course-tag {
 	text-align: center;
 }
 
+.table-docent-list tbody td {
+	cursor: pointer;
+}
+
 .table-docent-list td.tag-column {
 	max-width:300px;
 }

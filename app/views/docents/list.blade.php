@@ -8,7 +8,7 @@
 @section('content')
 <h1>Dozenten</h1>
 
-<div class="row">
+<div class="row" id="docent-list-page">
 	<nav class="navbar navbar-default" role="navigation">
 	  <div class="container-fluid">
 		<div class="navbar-header">
@@ -18,22 +18,31 @@
 	  </div>
 	</nav>
 	<div class="">
-		<table class="table table-striped table-grid table-docent-list">
+		<table class="table table-striped table-grid table-docent-list table-hover table-clickable" id="table-docent-list">
 		  <thead>
 			<tr>
-				<th class="row-id">#</th>
-				<th>Name</th>
-				<th>Status</th>
-				<th>Kurse</th>
+				<th class="row-id" data-field="did">#</th>
+				<th data-field="name">Name</th>
+				<th data-field="status">Status</th>
+				<th data-field="courses">Kurse</th>
 			</tr>
 		  </thead>
 		  <tbody>
 			@if (count($docents	= Docent::paginate(15)))
 				@foreach ($docents as $docent)
-				<tr>
+				<tr data-did="{{{$docent->did}}}">
 					<td class="row-id">{{{$docent->did}}}</td>
-					<td>{{{$docent->first_name.' '.$docent->last_name}}}</td>
-					<td>{{{$docent->title}}}</td>
+					<td><a href="docent/{{{$docent->did}}}">{{{$docent->first_name.' '.$docent->last_name}}}</a></td>
+					<td>
+						@if ($status = $docent->statusLatest())
+							@if ($status->glyph)
+							<span class="{{$status->glyph}}"></span>
+							@endif
+							{{{$status->title}}}
+						@else
+							<i>(leer)</i>
+						@endif
+					</td>
 					<td class="tag-column">
 					<div>
 					@if (count($courses	= $docent->courses))
