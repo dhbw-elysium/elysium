@@ -26,52 +26,93 @@ class UserController extends BaseController {
             return View::make('home');   // no
         }
     }
+    public function postUserPasswordUpdate(){
+        if (Auth::user()->isAdmin())
+        {
+            $data = array(
+                'uid'	=> Input::get('uid'),
+                'password'	=> Input::get('userPassword'),
+                'password_confirmation'	=> Input::get('userPasswordConfirmation')
+            );
 
+            $rules = array(
+                'uid'	=> 'required',
+                'password'	=> 'required|confirmed',
+                'password_confirmation'	=> 'required'
+
+            );
+
+
+            $validator = Validator::make($data, $rules);
+
+            if ($validator->passes()) {
+                if ($data['uid']) {
+                    $user = User::find($data['uid']);
+                    $user->password=Hash::make($data['password']);
+                    $user->save();
+
+                    return View::make('user.edit')->with('uid',$data['uid']);
+
+                }
+
+
+
+            }
+
+            return View::make('user.list');  // yes
+        }
+        else
+        {
+            return View::make('home');  // no
+        }
+
+
+
+    }
     public function postUserUpdate(){
         if (Auth::user()->isAdmin())
         {
-            if (Input::has('uid'))
-            {
-                $uid= (int) Input::get('uid');
-                if ($user	= User::find($uid)){
-                    if(Input::has('firstname')){
-                    $user->firstname=Input::get('firstname');
-                    $user->save();
-                    }
-                    if(Input::has('lastname')){
-                        $user->lastname=Input::get('lastname');
-                        $user->save();
-                    }
-                    if(Input::has('email')){
-                        $user->email=Input::get('email');
-                        $user->save();
-                    }
-                    if(Input::has('role')){
-                        $user->role=Input::get('role');
-                        $user->save();
-                    }
+            $data = array(
+                'uid'	=> Input::get('uid'),
+                'firstname'	=> Input::get('firstname'),
+                'lastname'	=> Input::get('lastname'),
+                'email'	=> Input::get('email'),
+                'role'	=> Input::get('role')
+            );
 
+            $rules = array(
+                'uid'	=> 'required|numeric',
+                'firstname'	=> 'required',
+                'lastname'	=> 'required',
+                'email'	=> 'required|email',
+                'role'	=> 'required'
+            );
+            $validator = Validator::make($data, $rules);
 
+            if ($validator->passes()) {
+                if ($data['uid']) {
+                    $user = User::find($data['uid']);
 
-
+                } else {
+                    $user	= new User;
                 }
-               // return View::make('user.edit')->with('uid',(int)$uid);//
-                return View::make('user.list');
-            }else{
+
+                $user->firstname=$data['firstname'];
+                $user->lastname=$data['lastname'];
+                if(Validator::make(array('email'=>$data['email']), array('email'=>'unique:user,email,NULL,email'.$user->email))->passes()){
+                $user->email=$data['email'];}
+                $user->role=$data['role'];
+                $user->save();
+
                 return View::make('user.list');
             }
 
 
 
+               // return View::make('user.edit')->with('uid',(int)$uid);//
 
-
-
-
-
-
-        }
-        else
-        {
+                return View::make('user.list');
+            } else {
             return View::make('home'); // no
         }
     }
