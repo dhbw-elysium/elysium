@@ -6,7 +6,7 @@
 @stop
 
 @section('content')
-<div class="row">
+<div class="row docent-detail">
 	<div class="col-md-8">
 		<h2>
 			@if($docent->title)
@@ -33,6 +33,18 @@
 					<div class="row">
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
+								<label class="col-md-6 control-label">Titel:</label>
+								<div class="col-md-6">{{$docent->title}}<i style="color:gray;">(leer)</i></div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-6 control-label">Name:</label>
+								<div class="col-md-6">{{$docent->first_name}}</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
 								<label class="col-md-6 control-label">E-Mail Adresse:</label>
 								<div class="col-md-6">{{$docent->email}}</div>
 							</div>
@@ -42,9 +54,17 @@
 								<label class="col-md-6 control-label">Telefon:</label>
 								<div class="col-md-6">
 								@foreach($docent->phoneNumbers as $phoneNumber)
-									<div>{{$phoneNumber->number}}</div>
+								@if($phoneNumber->is_private)
+									<div>{{$phoneNumber->type}} {{$phoneNumber->number}}</div>
+									@endif
 								@endforeach
 								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-6 control-label">Anschrift:</label>
+								<div class="col-md-6">Musterstr. 5<br>70562 Stuttgart</div>
 							</div>
 						</div>
 

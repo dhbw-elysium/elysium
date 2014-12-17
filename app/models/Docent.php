@@ -198,16 +198,16 @@ class Docent extends Eloquent implements RemindableInterface {
 			if (!isset($docents[$did])) {
 				$docents[$did]	= array(
 					'did'			=> $did,
-					'first_name'	=> $docentData->first_name,
-					'last_name'		=> $docentData->last_name,
-					'status_glyph'	=> $docentData->status_glyph,
-					'status'		=> $docentData->status_title,
-					'courses'		=> array($docentData->course_cid => $docentData->course_title)
+					'first_name'	=> e($docentData->first_name),
+					'last_name'		=> e($docentData->last_name),
+					'status_glyph'	=> e($docentData->status_glyph),
+					'status'		=> e($docentData->status_title),
+					'courses'		=> array()
 				);
 
-			} else {
-				$docents[$did]['courses'][$docentData->course_cid]	= $docentData->course_title;
 			}
+
+			$docents[$did]['courses'][$docentData->course_cid]	= e($docentData->course_title);
 		}
 
 		return $docents;

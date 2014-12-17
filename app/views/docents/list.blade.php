@@ -20,7 +20,7 @@
 	</nav>
 	-->
 	<div class="">
-		<table class="table table-striped table-grid table-docent-list table-hover table-clickable" data-toggle="table" data-url="docents/list.json" data-cache="false" data-pagination="true" data-show-refresh="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
+		<table id="docent-list" class="table table-striped table-grid table-docent-list table-hover table-clickable" data-toggle="table" data-url="docents/list.json" data-cache="false" data-pagination="true" data-show-refresh="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
 			<thead>
 				<tr>
 					<th data-field="did" data-sortable="true" data-visible="false">#</th>

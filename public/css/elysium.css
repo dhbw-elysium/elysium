@@ -52,3 +52,13 @@ span.label-course-tag {
 form .form-group .course-tag-list {
 	font-size: 1.2em;
 }
+
+
+.docent-detail .control-label {
+	text-align: right;
+	padding-right: 0;
+}
+
+.docent-detail .tab-pane {
+	margin-top: 15px !important;
+}

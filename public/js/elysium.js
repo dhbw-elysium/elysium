@@ -194,6 +194,10 @@ $(function () {
 		checkbox.prop('disabled', false);
 	});
 
+	$('#docent-list').bootstrapTable({
+		}).on('click-row.bs.table', function (e, row, $element) {
+		   window.location.replace('docent/'+row.did);
+	});
 });
 
 function docentStatusFormatter(value, row) {
