@@ -62,3 +62,9 @@ form .form-group .course-tag-list {
 .docent-detail .tab-pane {
 	margin-top: 15px !important;
 }
+
+.dropdown-menu li>span {
+  display: block;
+  padding: 1px 10px;
+  clear: both;
+}

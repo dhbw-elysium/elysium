@@ -12,14 +12,14 @@ class DocentsController extends BaseController {
 	 * Get a docent list
 	 */
 	public function docentListForTable() {
-		$limit	= (int)Input::get('limit');
-		$offset	= (int)Input::get('offset');
+		//$limit	= (int)Input::get('limit');
+		//$offset	= (int)Input::get('offset');
 		$sort	= Input::get('sort');
 		$order	= Input::get('order');
 		//$hash	= Input::get('_');
 
 
-		$docentsWithIdentifier	= Docent::docentList($limit, $offset, $sort, $order);
+		$docentsWithIdentifier	= Docent::docentList();
 
 		$docents	= array();
 		foreach($docentsWithIdentifier as $docent) {

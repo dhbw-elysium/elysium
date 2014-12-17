@@ -20,11 +20,14 @@
 	</nav>
 	-->
 	<div class="">
-		<table id="docent-list" class="table table-striped table-grid table-docent-list table-hover table-clickable" data-toggle="table" data-url="docents/list.json" data-cache="false" data-pagination="true" data-show-refresh="true" data-show-columns="true" data-search="true" data-select-item-name="toolbar1">
+		<div id="docent-list-toolbar">
+		</div>
+ 		<table id="docent-list" class="table table-grid table-docent-list table-hover table-clickable" data-id-field="did" data-toggle="table" data-url="docents/list.json" data-cache="false" data-pagination="true" data-side-pagination="client" data-show-refresh="true" data-show-columns="true" data-search="true" data-toolbar="#docent-list-toolbar" data-striped="true">
 			<thead>
 				<tr>
 					<th data-field="did" data-sortable="true" data-visible="false">#</th>
-					<th data-field="name" data-sortable="true">Name</th>
+					<th data-field="first_name" data-sortable="true">Vorname</th>
+					<th data-field="last_name" data-sortable="true" data-order="asc">Nachname</th>
 					<th data-field="status" data-sortable="true" data-formatter="docentStatusFormatter">Status</th>
 					<th data-field="course" data-sortable="false" class="tag-column">Kurs</th>
 				</tr>

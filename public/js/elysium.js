@@ -195,8 +195,8 @@ $(function () {
 	});
 
 	$('#docent-list').bootstrapTable({
-		}).on('click-row.bs.table', function (e, row, $element) {
-		   window.location.replace('docent/'+row.did);
+		}).on('click-row.bs.table', function (e, row) {
+		   window.location.href = 'docent/'+row.did;
 	});
 });
 

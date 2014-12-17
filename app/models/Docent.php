@@ -165,13 +165,11 @@ class Docent extends Eloquent implements RemindableInterface {
 	/**
 	 * Get nested docent data including assigned courses and latest state
 	 *
-	 * @param	integer	$limit		List limit
+	 * @param	integer	$count		List limit
 	 * @param	integer	$offset		List offset
-	 * @param	string	$sort		Sort parameter
-	 * @param	string	$order		Sort order
 	 * @return	array				A list of docents
 	 */
-	public static function docentList($limit, $offset, $sort, $order) {
+	public static function docentList($count = null, $offset = null) {
 
 		$query	= 'SELECT d.did,
 						  d.last_name,
@@ -186,9 +184,17 @@ class Docent extends Eloquent implements RemindableInterface {
 			   INNER JOIN status s ON ds.sid = s.sid
 			   INNER JOIN docent_course dc ON dc.did = d.did
 			   INNER JOIN course c ON dc.cid = c.cid
-
-
 		';
+
+		$query	.= ' ORDER BY last_name ASC, first_name ASC';
+
+		if ($count && $offset) {
+			$query	.= sprintf(' LIMIT %d, %d', $offset, $count);
+
+		} elseif($count) {
+			$query	.= ' LIMIT '.(int)$count;
+		}
+
 		$docentsFlat	= DB::select(DB::raw($query));
 
 		$docents	= array();
