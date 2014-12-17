@@ -37,14 +37,14 @@ class UserController extends BaseController {
 
             $rules = array(
                 'uid'	=> 'required',
-                'password'	=> 'required',
+                'password'	=> 'required|confirmed',
                 'password_confirmation'	=> 'required'
 
             );
 
 
             $validator = Validator::make($data, $rules);
-    echo $validator->passes();
+
             if ($validator->passes()) {
                 if ($data['uid']) {
                     $user = User::find($data['uid']);
