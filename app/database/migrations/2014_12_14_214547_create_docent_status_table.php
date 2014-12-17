@@ -15,6 +15,7 @@ class CreateDocentStatusTable extends Migration {
 		Schema::create('docent_status', function(Blueprint $table)
 		{
 
+			$table->integer('dsid', true, true);
 			$table->unsignedInteger('did');
 			$table->foreign('did')
 				  ->references('did')
@@ -27,8 +28,6 @@ class CreateDocentStatusTable extends Migration {
 				  ->on('status')
 				  ->onUpdate('cascade')
 				  ->onDelete('cascade');
-
-			$table->primary(array('did', 'sid'));
 
 
 			$table->string('comment');

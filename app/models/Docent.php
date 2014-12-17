@@ -169,20 +169,29 @@ class Docent extends Eloquent implements RemindableInterface {
 	 * @param	integer	$offset		List offset
 	 * @param	string	$sort		Sort parameter
 	 * @param	string	$order		Sort order
+	 * @return	array				A list of docents
 	 */
 	public static function docentList($limit, $offset, $sort, $order) {
 
-		$docentsFlat	= DB::table('docent')->select('docent.did', 'docent.last_name', 'docent.first_name', 'status.title as status_title', 'status.glyph as status_glyph', 'course.cid as course_cid', 'course.title as course_title')
-							 ->join('docent_status', 'docent.did', '=', 'docent_status.did')
-							 ->join('status', 'docent_status.sid', '=', 'status.sid')
-							 ->join('docent_course', 'docent_course.did', '=', 'docent.did')
-							 ->join('course', 'docent_course.cid', '=', 'course.cid')
+		$query	= 'SELECT d.did,
+						  d.last_name,
+						  d.first_name,
+						  s.title as status_title,
+						  s.glyph as status_glyph,
+						  c.cid as course_cid,
+						  c.title as course_title
+					 FROM docent d
+			   INNER JOIN docent_status ds ON (ds.did = d.did)
+			   INNER JOIN (SELECT ds2.sid, ds2.did, MAX(ds2.created_at) AS latest_created FROM docent_status ds2 GROUP BY ds2.did) x ON (x.did = ds.did AND x.sid = ds.sid)
+			   INNER JOIN status s ON ds.sid = s.sid
+			   INNER JOIN docent_course dc ON dc.did = d.did
+			   INNER JOIN course c ON dc.cid = c.cid
 
 
-				->get();
+		';
+		$docentsFlat	= DB::select(DB::raw($query));
 
 		$docents	= array();
-
 		foreach ($docentsFlat as $docentData) {
 			$did	= (int)$docentData->did;
 
