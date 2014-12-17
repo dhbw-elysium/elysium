@@ -20,13 +20,13 @@ class CoursesController extends BaseController {
     {
         $data = array(
             'cid'	=> Input::get('courseCid'),
-			'cgid'	=> Input::get('courseCgid'),
+            'cgid'	=> Input::get('courseCgid'),
             'title'	=> Input::get('courseTitle')
         );
 
         $rules = array(
             'cid'	=> 'required|numeric',
-			'cgid'	=> 'required|numeric',
+            'cgid'	=> 'required|numeric',
             'title'	=> 'required'
         );
 
