@@ -7,6 +7,8 @@
 
 @section('content')
 <h1>Benutzer</h1>
+<div class="row">
+	<div class="panel-body">
 
 				<table class="table table-striped table-grid">
 				  <thead>
@@ -51,4 +53,6 @@
 					{{ $users->links() }}
 				</div>
 
+	</div>
+</div>
 @stop
