@@ -49,14 +49,14 @@ class StatusController extends BaseController {
     }
 
 	/**
-	 * Delete a course
+	 * Delete a status
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function postStatusDelete()
     {
 
-		$sid	= Input::get('sid');
+		$sid	= Input::get('statusSid');
 
 		/** @var \Illuminate\Validation\Validator $validator */
 		$validator = Validator::make(
@@ -64,12 +64,13 @@ class StatusController extends BaseController {
 			array('sid' => 'required|numeric')
 		);
 
-
         if ($validator->passes()) {
 			$status	= Status::find($sid);
-			$status->deleted_by	=
 
-			Status::destroy($sid);
+			$status->deleted_by	= Auth::id();
+			$status->save();
+
+			$status->delete();
 
 			return Response::make('', 200);
 		}

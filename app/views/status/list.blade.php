@@ -16,7 +16,7 @@
         <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
         <h4 class="modal-title">Status in den Papierkorb verschieben</h4>
       </div>
-	  {{ Form::open(array('url' => 'status/delete')) }}
+	  {{ Form::open(array('url' => 'delete')) }}
 	  {{ Form::hidden('sid', '0', array('id' => 'statusDeleteSid')); }}
       <div class="modal-body">
 		  <p>Möchten Sie den Status &raquo;<span id="statusDeleteTitle" style="color:#454545;"></span>&laquo; wirklich in den Papierkorb verschieben?</p>
@@ -41,7 +41,7 @@
 				<th>Titel</th>
 				<th>Themenbereich</th>
 				<th class="row-action">
-					<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalStatus" data-cid="0" data-cgid="" data-title="" title="Neue Vorlesung hinzufügen">
+					<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-cid="0" data-cgid="" title="Neuen Status hinzufügen">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</button>
 				</th>
@@ -65,7 +65,7 @@
 						<button type="button" class="btn btn-default btn-xs">
 						  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 						</button>
-						<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-cid="{{{$status->sid}}}" data-title="{{$status->title}}">
+						<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{$status->title}}">
 						  <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
 						</button>
 					</td>

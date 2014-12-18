@@ -176,6 +176,44 @@ $(function () {
 		});
 	});
 
+	$('#modalStatusDelete').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget),
+			sid = button.data('sid'),
+			title = button.data('title'),
+			modal = $(this);
+
+		modal.find('#statusDeleteSid').val(sid);
+		modal.find('#statusDeleteTitle').text(title);
+
+		$('#modalStatusDelete .btn-primary').click(function (e) {
+			e.preventDefault();
+			var token = $('#modalStatusDelete [name=_token]').val(),
+				sid = $('#modalStatusDelete #statusDeleteSid').val();
+
+			$.ajax({
+				type: 'POST',
+				url: 'delete',
+				data: {
+					_token: token,
+					statusSid: sid
+				},
+				complete: function (jqXHR, status) {
+					$('#modalStatusDelete').hide();
+					if (status == 'success') {
+						//location.reload();
+					} else {
+						$.toaster({
+							title: 'Status',
+							priority: 'danger',
+							message: 'Der Status konnte nicht in den Papierkorb verschoben werden'
+						});
+					}
+				}
+			});
+		});
+	});
+
+
 
 	$('.import-docent-exclude').change(function (event) {
 		var checkbox = $(event.target),
