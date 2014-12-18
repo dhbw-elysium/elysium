@@ -58,6 +58,71 @@ form .form-group .course-tag-list {
 	font-size: 1.2em;
 }
 
+/* ########### Glyhlist START ########### */
+form .glyph-list li span.glyphicon {
+	margin: 0;
+	font-size: 30px;
+	display: inline-block;
+}
+
+form .glyph-list ul {
+	list-style-type: none;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+form .glyph-list > .form-group {
+	margin: 0 14px;
+}
+
+form .glyph-list > .form-group label {
+	margin: 0;
+}
+
+form .glyph-list .glyph-list-box input {
+	margin-left: 4px;
+}
+
+form .glyph-list .glyph-list-preview input {
+	text-align: center;
+}
+
+form .glyph-list li {
+	float: left;
+	margin: 2px;
+	width: 100px;
+	height: 100px;
+	background-color: #f9f9f9;
+	border-radius: 4px;
+}
+
+form .glyph-list li:hover {
+	background-color: #bdcddb;
+}
+
+form .glyph-list li.glyhicon-selected {
+	background-color: #5098cd;
+}
+
+form .glyph-list li.glyhicon-selected:hover {
+	background-color: #55a2da;
+}
+
+
+form .glyph-list li .glyph-list-preview {
+	width: 100px;
+	padding: 0 4px;
+	display: block;
+	text-align: center;
+	word-wrap: break-word;
+	font-weight: normal;
+}
+
+form .glyph-list li .glyph-list-preview .glyphicon-class {
+	margin-top: 10px;
+	font-size: 11px;
+}
+/* ########### Glyhlist END  ########### */
 
 .docent-detail .control-label {
 	text-align: right;

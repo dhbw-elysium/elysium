@@ -11,6 +11,48 @@ class StatusController extends BaseController {
         return View::make('status.list');
     }
 
+
+    public function showStatusEdit($sid)
+    {
+        return View::make('status.edit')->with('sid',(int)$sid);
+    }
+
+	public function postStatusEdit($sid)
+	{
+		$data = array(
+			'sid'			=> Input::get('sid'),
+			'title'			=> Input::get('title'),
+			'description'	=> Input::get('description'),
+			'glyph'			=> Input::get('glyph')
+		);
+
+		$rules = array(
+			'sid'			=> 'required|numeric',
+			'title'			=> 'required|min:2',
+			'description'	=> '',
+			'glyph'			=> ''
+
+		);
+
+
+		$validator = Validator::make($data, $rules);
+
+		if ($validator->passes() && in_array($data['glyph'], Status::glyphicons())) {
+			$status					= Status::find($data['sid']);
+			$status->title			= $data['title'];
+			$status->description	= $data['description'];
+			$status->glyph			= $data['glyph'];
+			$status->save();
+
+            return Redirect::to('status/list')->with('success', 'Die Änderungen an diesem Status wurden gespeichert');
+		}
+
+		return View::make('status.edit')->with('sid', $sid);
+
+
+
+	}
+
 	/**
 	 * Create or update a course
 	 *

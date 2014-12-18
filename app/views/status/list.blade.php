@@ -2,7 +2,7 @@
 
 @section('title')
 @parent
-:: Status
+:: Status Verwaltung
 @stop
 
 @section('content')
@@ -62,9 +62,9 @@
 					<td>{{{$status->title}}}</td>
 					<td>{{{$status->description}}}</td>
 					<td class="row-action">
-						<button type="button" class="btn btn-default btn-xs">
+						<a class="btn btn-default btn-xs" href="edit/{{{$status->sid}}}">
 						  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-						</button>
+						</a>
 						<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{$status->title}}">
 						  <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
 						</button>
