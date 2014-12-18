@@ -46,5 +46,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::post('courseGroup/update', 'CoursesController@postCourseGroupUpdate');
 	Route::post('courseGroup/delete', 'CoursesController@postCourseGroupDelete');
 
+	Route::get('status', 'StatusController@showStatusList');
+	Route::get('status/list', 'StatusController@showStatusList');
 
 });

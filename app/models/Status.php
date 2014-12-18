@@ -2,10 +2,11 @@
 
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Status extends Eloquent implements RemindableInterface {
 
-	use RemindableTrait;
+	use RemindableTrait, SoftDeletingTrait;
 
 	/**
 	 * Contains the sid of the imported status
@@ -26,6 +27,14 @@ class Status extends Eloquent implements RemindableInterface {
 	 */
 	protected $primaryKey = 'sid';
 
-
+	/**
+	 * Contains the fields of the model which are dates
+	 *
+	 * @return array
+	 */
+	public function getDates()
+    {
+        return array('deleted_at', 'created_at', 'updated_at');
+    }
 
 }

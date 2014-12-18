@@ -15,8 +15,9 @@ class CreateStatusTable extends Migration {
 		Schema::create('status', function(Blueprint $table)
 		{
 			$table->increments('sid');
-			$table->string('title');
-			$table->string('glyph')->nullable();
+			$table->string('title', 128);
+			$table->string('description');
+			$table->string('glyph', 128)->nullable();
 
 			$table->timestamps();
 			$table->unsignedInteger('created_by');
@@ -31,13 +32,22 @@ class CreateStatusTable extends Migration {
 				  ->on('user')
 				  ->onUpdate('cascade')
 				  ->onDelete('cascade');
+
+			$table->softDeletes();
+			$table->unsignedInteger('deleted_by')->nullable();
+			$table->foreign('deleted_by')
+				  ->references('uid')
+				  ->on('user')
+				  ->onUpdate('cascade')
+				  ->onDelete('cascade');
 		});
 
 		DB::table('status')->insert(
 			array(
-				'sid'	=> '1',
-				'title'	=> 'Importiert',
-				'glyph'	=> 'glyphicon glyphicon-import',
+				'sid'			=> '1',
+				'title'			=> 'Importiert',
+				'description'	=> 'Der betroffene Datensatz wurde aus einer Excel-Datei importiert',
+				'glyph'			=> 'glyphicon glyphicon-import',
 				'created_by'	=> 1,
 				'updated_by'	=> 1
 			)

@@ -1,3 +1,8 @@
+.text-label-empty {
+	color:gray;
+	font-style: italic;
+}
+
 table.table-grid td.row-action,
 table.table-grid th.row-action {
 	width:70px;

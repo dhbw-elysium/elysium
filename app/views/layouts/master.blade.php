@@ -50,6 +50,7 @@
 							<li><a href="{{{ URL::to('courses') }}}">Vorlesungen &amp; Themenbereiche</a></li>
 							@if(Auth::user()->isAdmin())
 							    <li><a href="{{{ URL::to('user/list') }}}">Benutzer</a></li>
+							    <li><a href="{{{ URL::to('status/list') }}}">Status</a></li>
 							@endif
                             <li>{{ HTML::link('logout', 'Logout') }}</li>
                         @endif
@@ -98,6 +99,9 @@
 			{{ HTML::script('js/bootstrap-table.min.js') }}
 			{{ HTML::script('js/bootstrap-table-de-DE.min.js') }}
         @endif
+
+		{{ HTML::script('js/bootstrap-table-filter.js') }}
+		{{ HTML::script('js/bootstrap-table-filter.de-DE.js') }}
         {{ HTML::script('js/jquery.toaster.js') }}
         {{ HTML::script('js/elysium.js') }}
     </body>

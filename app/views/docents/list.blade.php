@@ -21,8 +21,9 @@
 	-->
 	<div class="">
 		<div id="docent-list-toolbar">
+
 		</div>
- 		<table id="docent-list" class="table table-grid table-docent-list table-hover table-clickable" data-id-field="did" data-toggle="table" data-url="docents/list.json" data-cache="false" data-pagination="true" data-side-pagination="client" data-show-refresh="true" data-show-columns="true" data-search="true" data-toolbar="#docent-list-toolbar" data-striped="true">
+ 		<table id="docent-list" class="table table-grid table-docent-list table-hover table-clickable" data-id-field="did" data-toggle="table" data-url="docents/list.json" data-cache="false" data-pagination="true" data-side-pagination="client" data-show-refresh="true" data-show-columns="true" data-search="true" data-toolbar="#docent-list-toolbar" data-striped="true" data-show-filter="true">
 			<thead>
 				<tr>
 					<th data-field="did" data-sortable="true" data-visible="false">#</th>
@@ -42,9 +43,6 @@
 		  <a href="docents/export" class="btn btn-default"><span class="glyphicon glyphicon-export" aria-hidden="true"></span> Exportieren</a>
 		</div>
 	</div>
-
-
-
 </div>
 
 @stop

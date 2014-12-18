@@ -23,6 +23,16 @@ class CreateUsersTable extends Migration {
             $table->string('role', 64)->default(User::ROLE_ADMIN);
 			$table->timestamps();
 		});
+
+		DB::table('user')->insert(
+			array(
+				'uid'		=> 1,
+				'firstname'	=> 'Erik',
+				'lastname'	=> 'Theoboldt',
+				'email'		=> 'erik@teqneers.de',
+				'password'	=> Hash::make('admin')
+			)
+    	);
 	}
 
 	/**

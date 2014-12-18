@@ -198,6 +198,46 @@ $(function () {
 		}).on('click-row.bs.table', function (e, row) {
 		   window.location.href = 'docent/'+row.did;
 	});
+
+	$('#docent-list-toolbar').bootstrapTableFilter({
+	filters:[
+		{
+			field: 'did',    // field identifier
+			label: 'ID',    // filter label
+			type: 'range'   // filter type
+		},
+		/*
+		{
+			field: 'label',
+			label: 'Label',
+			type: 'search',
+			enabled: true   // filter is visible by default
+		},
+		{
+			field: 'role',
+			label: 'Role',
+			type: 'select',
+			values: [
+				{id: 'ROLE_ANONYMOUS', label: 'Anonymous'},
+				{id: 'ROLE_USER', label: 'User'},
+				{id: 'ROLE_ADMIN', label: 'Admin'}
+			],
+		},
+		{
+			field: 'username',
+			label: 'User Name',
+			type: 'search'
+		},
+		{
+			field: 'city',
+			label: 'City',
+			type: 'ajaxSelect',
+			source: 'http://example.com/get-cities.php'
+		}
+		*/
+	]
+});
+
 });
 
 function docentStatusFormatter(value, row) {
