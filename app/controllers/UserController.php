@@ -29,44 +29,29 @@ class UserController extends BaseController {
     public function postUserPasswordUpdate(){
 
             $data = array(
-                'uid'	=> Input::get('uid'),
-                'password'	=> Input::get('userPassword'),
-                'password_confirmation'	=> Input::get('userPasswordConfirmation')
+                'uid'	=> Input::get('userUid'),
+                'password'	=> Input::get('userPassword')
             );
 
             $rules = array(
                 'uid'	=> 'required',
-                'password'	=> 'required|confirmed',
-                'password_confirmation'	=> 'required'
-
+                'password'	=> 'required|min:5'
             );
-
 
             $validator = Validator::make($data, $rules);
 
             if ($validator->passes()) {
                 if (Auth::user()->isAdmin()||Auth::user()->isCurrentUser($data['uid'])) {
-                if ($data['uid']) {
-                    $user = User::find($data['uid']);
-                    $user->password=Hash::make($data['password']);
+                    $user           = User::find($data['uid']);
+                    $user->password = Hash::make($data['password']);
                     $user->save();
 
-                    return View::make('user.edit')->with('uid',$data['uid']);
-
+                    return Response::make('', 200);
                 }
-
-
-
-            }}
-            if(Auth::user()->isAdmin()){
-            return View::make('user.list');
             }
-        return View::make('home'); // yes
-
-
-
-
+        return Response::make('', 405);
     }
+
     public function postUserUpdate(){
         if (Auth::user()->isAdmin()){
             $data = array(
