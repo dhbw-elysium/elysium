@@ -40,7 +40,7 @@
                         {{Form::email('email', $user->email, array('class'=>'form-control'))}}
                     </div>
                 </div>
-
+                @if(Auth::user()->isAdmin())
                 <div class="form-group">
                     {{Form::label('role', 'Rolle',array('class'=>'col-sm-3 control-label'))}}
 
@@ -48,13 +48,12 @@
                         {{Form::select('role', array($user::ROLE_ADMIN => 'Admin', $user::ROLE_USER => 'User'), $user->role, array('class'=>'form-control'))}}
                     </div>
                 </div>
-
-                <a class="btn btn-default" href="{{{ URL::to('user/list/') }}}">Abbrechen</a>
-
-		            {{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
-		             <a type="button" class="btn btn-primary" data-toggle="modal" href="#modalPassword">New Password
-                                    </a>
-
+                @endif
+                <div class="btn-group" style="float:right;" role="group">
+                 <a class="btn btn-default" href="{{{ URL::to('user/list/') }}}">Abbrechen</a>
+                 <a type="button" class="btn btn-primary" data-toggle="modal" href="#modalPassword">Neues Passwort</a>
+		         {{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
+                 </div>
 
          {{ Form::close() }}
 
