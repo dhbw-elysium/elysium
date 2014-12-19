@@ -84,7 +84,7 @@ class UserController extends BaseController {
                 'email'	=> 'required|email',
                 'role'	=> 'required'
             );
-        }else{ //nicht Admins (eigener Nutzer darf keine Rolle setzeb
+        }else{ //nicht Admins (eigener Nutzer darf keine Rolle setzen
             $data = array(
                 'uid'	=> Input::get('uid'),
                 'firstname'	=> Input::get('firstname'),
