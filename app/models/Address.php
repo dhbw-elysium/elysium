@@ -8,6 +8,17 @@ class Address extends Eloquent implements RemindableInterface {
 	use RemindableTrait;
 
 	/**
+	 * Defines an address as a private one
+	 */
+	const TYPE_PRIVATE	= 1;
+
+	/**
+	 * Defines an address as a company one
+	 */
+	const TYPE_COMPANY	= 2;
+
+
+	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
