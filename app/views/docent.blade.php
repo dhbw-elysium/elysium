@@ -2,10 +2,66 @@
 
 @section('title')
 @parent
-:: Dozent
+:: Dozent ({{$docent->displayName()}})
 @stop
 
 @section('content')
+
+<!-- Modal	course -->
+<div class="modal fade" id="modalPhoneNumber" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+        <h4 class="modal-title">Telefonnummern</h4>
+      </div>
+	  {{ Form::open() }}
+	  {{ Form::hidden('did', $docent->did)}}
+	  {{ Form::hidden('is_private', 0)}}
+      <div class="modal-body">
+		  <div class="row">
+			  <div class="col-sm-12">
+				  <div class="form-inline">
+					<div class="form-group">
+						<select class="form-control">
+						  <option>Mobil</option>
+						  <option>Festnetz</option>
+						  <option>Fax</option>
+						</select>
+					</div>
+
+					 <div class="form-group">
+						<input type="text" class="form-control" id="phoneNumberNumber" placeholder="Telefonnummer">
+					</div>
+
+					 <div class="form-group button-remove-number">
+						<button type="button" class="btn btn-danger">
+						  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+					</div>
+				  </div>
+			  </div>
+		  </div>
+		  <div class="row">
+			  <div class="col-sm-12">
+				  <div class="button-add-number">
+					<button type="button" class="btn btn-success">
+						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</button>
+				  </div>
+			  </div>
+		  </div>
+
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+		{{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
+      </div>
+	  {{ Form::close() }}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div class="row docent-detail">
 	<div class="col-md-8">
 		<h2>
@@ -22,49 +78,61 @@
 		@endif
 		<div role="tabpanel">
 		  <ul class="nav nav-tabs" role="tablist">
-			<li role="presentation" class="active"><a href="#contact" aria-controls="contact" role="tab" data-toggle="tab">Kontaktdaten</a></li>
-			<li role="presentation"><a href="#company" aria-controls="company" role="tab" data-toggle="tab">Arbeitgeber</a></li>
-			<li role="presentation"><a href="#qualification" aria-controls="qualification" role="tab" data-toggle="tab">Qualifikationen</a></li>
+			<li role="presentation" class="active"><a href="#personaldata" aria-controls="personaldata" role="tab" data-toggle="tab">Personendaten</a></li>
+			<li role="presentation"><a href="#company" aria-controls="company" role="tab" data-toggle="tab">Beruf</a></li>
+			<li role="presentation"><a href="#qualification" aria-controls="qualification" role="tab" data-toggle="tab">Qualifikation</a></li>
+			<li role="presentation"><a href="#course" aria-controls="course" role="tab" data-toggle="tab">Vorlesungsinformationen</a></li>
 		  </ul>
 
 		  <div class="tab-content">
-			<div role="tabpanel" class="tab-pane active" id="contact">
+			<div role="tabpanel" class="tab-pane active" id="personaldata">
 				<div class="container-fluid form">
 					<div class="row">
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-6 control-label">Titel:</label>
-								<div class="col-md-6">{{$docent->title}}<i style="color:gray;">(leer)</i></div>
+								<label class="col-md-5 control-label">Titel:</label>
+								<div class="col-md-7">{{$docent->displayData('title')}}</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-6 control-label">Name:</label>
-								<div class="col-md-6">{{$docent->first_name}}</div>
+								<label class="col-md-5 control-label">Anrede:</label>
+								<div class="col-md-7">{{$docent->displayData('salution')}}</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-6 control-label">E-Mail Adresse:</label>
-								<div class="col-md-6">{{$docent->email}}</div>
-							</div>
-						</div>
-						<div class="col-sm-6 col-lg-6">
-							<div class="form-group">
-								<label class="col-md-6 control-label">Telefon:</label>
-								<div class="col-md-6">
-								@foreach($docent->phoneNumbers as $phoneNumber)
-								@if($phoneNumber->is_private)
-									<div>{{$phoneNumber->type}} {{$phoneNumber->number}}</div>
-									@endif
-								@endforeach
+								<label class="col-md-5 control-label">Name:</label>
+								<div class="col-md-7">
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-private="true">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+									{{$docent->displayName()}}
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-6 control-label">Anschrift:</label>
-								<div class="col-md-6">Musterstr. 5<br>70562 Stuttgart</div>
+								<label class="col-md-5 control-label">E-Mail Adresse:</label>
+								<div class="col-md-7">{{$docent->displayData('email')}}</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-5 control-label">Telefon:</label>
+								<div class="col-md-7">
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-private="true">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+									{{$docent->displayPhoneNumberList()}}
+
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-5 control-label">Anschrift:</label>
+								<div class="col-md-7">{{$docent->displayAddress(Address::TYPE_PRIVATE)}}</div>
 							</div>
 						</div>
 
@@ -76,6 +144,9 @@
 
 			</div>
 			<div role="tabpanel" class="tab-pane fade" id="qualification">
+
+			</div>
+			<div role="tabpanel" class="tab-pane fade" id="course">
 
 			</div>
 		  </div>

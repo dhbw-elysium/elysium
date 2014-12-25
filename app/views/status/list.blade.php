@@ -33,6 +33,14 @@
 
 <div class="row">
 	<div class="panel-body">
+	<nav class="navbar navbar-default" role="navigation">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li class="active"><a href="#">Status <span class="sr-only">(current)</span></a></li>
+        <li><a href="#">Papierkorb <span class="sr-only">(current)</span></a></li>
+	  </ul>
+	</div>
+	</nav>
 		<table class="table table-striped table-grid table-hover">
 		  <thead>
 			<tr>
@@ -41,7 +49,7 @@
 				<th>Titel</th>
 				<th>Themenbereich</th>
 				<th class="row-action">
-					<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-cid="0" data-cgid="" title="Neuen Status hinzufügen">
+					<button type="button" class="btn btn-success btn-xs" title="Neuen Status hinzufügen"  data-toggle="tooltip" data-placement="left">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</button>
 				</th>
@@ -62,7 +70,7 @@
 					<td>{{{$status->title}}}</td>
 					<td>{{{$status->description}}}</td>
 					<td class="row-action">
-						<a class="btn btn-default btn-xs" href="edit/{{{$status->sid}}}">
+						<a class="btn btn-default btn-xs" href="edit/{{{$status->sid}}}" data-toggle="tooltip" data-placement="left" title="Status bearbeiten">
 						  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 						</a>
 						<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{$status->title}}">

@@ -69,13 +69,16 @@ class Docent extends Eloquent implements RemindableInterface {
 
 	public function privateAddress()
     {
-        return $this->hasOne('Address', 'aid', 'private_aid');
+		if ($this->private_aid) {
+			return Address::findOrFail($this->private_aid);
+		}
     }
-
 
 	public function companyAddress()
     {
-        return $this->hasOne('Address', 'aid', 'company_aid');
+		if ($this->company_aid) {
+			return Address::findOrFail($this->company_aid);
+		}
     }
 
 	public function phoneNumbers()
@@ -93,6 +96,13 @@ class Docent extends Eloquent implements RemindableInterface {
         return $this->belongsToMany('Status', 'docent_status', 'did', 'sid');
     }
 
+	/**
+	 * Get a list of possible duplicates to the given name
+	 *
+	 * @param	string	$lastName		Last name
+	 * @param	string	$firstName		First name
+	 * @return	mixed
+	 */
 	public static function duplicateCandidates($lastName, $firstName) {
 		$query	= DB::table('docent')->select('last_name', 'first_name', 'company_job');
 
@@ -217,5 +227,104 @@ class Docent extends Eloquent implements RemindableInterface {
 		}
 
 		return $docents;
+	}
+
+	/**
+	 * Get value of a property prepared for html display
+	 *
+	 * @param	string	$property	The property to access
+	 * @return	string				Html escaped content
+	 */
+	public function displayData($property) {
+		$data	= $this->$property;
+		if ($data) {
+			return e($data);
+		} else {
+			return '<i class="empty" title="keine Angabe">(leer)</i>';
+		}
+	}
+
+	/**
+	 * Display the lastname, firstname of the docent
+	 *
+	 * @return string
+	 */
+	public function displayName() {
+		$firstName	= e($this->first_name);
+		$lastName	= e($this->last_name);
+
+		if ($firstName && $lastName) {
+			return sprintf('%s, %s', $lastName, $firstName);
+		} elseif ($lastName) {
+			return sprintf('%s', $lastName);
+		} elseif ($firstName) {
+			return sprintf('%s', $firstName);
+		} else {
+			return $this->displayData('first_name');
+		}
+	}
+
+	/**
+	 * Display well formatted address
+	 *
+	 * @param	integer	$type		The address to display
+	 * @return	string				Escaped address
+	 */
+	public function displayAddress($type = null) {
+		switch ($type) {
+			case Address::TYPE_COMPANY:
+				$address = $this->companyAddress();
+				break;
+			case null:
+			case Address::TYPE_PRIVATE:
+				$address = $this->privateAddress();
+				break;
+			default:
+				throw new InvalidArgumentException('Unknown address type transmitted');
+		}
+
+		return sprintf('%s<br>%s %s', e($address->street), e($address->plz), e($address->city));
+	}
+
+	/**
+	 * Display phone numbers
+	 *
+	 * @param	boolean		$private		True to display private numbers, false to display company numbers
+	 * @return	string						Html formatted phone number list
+	 */
+	public function displayPhoneNumberList($private = true) {
+		$format			= '<div class="phone-number" title="%s"><span class="glyphicon glyphicon-%s"></span> %s</div>';
+		$numberBlock	= '';
+
+		foreach($this->phoneNumbers as $phoneNumber) {
+			if ($phoneNumber->is_private == $private && $phoneNumber->number) {
+				switch($phoneNumber->type) {
+					case PhoneNumber::TYPE_PHONE:
+						$glyph	= 'phone-alt';
+						$title	= 'Festnetznummer';
+						break;
+					case PhoneNumber::TYPE_MOBILE:
+						$glyph	= 'phone';
+						$title	= 'Mobiltelefonnummer';
+						break;
+					case PhoneNumber::TYPE_FAX:
+						$glyph	= 'inbox';
+						$title	= 'Faxnummer';
+						break;
+					default:
+						$glyph	= 'earphone';
+						$title	= 'Telefonnummer';
+						break;
+				}
+				$numberBlock	.= sprintf($format, $title, $glyph, e($phoneNumber->number));
+			}
+		}
+
+		if (!$numberBlock) {
+			$numberBlock	= '<i class="empty" title="keine Telefonnummern gespeichert">(leer)</i>';
+		}
+
+		return $numberBlock;
+
 	}
 }

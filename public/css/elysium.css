@@ -138,3 +138,31 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
   padding: 1px 10px;
   clear: both;
 }
+
+.empty {
+	font-style: italic;
+	color: dimgray;
+}
+
+.btn-edit-inline {
+	float: right;
+	opacity: 0.2;
+}
+
+.btn-edit-inline:hover {
+	opacity: 1;
+}
+
+#modalPhoneNumber .row {
+	margin-bottom: 5px;
+	margin-top: 5px;
+}
+
+#modalPhoneNumber input[type=text] {
+	width:415px;
+}
+
+#modalPhoneNumber .button-remove-number, #modalPhoneNumber .button-add-number {
+	float:right;
+}
+
