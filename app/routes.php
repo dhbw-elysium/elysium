@@ -33,6 +33,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::any('docents/import/process', 'DocentsImportController@docentsImportProcess');
 
 	Route::get('docent/{did}', 'DocentController@showDocent');
+	Route::get('docent/{did}/phone-{group}.json', 'DocentController@docentPhoneList');
 
     Route::get('user', 'UserController@showUsers');
     Route::get('user/list', 'UserController@showUsers');
