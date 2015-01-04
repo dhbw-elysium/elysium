@@ -30,7 +30,7 @@
 	  <div class="form-horizontal" role="form">
 
 		<div class="row">
-			<div class="form-group"  style="display:none;">
+			<div class="form-group"  style="	">
 			  <div class="col-md-12">
 			  	{{Form::checkbox('docent['.$id.'][exclude]', 'value', Input::old('docent['.$id.'][exclude]'), array('class' => 'import-docent-exclude', 'data-docent-id' => $id))}}
 				<label for="docent[{{$id}}][exclude]" class="control-label"> Diesen Dozenten-Datensatz vom Import ausschließen</label>

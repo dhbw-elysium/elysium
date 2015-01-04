@@ -19,26 +19,28 @@
 	  {{ Form::hidden('did', $docent->did)}}
 	  {{ Form::hidden('is_private', 0)}}
       <div class="modal-body">
-		  <div class="row">
-			  <div class="col-sm-12">
-				  <div class="form-inline">
-					<div class="form-group">
-						<select class="form-control">
-						  <option>Mobil</option>
-						  <option>Festnetz</option>
-						  <option>Fax</option>
-						</select>
-					</div>
+		  <div class="form-number-elements">
+			  <div class="row">
+				  <div class="col-sm-12">
+					  <div class="form-inline">
+						<div class="form-group">
+							<select class="form-control" name="type[]">
+							  <option>Mobil</option>
+							  <option>Festnetz</option>
+							  <option>Fax</option>
+							</select>
+						</div>
 
-					 <div class="form-group">
-						<input type="text" class="form-control" id="phoneNumberNumber" placeholder="Telefonnummer">
-					</div>
+						<div class="form-group">
+							<input type="text" class="form-control" name="number[]" placeholder="Telefonnummer">
+						</div>
 
-					 <div class="form-group button-remove-number">
-						<button type="button" class="btn btn-danger">
-						  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-						</button>
-					</div>
+						 <div class="form-group button-remove-number">
+							<button type="button" class="btn btn-danger">
+							  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+							</button>
+						</div>
+					  </div>
 				  </div>
 			  </div>
 		  </div>
@@ -104,7 +106,7 @@
 							<div class="form-group">
 								<label class="col-md-5 control-label">Name:</label>
 								<div class="col-md-7">
-									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-private="true">
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-private="1">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
 									{{$docent->displayName()}}
@@ -121,7 +123,7 @@
 							<div class="form-group">
 								<label class="col-md-5 control-label">Telefon:</label>
 								<div class="col-md-7">
-									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-private="true">
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-did="{{{$docent->did}}}" data-private="1">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
 									{{$docent->displayPhoneNumberList()}}

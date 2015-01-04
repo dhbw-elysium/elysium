@@ -214,6 +214,111 @@ $(function () {
 	});
 
 
+	$('#modalPhoneNumber').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget),
+			did = parseInt(button.data('did')),
+			isPrivate = button.data('private'),
+			modal = $(this);
+
+	  	$('#modalPhoneNumber .form-number-elements').empty();
+		modal.find('[name=is_private]').val(isPrivate);
+
+		var numberTemplate	= function(type, number, pid) {
+			if (!number) {
+				number = '';
+			}
+			if (!pid) {
+				pid = '';
+			}
+
+			var template = '<div class="row">'+
+				  '<div class="col-sm-12">'+
+					  '<div class="form-inline">'+
+						'<div class="form-group">'+
+							'<select class="form-control" name="type[]">';
+			template +=		  '<option value="mobile"';
+			if (type == 'mobile') {
+				template	+= ' selected';
+			}
+			template +=		  '>Mobil</option>'+
+							  '<option value="phone"';
+			if (type == 'phone') {
+				template	+= ' selected';
+			}
+			template +=		  '>Festnetz</option>'+
+							  '<option  value="fax"';
+			if (type == 'fax') {
+				template	+= ' selected';
+			}
+			template +=		  '>Fax</option>'+
+							'</select>'+
+						'</div> '+
+						 '<div class="form-group">'+
+							'<input type="text" class="form-control" name="number[]" placeholder="Telefonnummer" value="'+number+'">'+
+							'<input type="hidden" name="pid[]" value="'+pid+'" class="pid">'+
+						'</div>'+
+						'<div class="form-group button-remove-number">'+
+							'<button type="button" class="btn btn-danger">'+
+							  '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'+
+							'</button>'+
+						'</div>'+
+					  '</div>'+
+				  '</div>'+
+			  '</div> ';
+
+			return template;
+		};
+
+		var addNumber = function(type, number, pid) {
+		  	$('#modalPhoneNumber .form-number-elements').append(numberTemplate(type, number, pid));
+
+			$('#modalPhoneNumber .form-number-elements .btn-danger').click(function(e) {
+				e.preventDefault();
+				var pid	= $(this).parent().parent().find('input.pid').val();
+				$(this).parent().parent().parent().parent().remove();
+				if (pid) {
+			  		$('#modalPhoneNumber .form-number-elements').append('<input type="hidden" name="delete[]" value="'+pid+'">');
+				}
+			});
+		};
+
+		var urlUpdate	= did+'/phone-'+(isPrivate ? 'private' : 'company')+'.json';
+		$.getJSON( urlUpdate, function( data ) {
+			$.each( data, function( key, val ) {
+				addNumber(val.type, val.number, val.pid);
+			});
+		});
+
+		$('#modalPhoneNumber .btn-success').click(function (e) {
+			e.preventDefault();
+			addNumber(null, '');
+		});
+
+
+		$('#modalPhoneNumber .btn-primary').click(function (e) {
+			e.preventDefault();
+			var token = $('#modalPhoneNumber [name=_token]').val();
+
+			$.ajax({
+				type: 'POST',
+				url: 'phone-update',
+				data: $(this).parent().parent().serializeArray(),
+				complete: function (jqXHR, status) {
+					$('#modalPhoneNumber').hide();
+					if (status == 'success') {
+						location.reload();
+					} else {
+						$.toaster({
+							title: 'Status',
+							priority: 'danger',
+							message: 'Beim speichern der Telefon-Nummern ist ein Fehler aufgetreten'
+						});
+					}
+				}
+			});
+		});
+	});
+
 
 	$('.import-docent-exclude').change(function (event) {
 		var checkbox = $(event.target),
