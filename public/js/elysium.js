@@ -213,6 +213,62 @@ $(function () {
 		});
 	});
 
+    $('#modalUserPassword').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget),
+            uid = button.data('uid'),
+            modal = $(this);
+
+        modal.find('#modalUserPassword [name=userPasswordUid]').val(uid);
+
+        $('#modalUserPassword .btn-primary').click(function (e) {
+            e.preventDefault();
+            var passwordField = $('#modalUserPassword [name=password]'),
+                passwordConfirmField = $('#modalUserPassword [name=passwordConfirm]'),
+                token = $('#modalUserPassword [name=_token]').val(),
+                password = passwordField.val(),
+                passwordConfirmation = passwordConfirmField.val(),
+                uid = $('#modalUserPassword [name=userPasswordUid]').val();
+
+            if (password != passwordConfirmation) {
+                $.toaster({
+                    title: 'Benutzer',
+                    priority: 'danger',
+                    message: 'Die Eingaben in den beiden Passwort-Feldern stimmen nicht überein'
+                });
+
+                passwordField.val('');
+                passwordConfirmField.val('');
+
+            } else {
+                $.ajax({
+                    type: 'POST',
+                    url: 'update/password',
+                    data: {
+                        _token: token,
+                        userUid: uid,
+                        userPassword: password
+                    },
+                    complete: function (jqXHR, status) {
+                        if (status == 'success') {
+                            $('#modalUserPassword').hide();
+                            $.toaster({
+                                title: 'Benutzer',
+                                priority: 'success',
+                                message: 'Das Passwort wurde aktualisiert'
+                            });
+
+                        } else {
+                            $.toaster({
+                                title: 'Benutzer',
+                                priority: 'danger',
+                                message: 'Das Passwort konnte nicht aktualisiert werden'
+                            });
+                        }
+                    }
+                });
+            }
+        });
+    });
 
 	$('#modalPhoneNumber').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget),

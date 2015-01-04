@@ -43,4 +43,9 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return ($this->role == self::ROLE_ADMIN);
     }
 
+    public function isCurrentUser($uid)
+    {
+        return ($this->uid == $uid);
+    }
+
 }

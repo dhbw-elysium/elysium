@@ -52,6 +52,7 @@
 							    <li><a href="{{{ URL::to('user/list') }}}">Benutzer</a></li>
 							    <li><a href="{{{ URL::to('status/list') }}}">Status</a></li>
 							@endif
+							<li><a href="{{{ URL::to('user/edit/'.Auth::user()->uid) }}}">Profil</a></li>
                             <li>{{ HTML::link('logout', 'Logout') }}</li>
                         @endif
                     </ul>
