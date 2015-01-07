@@ -274,7 +274,11 @@ $(function () {
 		var button = $(event.relatedTarget),
 			did = parseInt(button.data('did')),
 			isPrivate = button.data('private'),
+			modalTitle = 'Telefonnummern '+ ((isPrivate) ? '(privat)' : '(geschäftlich)'),
 			modal = $(this);
+
+		modal.find('.modal-title').text(modalTitle);
+
 
 	  	$('#modalPhoneNumber .form-number-elements').empty();
 		modal.find('[name=is_private]').val(isPrivate);

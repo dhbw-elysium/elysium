@@ -144,6 +144,10 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	color: dimgray;
 }
 
+.docent-detail .col-md-8 {
+	padding-right: 0;
+}
+
 .btn-edit-inline {
 	float: right;
 	opacity: 0.2;

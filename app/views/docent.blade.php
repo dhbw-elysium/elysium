@@ -92,21 +92,21 @@
 					<div class="row">
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-5 control-label">Titel:</label>
-								<div class="col-md-7">{{$docent->displayData('title')}}</div>
+								<label class="col-md-4 control-label">Titel:</label>
+								<div class="col-md-8">{{$docent->displayData('title')}}</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-5 control-label">Anrede:</label>
-								<div class="col-md-7">{{$docent->displayData('salution')}}</div>
+								<label class="col-md-4 control-label">Anrede:</label>
+								<div class="col-md-8">{{$docent->displayData('salution')}}</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-5 control-label">Name:</label>
-								<div class="col-md-7">
-									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-private="1">
+								<label class="col-md-4 control-label">Name:</label>
+								<div class="col-md-8">
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
 									{{$docent->displayName()}}
@@ -115,37 +115,110 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-5 control-label">E-Mail Adresse:</label>
-								<div class="col-md-7">{{$docent->displayData('email')}}</div>
+								<label class="col-md-4 control-label">E-Mail:</label>
+								<div class="col-md-8">{{$docent->displayData('email')}}</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-5 control-label">Telefon:</label>
-								<div class="col-md-7">
-									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-did="{{{$docent->did}}}" data-private="1">
+								<label class="col-md-4 control-label">Telefon:</label>
+								<div class="col-md-8">
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-did="{{{$docent->did}}}" data-private="1" data-toggle="tooltip" title="Telefonnummern bearbeiten">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
-									{{$docent->displayPhoneNumberList()}}
-
+									{{$docent->displayPhoneNumberList(true)}}
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-5 control-label">Anschrift:</label>
-								<div class="col-md-7">{{$docent->displayAddress(Address::TYPE_PRIVATE)}}</div>
+								<label class="col-md-4 control-label">Anschrift:</label>
+								<div class="col-md-8">{{$docent->displayAddress(Address::TYPE_PRIVATE)}}</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Webseite:</label>
+								<div class="col-md-8">{{$docent->displayData('website')}}</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Geburtstag:</label>
+								<div class="col-md-8">{{$docent->displayData('birth_day')}}</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Geburtsort:</label>
+								<div class="col-md-8">{{$docent->displayData('birth_place')}}</div>
 							</div>
 						</div>
 
 					</div>
 				</div>
-
 			</div>
 			<div role="tabpanel" class="tab-pane fade" id="company">
+				<div class="container-fluid form">
+					<div class="row">
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Firmen-Name:</label>
+								<div class="col-md-8">{{$docent->displayData('company_name')}}</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Abteilung:</label>
+								<div class="col-md-8">{{$docent->displayData('company_part')}}</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Beruf:</label>
+								<div class="col-md-8">{{$docent->displayData('company_job')}}</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Anschrift:</label>
+								<div class="col-md-8">{{$docent->displayAddress(Address::TYPE_COMPANY)}}</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Telefon:</label>
+								<div class="col-md-8">
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-did="{{{$docent->did}}}" data-private="0" data-toggle="tooltip" title="Telefonnummern bearbeiten">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+									{{$docent->displayPhoneNumberList(false)}}
 
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane fade" id="qualification">
+				<div class="container-fluid form">
+					<div class="row">
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Abschluss:</label>
+								<div class="col-md-8">{{$docent->displayData('graduation')}}</div>
+							</div>
+						</div>
+						<div class="col-sm-6 col-lg-6">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Ehemalige(r):</label>
+								<div class="col-md-8">{{$docent->displayData('is_exdhbw')}}</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
 
 			</div>
 			<div role="tabpanel" class="tab-pane fade" id="course">

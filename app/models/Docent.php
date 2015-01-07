@@ -237,7 +237,21 @@ class Docent extends Eloquent implements RemindableInterface {
 	 */
 	public function displayData($property) {
 		$data	= $this->$property;
+
 		if ($data) {
+			if ($data instanceof \DateTime) {
+
+				switch($property) {
+					case 'birth_day':
+						$format	= 'd.m.Y';
+						break;
+					default:
+						$format	= 'd.m.Y H:i';
+						break;
+				}
+
+				return $data->format($format);
+			}
 			return e($data);
 		} else {
 			return '<i class="empty" title="keine Angabe">(leer)</i>';
