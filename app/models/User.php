@@ -43,6 +43,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return ($this->role == self::ROLE_ADMIN);
     }
 
+    public function isLastAdmin()
+    {
+
+            if(DB::table('user')->where('role', self::ROLE_ADMIN)->count()==1){
+                return true;
+            }
+
+
+
+        return false;
+    }
+
     public function isCurrentUser($uid)
     {
         return ($this->uid == $uid);

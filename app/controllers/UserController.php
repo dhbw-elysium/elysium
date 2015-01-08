@@ -53,7 +53,7 @@ class UserController extends BaseController {
     }
 
     public function postUserUpdate(){
-        if (Auth::user()->isAdmin()){
+        $message='';
             $data = array(
                 'uid'	=> Input::get('uid'),
                 'firstname'	=> Input::get('firstname'),
@@ -67,35 +67,16 @@ class UserController extends BaseController {
                 'firstname'	=> 'required',
                 'lastname'	=> 'required',
                 'email'	=> 'required|email',
-                'role'	=> 'required'
-            );
-        }else{ //nicht Admins (eigener Nutzer darf keine Rolle setzen
-            $data = array(
-                'uid'	=> Input::get('uid'),
-                'firstname'	=> Input::get('firstname'),
-                'lastname'	=> Input::get('lastname'),
-                'email'	=> Input::get('email')
+                'role'	=> 'sometimes|required'
             );
 
-            $rules = array(
-                'uid'	=> 'required|numeric',
-                'firstname'	=> 'required',
-                'lastname'	=> 'required',
-                'email'	=> 'required|email'
-            );
-        }
             $validator = Validator::make($data, $rules);
 
             if ($validator->passes()) {
 
                 if (Auth::user()->isAdmin()||Auth::user()->isCurrentUser($data['uid'])) {
 
-                    if ($data['uid']) {
-                        $user = User::find($data['uid']);
-
-                    } else {
-                        $user = new User;
-                    }
+                    $user = User::find($data['uid']);
 
                     $user->firstname = $data['firstname'];
                     $user->lastname = $data['lastname'];
@@ -104,14 +85,18 @@ class UserController extends BaseController {
                         $user->email = $data['email'];
                     }
                     if (Auth::user()->isAdmin()){
+                    if(Auth::user()->isLastAdmin()&&($data['role']!=Auth::user()->ROLE_ADMIN)){
+                        return Redirect::to('user/list')->with('danger', 'Sie können dem letzten Admin nicht die Rechte entziehen!');
+                    }else{
                     $user->role = $data['role'];
+                    }
                     }
                     $user->save();
 
                     if(Auth::user()->isAdmin()){
-                        return View::make('user.list');
+                        return Redirect::to('user/list')->with('success', 'Änderung ist erfolgt');
                     }
-                    return View::make('home'); //everything worked out
+                    return Redirect::to('')->with('success', 'Änderung ist erfolgt');
                 }
             }
 
@@ -119,7 +104,7 @@ class UserController extends BaseController {
 
                // return View::make('user.edit')->with('uid',(int)$uid);//
 
-                return View::make('home');
+                return Redirect::to('')->with('danger', 'Änderung ist fehlgeschlagen');
 
 
 }}
