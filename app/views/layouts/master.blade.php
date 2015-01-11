@@ -14,6 +14,8 @@
         {{ HTML::style('css/bootstrap.css') }}
         {{ HTML::style('css/bootstrap-theme.css') }}
 		{{ HTML::style('css/bootstrap-table.min.css') }}
+        {{ HTML::style('css/datepicker.css') }}
+        {{ HTML::style('css/datepicker3.css') }}
 
         <style>
         @section('styles')
@@ -27,6 +29,7 @@
 
     <body>
         <!-- Navbar -->
+        <div class="container">
         <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -104,6 +107,8 @@
 		{{ HTML::script('js/bootstrap-table-filter.js') }}
 		{{ HTML::script('js/bootstrap-table-filter.de-DE.js') }}
         {{ HTML::script('js/jquery.toaster.js') }}
+        {{ HTML::script('js/bootstrap-datepicker.js') }}
+        {{ HTML::script('js/bootstrap-datepicker.de.js') }}
         {{ HTML::script('js/elysium.js') }}
     </body>
 </html>

@@ -7,7 +7,29 @@
 
 @section('content')
 
-<!-- Modal	course -->
+<!-- Modal	docent property -->
+<div class="modal fade" id="modalDocentData" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+        <h4 class="modal-title">Eigenschaft bearbeiten</h4>
+      </div>
+	  {{ Form::open() }}
+	  {{ Form::hidden('did', $docent->did)}}
+      <div class="modal-body form-horizontal">
+
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+		{{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
+      </div>
+	  {{ Form::close() }}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal	docent phone number -->
 <div class="modal fade" id="modalPhoneNumber" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -93,65 +115,100 @@
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Titel:</label>
-								<div class="col-md-8">{{$docent->displayData('title')}}</div>
+								<div class="col-md-8">
+									{{$docent->displayData('title')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="title">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Anrede:</label>
-								<div class="col-md-8">{{$docent->displayData('salution')}}</div>
+								<div class="col-md-8">
+									{{$docent->displayData('salution')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="salution">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Name:</label>
 								<div class="col-md-8">
-									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="tooltip" data-placement="left" title="Tooltip on left">
+									{{$docent->displayName()}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="name">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
-									{{$docent->displayName()}}
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">E-Mail:</label>
-								<div class="col-md-8">{{$docent->displayData('email')}}</div>
+								<div class="col-md-8">
+									{{$docent->displayData('email')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="email">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Telefon:</label>
 								<div class="col-md-8">
+									{{$docent->displayPhoneNumberList(true)}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-did="{{{$docent->did}}}" data-private="1" data-toggle="tooltip" title="Telefonnummern bearbeiten">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
-									{{$docent->displayPhoneNumberList(true)}}
 								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Anschrift:</label>
-								<div class="col-md-8">{{$docent->displayAddress(Address::TYPE_PRIVATE)}}</div>
+								<div class="col-md-8">
+									{{$docent->displayAddress(Address::TYPE_PRIVATE)}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="address_private">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Webseite:</label>
-								<div class="col-md-8">{{$docent->displayData('website')}}</div>
+								<div class="col-md-8">
+									{{$docent->displayData('website')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="website">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Geburtstag:</label>
-								<div class="col-md-8">{{$docent->displayData('birth_day')}}</div>
+								<div class="col-md-8">
+									{{$docent->displayData('birth_day')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="birth_day">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Geburtsort:</label>
-								<div class="col-md-8">{{$docent->displayData('birth_place')}}</div>
+								<div class="col-md-8">
+									{{$docent->displayData('birth_place')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="birth_place">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 
@@ -164,25 +221,45 @@
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Firmen-Name:</label>
-								<div class="col-md-8">{{$docent->displayData('company_name')}}</div>
+								<div class="col-md-8">
+									{{$docent->displayData('company_name')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="company_name">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Abteilung:</label>
-								<div class="col-md-8">{{$docent->displayData('company_part')}}</div>
+								<div class="col-md-8">
+									{{$docent->displayData('company_part')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="company_part">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Beruf:</label>
-								<div class="col-md-8">{{$docent->displayData('company_job')}}</div>
+								<div class="col-md-8">
+									{{$docent->displayData('company_job')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="company_job">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Anschrift:</label>
-								<div class="col-md-8">{{$docent->displayAddress(Address::TYPE_COMPANY)}}</div>
+								<div class="col-md-8">
+									{{$docent->displayAddress(Address::TYPE_COMPANY)}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="address_company">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
@@ -193,7 +270,6 @@
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
 									{{$docent->displayPhoneNumberList(false)}}
-
 								</div>
 							</div>
 						</div>
@@ -207,13 +283,23 @@
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Abschluss:</label>
-								<div class="col-md-8">{{$docent->displayData('graduation')}}</div>
+								<div class="col-md-8">
+									{{$docent->displayData('graduation')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="graduation">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Ehemalige(r):</label>
-								<div class="col-md-8">{{$docent->displayData('is_exdhbw')}}</div>
+								<div class="col-md-8">
+									{{$docent->displayData('is_exdhbw')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="is_exdhbw">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
 							</div>
 						</div>
 

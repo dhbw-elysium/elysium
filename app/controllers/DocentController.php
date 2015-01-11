@@ -10,6 +10,147 @@ class DocentController extends BaseController {
 
 
     /**
+     * Get json data which describes a form to edit a docents property
+     *
+     * @param   integer     $did        Docent id
+     * @param   string      $targetElement    Form property
+     * @return mixed
+     */
+    public function docentDataForm($did, $targetElement) {
+        $form   = array('elements' => array());
+
+        $docent = Docent::find($did);
+
+        $textElements   = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_part', 'company_job');
+        if (in_array($targetElement, $textElements )) {
+            $property   = $targetElement;
+            $tooltip    = '';
+            $type       = 'text';
+
+            switch($targetElement) {
+                case 'title':
+                    $label      = 'Titel';
+                    $tooltip    = 'Akademischer Titel';
+                    break;
+                case 'salution':
+                    $label      = 'Anrede';
+                    break;
+                case 'birth_place':
+                    $label      = 'Geburtsort';
+                    break;
+                case 'website':
+                    $label      = 'Website';
+                    break;
+                case 'email':
+                    $label      = 'E-Mail';
+                    $tooltip    = 'E-Mail Adresse';
+                    break;
+                case 'company_name':
+                    $label      = 'Firmen-Name';
+                    break;
+                case 'company_part':
+                    $label      = 'Abteilung';
+                    $tooltip    = 'Firmen-Abteilung';
+                    break;
+                case 'company_job':
+                    $label      = 'Beruf';
+                    break;
+            }
+
+            $formElement    = array(
+                'name'      => $targetElement,
+                'label'     => $label,
+                'tooltip'   => $tooltip,
+                'type'      => $type,
+                'value'     => e($docent->$property)
+            );
+
+            $form['elements'][] = $formElement;
+
+        } else {
+            switch($targetElement) {
+                case 'birth_day':
+                    $birthDate  = new \DateTime($docent->birth_day);
+
+                    $formElement    = array(
+                        'name'      => 'birth_day',
+                        'label'     => 'Geburstdatum',
+                        'tooltip'   => '',
+                        'type'      => 'date',
+                        'value'     => $birthDate->format('d.m.Y')
+                    );
+                    $form['elements'][] = $formElement;
+                    break;
+                case 'address_private':
+                case 'address_company':
+                    if ($targetElement == 'address_private') {
+                        $address = $docent->privateAddress();
+                    } else {
+                        $address = $docent->companyAddress();
+                    }
+
+                    $formElement    = array(
+                        'name'      => 'address_street',
+                        'label'     => 'Straße',
+                        'tooltip'   => 'Straße und Hausnummer',
+                        'type'      => 'text',
+                        'value'     => e($address->street)
+                    );
+                    $form['elements'][] = $formElement;
+
+                    $formElement    = array(
+                        'name'      => 'address_city',
+                        'label'     => 'Ort',
+                        'tooltip'   => '',
+                        'type'      => 'text',
+                        'value'     => e($address->city)
+                    );
+                    $form['elements'][] = $formElement;
+
+
+                    $formElement    = array(
+                        'name'      => 'address_plz',
+                        'label'     => 'PLZ',
+                        'tooltip'   => 'Postleitzahl',
+                        'type'      => 'text',
+                        'value'     => e($address->plz)
+                    );
+                    $form['elements'][] = $formElement;
+                    break;
+                case 'name':
+                    $formElement    = array(
+                        'name'      => 'first_name',
+                        'label'     => 'Vorname',
+                        'tooltip'   => '',
+                        'type'      => 'text',
+                        'value'     => e($docent->first_name)
+                    );
+                    $form['elements'][] = $formElement;
+
+                    $formElement    = array(
+                        'name'      => 'last_name',
+                        'label'     => 'Nachname',
+                        'tooltip'   => '',
+                        'type'      => 'text',
+                        'value'     => e($docent->last_name)
+                    );
+                    $form['elements'][] = $formElement;
+
+                    break;
+            }
+        }
+
+
+
+
+
+
+        return Response::json($form);
+    }
+
+
+
+    /**
      * Get a json list of docents phone numbers
      *
      * @param   integer     $did        Docent id

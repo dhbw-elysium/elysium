@@ -270,6 +270,57 @@ $(function () {
         });
     });
 
+	$('#modalDocentData').on('show.bs.modal', function (event) {
+		if (!event.relatedTarget) {
+			return;
+		}
+		var button = $(event.relatedTarget),
+			did = parseInt(button.data('did')),
+			property = button.data('property'),
+			modal = $(this);
+
+		var elementTemplate	= function(type, name, value, label, tooltip) {
+			var template =
+				'<div class="form-group">'+
+					'<label class="col-sm-3 control-label"'+ ((tooltip) ? ' title="'+tooltip +'"': '') +'>'+ label +'</label>' +
+					'<div class="col-sm-9">';
+
+			if (type == 'text' || type == 'email') {
+            	template = template+'<input type="text" class="form-control" id="'+name+'" name="'+name+'" value="'+value+'" placeholder="(leer)">';
+			} else if(type == 'date') {
+				template = template+'<div class="input-group date">'+
+  					'<input type="text" class="form-control" value="'+value+'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>'+
+				'</div> ';
+
+			}
+
+			template	= template +
+				  '</div>'+
+			  '</div> ';
+
+			return template;
+		};
+
+		modal.find('.modal-body').empty();	//clear form
+
+		$.getJSON(did+'/data-form-'+property+'.json', function( data ) {
+			console.log(data);
+
+			$.each( data.elements, function( key, val ) {
+				$('#modalDocentData .modal-body').append(elementTemplate(val.type, val.name, val.value, val.label, val.tooltip));
+				if (val.type == 'date') {
+					$('#modalDocentData .modal-body .input-group.date').datepicker({
+						format: "dd.mm.yyyy",
+						language: "de"
+					});
+				}
+			});
+		});
+
+
+
+	});
+
 	$('#modalPhoneNumber').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget),
 			did = parseInt(button.data('did')),
