@@ -270,6 +270,43 @@ $(function () {
         });
     });
 
+    $('#modalUserDelete').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget),
+            uid = button.data('uid'),
+            name = button.data('name'),
+            modal = $(this);
+
+        modal.find('#userDeleteUid').val(uid);
+        modal.find('#userDeleteName').text(name);
+
+        $('#modalUserDelete .btn-primary').click(function (e) {
+            e.preventDefault();
+            var token = $('#modalUserDelete [name=_token]').val(),
+                uid = $('#modalUserDelete #userDeleteUid').val();
+
+            $.ajax({
+                type: 'POST',
+                url: 'delete',
+                data: {
+                    _token: token,
+                    userUid: uid
+                },
+                complete: function (jqXHR, status) {
+                    $('#modalUserDelete').hide();
+                    if (status == 'success') {
+                        location.reload();
+                    } else {
+                        $.toaster({
+                            title: 'Benutzer',
+                            priority: 'danger',
+                            message: 'Der Benutzer konnte nicht gelöscht werden'
+                        });
+                    }
+                }
+            });
+        });
+    });
+
 	$('#modalDocentData').on('show.bs.modal', function (event) {
 		if (!event.relatedTarget) {
 			return;
