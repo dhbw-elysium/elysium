@@ -1,3 +1,30 @@
+/** General **/
+.navbar.navbar-default {
+	background-image: -webkit-linear-gradient(top, #d7d7d7 0%, #c3c3c3 100%);
+	background-image: -o-linear-gradient(top, #d7d7d7 0%, #c3c3c3 100%);
+	background-image: -webkit-gradient(linear, left top, left bottom, from(#d7d7d7), to(#c3c3c3));
+	background-image: linear-gradient(to bottom, #d7d7d7 0%, #c3c3c3 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#d7d7d7fffff', endColorstr='#d7d7d78f8f8', GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+	background-repeat: repeat-x;
+
+/*
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px;
+	*/
+}
+
+
+.navbar.navbar-default .navbar-nav > li > a {
+	color: #494949;
+}
+.navbar.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+	color: #2e820f;
+	background-color: transparent;
+}
+
+/** **/
+
 .text-label-empty {
 	color:gray;
 	font-style: italic;
@@ -148,9 +175,17 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	padding-right: 0;
 }
 
+.docent-detail .col-md-8:hover > .btn-edit-inline {
+	opacity: 0.5;
+}
+
+.docent-detail .col-md-8 > .btn-edit-inline:hover {
+	opacity: 1;
+}
+
 .btn-edit-inline {
-	float: right;
-	opacity: 0.2;
+	margin-left: 2px;
+	opacity: 0;
 }
 
 .btn-edit-inline:hover {
