@@ -40,8 +40,17 @@
 
 <div class="row">
     <div class="col-md-8">
-    @if ($user	= User::find($uid))
+    <?php
+    $user   = null;
+    if ($uid) {
+        $user	= User::find($uid);
+    }
+    ?>
+            @if(!$user==null)
             {{ Form::open(array('url' => 'user/edit/update','class'=> 'form-horizontal'))}}
+            @else
+            {{ Form::open(array('url' => 'user/edit/updateNew','class'=> 'form-horizontal'))}}
+            @endif
 
 
 
@@ -52,7 +61,7 @@
                     {{Form::label('firstname', 'Vorname',array('class'=>'col-sm-3 control-label'))}}
 
                     <div class="col-sm-9">
-                        {{Form::text('firstname', $user->firstname, array('class'=>'form-control'))}}
+                        {{Form::text('firstname', ($user ? $user->firstname : ''), array('class'=>'form-control'))}}
                     </div>
                 </div>
 
@@ -60,14 +69,14 @@
                     {{Form::label('lastname', 'Nachname',array('class'=>'col-sm-3 control-label'))}}
 
                     <div class="col-sm-9">
-                        {{Form::text('lastname', $user->lastname, array('class'=>'form-control'))}}
+                        {{Form::text('lastname', ($user ? $user->lastname : ''), array('class'=>'form-control'))}}
                     </div>
                 </div>
                 <div class="form-group">
                     {{Form::label('email', 'E-Mail Addresse',array('class'=>'col-sm-3 control-label'))}}
 
                     <div class="col-sm-9">
-                        {{Form::email('email', $user->email, array('class'=>'form-control'))}}
+                        {{Form::email('email', ($user ? $user->email : ''), array('class'=>'form-control'))}}
                     </div>
                 </div>
                 @if(Auth::user()->isAdmin())
@@ -75,13 +84,24 @@
                     {{Form::label('role', 'Rolle',array('class'=>'col-sm-3 control-label'))}}
 
                     <div class="col-sm-9">
-                        {{Form::select('role', array($user::ROLE_ADMIN => 'Admin', $user::ROLE_USER => 'User'), $user->role, array('class'=>'form-control'))}}
+                        {{Form::select('role', array(User::ROLE_ADMIN => 'Admin', User::ROLE_USER => 'User'), ($user ? $user->role : 'user'), array('class'=>'form-control'))}}
                     </div>
                 </div>
                 @endif
+                                @if($user==null)
+                                <div class="form-group">
+                                    {{Form::label('password', 'Passwort',array('class'=>'col-sm-3 control-label'))}}
+
+                    <div class="col-sm-9">
+                        {{Form::password('password', array('class'=>'form-control'))}}
+                    </div>
+                                </div>
+                                @endif
                 <div class="btn-group" style="float:right;" role="group">
                  <a class="btn btn-default" href="{{{ URL::to('user/list/') }}}">Abbrechen</a>
+                 @if(!$user==null)
                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUserPassword" data-uid="{{$uid}}">Neues Passwort</button>
+		         @endif
 		         {{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
                  </div>
 
@@ -91,5 +111,4 @@
 </div>
 
 
- @endif
 @stop
