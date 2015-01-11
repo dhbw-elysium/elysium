@@ -39,7 +39,10 @@ Route::group(array('before' => 'auth'), function() {
 
     Route::get('user', 'UserController@showUsers');
     Route::get('user/list', 'UserController@showUsers');
+    Route::post('user/delete', 'UserController@postUserDelete');
     Route::get('user/edit', 'UserController@showUsers');
+    Route::get('user/new', 'UserController@createNewUser');
+    Route::post('user/edit/updateNew', 'UserController@updateNewUser');
     Route::get('user/edit/{uid}', 'UserController@showUserEdit');
     Route::post('user/edit/update', 'UserController@postUserUpdate');
     Route::post('user/edit/update/password', 'UserController@postUserPasswordUpdate');
