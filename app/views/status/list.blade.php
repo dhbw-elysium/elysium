@@ -6,7 +6,7 @@
 @stop
 
 @section('content')
-<h1>Status Verwaltung</h1>
+<h1>Statusverwaltung</h1>
 
 <!-- Modal	status -->
 <div class="modal fade" id="modalStatusDelete" tabindex="-1" role="dialog" aria-hidden="true">
@@ -49,7 +49,7 @@
 				<th>Titel</th>
 				<th>Themenbereich</th>
 				<th class="row-action">
-					<button type="button" class="btn btn-success btn-xs" title="Neuen Status hinzufügen"  data-toggle="tooltip" data-placement="left">
+					<button type="button" class="btn btn-default btn-add  btn-xs" title="Neuen Status hinzufügen"  data-toggle="tooltip" data-placement="left">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</button>
 				</th>
@@ -73,7 +73,7 @@
 						<a class="btn btn-default btn-xs" href="edit/{{{$status->sid}}}" data-toggle="tooltip" data-placement="left" title="Status bearbeiten">
 						  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 						</a>
-						<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{$status->title}}">
+						<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{$status->title}}">
 						  <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
 						</button>
 					</td>

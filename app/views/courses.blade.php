@@ -127,7 +127,7 @@
 						<th>Titel</th>
 						<th>Themenbereich</th>
 						<th class="row-action">
-							<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="0" data-cgid="" data-title="" title="Neue Vorlesung hinzufügen">
+							<button type="button" class="btn btn-default btn-add btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="0" data-cgid="" data-title="" title="Neue Vorlesung hinzufügen">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							</button>
 						</th>
@@ -144,7 +144,7 @@
 								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="{{{$course->cid}}}" data-cgid="{{{$course->cgid}}}" data-title="{{$course->title}}">
 								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 								</button>
-								<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalCourseDelete" data-cid="{{{$course->cid}}}" data-title="{{$course->title}}">
+								<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalCourseDelete" data-cid="{{{$course->cid}}}" data-title="{{$course->title}}">
 								  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								</button>
 							</td>
@@ -177,7 +177,7 @@
 						<th class="row-id">#</th>
 						<th>Titel</th>
 						<th class="row-action">
-							<button type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#modalCourseGroup" data-cgid="0" data-title="" title="Neuen Themenbereich hinzufügen">
+							<button type="button" class="btn btn-default btn-add btn-xs" data-toggle="modal" data-target="#modalCourseGroup" data-cgid="0" data-title="" title="Neuen Themenbereich hinzufügen">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							</button>
 						</th>
@@ -193,7 +193,7 @@
 								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalCourseGroup" data-cgid="{{{$group->cgid}}}" data-title="{{$group->title}}">
 								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 								</button>
-								<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalCourseGroupDelete" data-cgid="{{{$group->cgid}}}" data-title="{{$group->title}}">
+								<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalCourseGroupDelete" data-cgid="{{{$group->cgid}}}" data-title="{{$group->title}}">
 								  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								</button>
 							</td>

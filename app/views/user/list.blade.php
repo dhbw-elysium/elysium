@@ -41,7 +41,7 @@
 						<th>Vorname</th>
 						<th>Rolle</th>
 						<th class="row-action">
-							<a class="btn btn-success btn-xs" href="{{{ URL::to('user/new') }}}">
+							<a class="btn btn-default btn-add btn-xs" href="{{{ URL::to('user/new') }}}">
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							</a>
 						</th>
@@ -60,7 +60,7 @@
 								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 								</a>
 
-								<button type="button" class="btn btn-danger btn-xs {{(($user->isCurrentUser(Auth::user()->uid)) ? 'disabled' : '')}}" data-toggle="modal" data-target="#modalUserDelete" data-uid="{{{$user->uid}}}" data-name="{{$user->lastname.', '.$user->firstname}}"  >
+								<button type="button" class="btn btn-default btn-remove btn-xs {{(($user->isCurrentUser(Auth::user()->uid)) ? 'disabled' : '')}}" data-toggle="modal" data-target="#modalUserDelete" data-uid="{{{$user->uid}}}" data-name="{{$user->lastname.', '.$user->firstname}}"  >
 								  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								</button>
 

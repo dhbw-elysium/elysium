@@ -40,7 +40,7 @@
 	</div>
 	<div class="col-md-8">
 		<div style="float: right;margin-top: 20px;margin-bottom: 10px;">
-			<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{$status->title}}">
+			<button type="button" class="btn btn-default btn-remove" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{$status->title}}">
 			  <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span> in Papierkorb verschieben
 			</button>
 		</div>

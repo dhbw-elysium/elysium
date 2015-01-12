@@ -160,7 +160,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Telefon:</label>
 								<div class="col-md-8">
-									{{$docent->displayPhoneNumberList(true)}}
+									<div>{{$docent->displayPhoneNumberList(true)}}</div>
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-did="{{{$docent->did}}}" data-private="1" data-toggle="tooltip" title="Telefonnummern bearbeiten">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
@@ -266,10 +266,10 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Telefon:</label>
 								<div class="col-md-8">
+									{{$docent->displayPhoneNumberList(false)}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-did="{{{$docent->did}}}" data-private="0" data-toggle="tooltip" title="Telefonnummern bearbeiten">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
-									{{$docent->displayPhoneNumberList(false)}}
 								</div>
 							</div>
 						</div>

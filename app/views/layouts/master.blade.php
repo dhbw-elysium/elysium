@@ -55,10 +55,10 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{{ URL::to('user/edit/'.Auth::user()->uid) }}}">Profil</a></li>
                         @if ( Auth::guest() )
                             <li>{{ HTML::link('login', 'Login') }}</li>
                         @else
+                            <li><a href="{{{ URL::to('user/edit/'.Auth::user()->uid) }}}">Profil</a></li>
                             <li style="font-weight: bold;">{{ HTML::link('logout', 'Logout') }}</li>
                         @endif
                     </ul>

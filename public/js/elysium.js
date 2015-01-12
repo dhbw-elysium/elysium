@@ -355,6 +355,28 @@ $(function () {
 		});
 
 
+		$('#modalDocentData .btn-primary').click(function (e) {
+			e.preventDefault();
+			var token = $('#modalDocentData [name=_token]').val();
+
+			$.ajax({
+				type: 'POST',
+				url: did+'/data-form-'+property,
+				data: $(this).parent().parent().serializeArray(),
+				complete: function (jqXHR, status) {
+					//$('#modalDocentData').hide();
+					if (status == 'success') {
+						//location.reload();
+					} else {
+						$.toaster({
+							title: 'Status',
+							priority: 'danger',
+							message: 'Beim speichern der Informationen ist ein Fehler aufgetreten'
+						});
+					}
+				}
+			});
+		});
 
 	});
 
