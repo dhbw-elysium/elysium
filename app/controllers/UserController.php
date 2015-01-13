@@ -71,7 +71,7 @@ class UserController extends BaseController {
 
           if(Input::has('role')){
                 $data['role']   = Input::get('role');
-                $rules['role']  = 'required|role';
+                $rules['role']  = 'required';
            }
 
             $validator = Validator::make($data, $rules);
@@ -89,10 +89,8 @@ class UserController extends BaseController {
                         $user->email = $data['email'];
                     }
                     if (Auth::user()->isAdmin()){
-                    if(Auth::user()->isLastAdmin()&&($data['role']!=Auth::user()->ROLE_ADMIN)){
-                        return Redirect::to('user/list')->with('danger', 'Sie können dem letzten Admin nicht die Rechte entziehen!');
-                    }else{
-                    $user->role = $data['role'];
+                    if(!Auth::user()->isCurrentUser($user->uid)){
+                            $user->role = $data['role'];
                     }
                     }
                     $user->save();
@@ -153,8 +151,13 @@ class UserController extends BaseController {
 
             }
             $messages=$validator->messages();
+            $returnMessage='';
+            foreach ($messages->all() as $message)
+            {
+            $returnMessage=$returnMessage.' '.$message;
+            }
 
-            return Redirect::to('user/list')->with('danger', 'Benutzer anlegen fehlgeschlagen');
+            return Redirect::to('user/list')->with('danger', 'Benutzer anlegen fehlgeschlagen'.' '.$returnMessage);
         }
         return Redirect::to('home')->with('danger', 'Hier ist ein Fehler aufgetreten!');
     }

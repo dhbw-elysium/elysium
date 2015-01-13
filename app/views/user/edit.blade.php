@@ -80,6 +80,7 @@
                     </div>
                 </div>
                 @if(Auth::user()->isAdmin())
+                @if(($user&&!Auth::user()->isCurrentUser($user->uid))||$user==null)
                 <div class="form-group">
                     {{Form::label('role', 'Rolle',array('class'=>'col-sm-3 control-label'))}}
 
@@ -87,6 +88,7 @@
                         {{Form::select('role', array(User::ROLE_ADMIN => 'Admin', User::ROLE_USER => 'User'), ($user ? $user->role : 'user'), array('class'=>'form-control'))}}
                     </div>
                 </div>
+                @endif
                 @endif
                                 @if($user==null)
                                 <div class="form-group">
