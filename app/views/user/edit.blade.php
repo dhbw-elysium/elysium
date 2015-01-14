@@ -92,7 +92,7 @@
                 @endif
                                 @if($user==null)
                                 <div class="form-group">
-                                    {{Form::label('password', 'Passwort',array('class'=>'col-sm-3 control-label'))}}
+                                    {{Form::label('password', 'Passwort',array('class'=>'col-sm-3 control-label', 'autocomplete' => 'off'))}}
 
                     <div class="col-sm-9">
                         {{Form::password('password', array('class'=>'form-control'))}}
