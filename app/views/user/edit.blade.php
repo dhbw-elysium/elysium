@@ -47,9 +47,9 @@
     }
     ?>
             @if(!$user==null)
-            {{ Form::open(array('url' => 'user/edit/update','class'=> 'form-horizontal'))}}
+            {{ Form::open(array('url' => 'user/edit/update','class'=> 'form-horizontal', 'autocomplete' => 'off'))}}
             @else
-            {{ Form::open(array('url' => 'user/edit/updateNew','class'=> 'form-horizontal'))}}
+            {{ Form::open(array('url' => 'user/edit/updateNew','class'=> 'form-horizontal', 'autocomplete' => 'off'))}}
             @endif
 
 
