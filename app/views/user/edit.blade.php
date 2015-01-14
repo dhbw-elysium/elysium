@@ -95,7 +95,7 @@
                                     {{Form::label('password', 'Passwort',array('class'=>'col-sm-3 control-label'))}}
 
                     <div class="col-sm-9">
-                        {{Form::password('password', array('class'=>'form-control' , 'autocomplete' => 'off'))}}
+                        {{Form::password('password', array('class'=>'form-control'))}}
                     </div>
                                 </div>
                                 @endif
