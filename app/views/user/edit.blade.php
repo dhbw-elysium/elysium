@@ -55,7 +55,13 @@
 
 
                 {{ Form::hidden('uid',$uid)}}
+                                <div class="form-group">
+                                    {{Form::label('title', 'Anrede',array('class'=>'col-sm-3 control-label'))}}
 
+                                    <div class="col-sm-9">
+                                        {{Form::select('title', array(User::TITLE_FEMALE => 'Frau', User::TITLE_MALE => 'Herr'), ($user ? $user->title : 'female'), array('class'=>'form-control'))}}
+                                    </div>
+                                </div>
 
                 <div class="form-group">
                     {{Form::label('firstname', 'Vorname',array('class'=>'col-sm-3 control-label'))}}

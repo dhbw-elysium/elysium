@@ -56,6 +56,7 @@ class UserController extends BaseController {
 
             $data = array(
                 'uid'	=> Input::get('uid'),
+                'title' => Input::get('title'),
                 'firstname'	=> Input::get('firstname'),
                 'lastname'	=> Input::get('lastname'),
                 'email'	=> Input::get('email')
@@ -64,6 +65,7 @@ class UserController extends BaseController {
 
             $rules = array(
                 'uid'	=> 'required|numeric',
+                'title' => 'required',
                 'firstname'	=> 'required',
                 'lastname'	=> 'required',
                 'email'	=> 'required|email'
@@ -81,7 +83,7 @@ class UserController extends BaseController {
                 if (Auth::user()->isAdmin()||Auth::user()->isCurrentUser($data['uid'])) {
 
                     $user = User::find($data['uid']);
-
+                    $user->title = $data['title'];
                     $user->firstname = $data['firstname'];
                     $user->lastname = $data['lastname'];
 
@@ -118,7 +120,7 @@ class UserController extends BaseController {
     public function updateNewUser(){
         if(Auth::user()->isAdmin()) {
             $data = array(
-
+                'title' => Input::get('title'),
                 'firstname' => Input::get('firstname'),
                 'lastname' => Input::get('lastname'),
                 'email' => Input::get('email'),
@@ -128,7 +130,7 @@ class UserController extends BaseController {
 
 
             $rules = array(
-
+                'title' => 'required',
                 'firstname' => 'required',
                 'lastname' => 'required',
                 'email' => 'required|email|unique:user,email',
@@ -141,6 +143,7 @@ class UserController extends BaseController {
 
             if ($validator->passes()) {
                 $user = new User;
+                $user->title = $data['title'];
                 $user->firstname = $data['firstname'];
                 $user->lastname = $data['lastname'];
                 $user->email = $data['email'];
