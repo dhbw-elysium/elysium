@@ -106,6 +106,7 @@ class Docent extends Eloquent implements RemindableInterface {
         static::creating(function($docent)
         {
             $docent->created_by = Auth::user()->uid;
+            $entity->updated_by = Auth::user()->uid;
         });
 
         static::updating(function($docent)

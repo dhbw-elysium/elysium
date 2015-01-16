@@ -53,6 +53,7 @@ class PhoneNumber extends Eloquent implements RemindableInterface {
         static::creating(function($entity)
         {
             $entity->created_by = Auth::user()->uid;
+            $entity->updated_by = Auth::user()->uid;
         });
 
         static::updating(function($entity)
