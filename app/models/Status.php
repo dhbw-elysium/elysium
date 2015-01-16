@@ -276,6 +276,10 @@ class Status extends Eloquent implements RemindableInterface {
             $entity->deleted_by = Auth::user()->uid;
         });
 
+		static::restoring(function($entity)
+        {
+            $entity->deleted_by = null;
+        });
     }
 
 }
