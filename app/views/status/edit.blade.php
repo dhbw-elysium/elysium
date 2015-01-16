@@ -30,20 +30,26 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
-@if($status	= Status::find($sid))
+@if($sid === null || $status = Status::find($sid))
 {{ Form::open()}}
-{{ Form::hidden('sid', $sid, array('id' => 'sid')); }}
+{{ Form::hidden('sid', ($sid === null ? 0 : $sid), array('id' => 'sid')); }}
 
 <div class="row">
 	<div class="col-md-4">
+		@if($sid)
 		<h1>Status bearbeiten</h1>
+		@else
+		<h1>Status erstellen</h1>
+		@endif
 	</div>
 	<div class="col-md-8">
+		@if($sid)
 		<div style="float: right;margin-top: 20px;margin-bottom: 10px;">
 			<button type="button" class="btn btn-default btn-remove" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{$status->title}}">
 			  <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span> in Papierkorb verschieben
 			</button>
 		</div>
+		@endif
 	</div>
 </div>
 
@@ -51,13 +57,13 @@
 	<div class="col-md-4">
 		  <div class="form-group">
 			{{Form::label('title', 'Titel')}}
-			{{Form::text('title', (Input::has('title') ? Input::get('title') : $status->title), array('class'=>'form-control', 'placeholder' => 'Titel'))}}
+			{{Form::text('title', ((Input::has('title') || $sid === null) ? Input::get('title') : $status->title), array('class'=>'form-control', 'placeholder' => 'Titel'))}}
 		  </div>
 	</div>
 	<div class="col-md-8">
 		  <div class="form-group">
 			{{Form::label('description', 'Beschreibung')}}
-			{{Form::text('description', (Input::has('description') ? Input::get('description') : $status->description), array('class'=>'form-control', 'placeholder' => 'Beschreibung', 'rows' => 4))}}
+			{{Form::text('description', ((Input::has('description') || $sid === null) ? Input::get('description') : $status->description), array('class'=>'form-control', 'placeholder' => 'Beschreibung', 'rows' => 4))}}
 		  </div>
 	</div>
 </div>
@@ -69,18 +75,20 @@
 	<ul>
 	@foreach(Status::glyphicons() as $glyph)
 		<?php
-			$selected	= ($status->glyph == $glyph);
+			$glyphClass	= '';
 
-			if($status->glyph == $glyph) {
-				$glyphClass	= 'glyhicon-selected ';
-			} else {
-				$glyphClass	= '';
+			if ($sid !== null) {
+				$selected	= ($status->glyph == $glyph);
+
+				if($status->glyph == $glyph) {
+					$glyphClass	= 'glyhicon-selected ';
+				}
 			}
 		?>
 		<li class="{{$glyphClass}}">
 			<label>
 				<div class="glyph-list-box">
-					{{Form::radio('glyph', $glyph, $glyph == (Input::has('glyph') ? Input::get('glyph') : $status->glyph))}}
+					{{Form::radio('glyph', $glyph, $glyph == ((Input::has('glyph') || $sid === null) ? Input::get('glyph') : $status->glyph))}}
 				</div>
 				<div class="glyph-list-preview">
 					<div>

@@ -49,9 +49,9 @@
 				<th>Titel</th>
 				<th>Themenbereich</th>
 				<th class="row-action">
-					<button type="button" class="btn btn-default btn-add  btn-xs" title="Neuen Status hinzufügen"  data-toggle="tooltip" data-placement="left">
-						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					</button>
+					<a class="btn btn-default btn-add btn-xs" href="new" data-toggle="tooltip" data-placement="left" title="Neuen Status hinzufügen">
+					  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+					</a>
 				</th>
 			</tr>
 		  </thead>

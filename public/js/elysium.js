@@ -203,7 +203,7 @@ $(function () {
 				complete: function (jqXHR, status) {
 					$('#modalStatusDelete').hide();
 					if (status == 'success') {
-						//location.reload();
+						location.reload();
 					} else {
 						$.toaster({
 							title: 'Status',

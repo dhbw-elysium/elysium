@@ -12,12 +12,16 @@ class StatusController extends BaseController {
     }
 
 
-    public function showStatusEdit($sid)
+    public function showStatusEdit($sid = null)
     {
-        return View::make('status.edit')->with('sid',(int)$sid);
+		if ($sid !== null) {
+			$sid	= (int)$sid;
+		}
+
+        return View::make('status.edit')->with('sid', $sid);
     }
 
-	public function postStatusEdit($sid)
+	public function postStatusEdit($sid = null)
 	{
 		$data = array(
 			'sid'			=> Input::get('sid'),
@@ -38,7 +42,11 @@ class StatusController extends BaseController {
 		$validator = Validator::make($data, $rules);
 
 		if ($validator->passes() && in_array($data['glyph'], Status::glyphicons())) {
-			$status					= Status::find($data['sid']);
+			if ($data['sid'] == 0) {
+				$status	= new Status;
+			} else {
+				$status	= Status::find($data['sid']);
+			}
 			$status->title			= $data['title'];
 			$status->description	= $data['description'];
 			$status->glyph			= $data['glyph'];
