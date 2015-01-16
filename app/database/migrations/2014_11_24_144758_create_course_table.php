@@ -24,6 +24,18 @@ class CreateCourseTable extends Migration {
 			$table->string('title')->unique();
 
 			$table->timestamps();
+			$table->unsignedInteger('created_by');
+			$table->foreign('created_by')
+				  ->references('uid')
+				  ->on('user')
+				  ->onUpdate('cascade')
+				  ->onDelete('cascade');
+			$table->unsignedInteger('updated_by');
+			$table->foreign('updated_by')
+				  ->references('uid')
+				  ->on('user')
+				  ->onUpdate('cascade')
+				  ->onDelete('cascade');
 		});
 	}
 
