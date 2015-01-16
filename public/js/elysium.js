@@ -1,4 +1,7 @@
 $(function () {
+
+	$('[data-toggle="tooltip"]').tooltip();
+
 	$('#modalCourse').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget),
 			cid = button.data('cid'),
