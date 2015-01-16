@@ -60,7 +60,7 @@
 								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 								</a>
 
-								<button type="button" class="btn btn-default btn-remove btn-xs {{(($user->isCurrentUser(Auth::user()->uid)) ? 'disabled' : '')}}" data-toggle="modal" data-target="#modalUserDelete" data-uid="{{{$user->uid}}}" data-name="{{$user->lastname.', '.$user->firstname}}"  >
+								<button type="button" class="btn btn-default btn-remove btn-xs {{(($user->isCurrentUser(Auth::user()->uid)) ? 'disabled' : '')}}" data-toggle="modal" data-target="#modalUserDelete" data-uid="{{{$user->uid}}}" data-name="{{{$user->lastname.', '.$user->firstname}}}"  >
 								  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 								</button>
 

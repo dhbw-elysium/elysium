@@ -20,6 +20,7 @@ class CreateUsersTable extends Migration {
             $table->string('lastname', 128);
             $table->string('email', 128);
             $table->string('password', 64);
+            $table->dateTime('last_login');
             $table->string('remember_token', 100)->nullable();
             $table->string('role', 64)->default(User::ROLE_ADMIN);
 			$table->timestamps();
@@ -33,6 +34,7 @@ class CreateUsersTable extends Migration {
 				'lastname'	=> 'Theoboldt',
 				'email'		=> 'erik@teqneers.de',
 				'password'	=> Hash::make('admin'),
+                'last_login'    => new DateTime,
                 'role'	=> User::ROLE_ADMIN
 			)
     	);
