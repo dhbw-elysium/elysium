@@ -79,3 +79,12 @@ App::down(function()
 */
 
 require app_path().'/filters.php';
+
+Event::listen('auth.login', function($user)
+{
+    Session::put('last_login', $user->last_login);
+
+    $user->last_login = new DateTime;
+
+    $user->save();
+});

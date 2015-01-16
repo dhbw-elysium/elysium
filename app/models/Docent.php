@@ -341,4 +341,14 @@ class Docent extends Eloquent implements RemindableInterface {
 		return $numberBlock;
 
 	}
+
+    /**
+     * Display the lastname, firstname of the docent
+     *
+     * @return string
+     */
+    public static function getNumberOfNewDocents($date) {
+    return DB::table('docent')->where('created_at','>=', $date)->count();
+    }
+
 }
