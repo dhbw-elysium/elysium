@@ -63,6 +63,25 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return false;
     }
 
+    /**
+	 * Add the event listeners to this model
+	 */
+	public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($entity)
+        {
+            $entity->created_by = Auth::user()->uid;
+        });
+
+        static::updating(function($entity)
+        {
+            $entity->updated_by = Auth::user()->uid;
+        });
+    }
+
+
     public function isCurrentUser($uid)
     {
         return ($this->uid == $uid);

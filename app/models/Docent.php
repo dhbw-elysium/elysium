@@ -97,6 +97,25 @@ class Docent extends Eloquent implements RemindableInterface {
     }
 
 	/**
+	 * Add the event listeners to this model
+	 */
+	public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($docent)
+        {
+            $docent->created_by = Auth::user()->uid;
+        });
+
+        static::updating(function($docent)
+        {
+            $docent->updated_by = Auth::user()->uid;
+        });
+    }
+
+
+	/**
 	 * Get a list of possible duplicates to the given name
 	 *
 	 * @param	string	$lastName		Last name

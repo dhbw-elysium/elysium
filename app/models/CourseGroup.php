@@ -28,6 +28,25 @@ class CourseGroup extends Eloquent implements RemindableInterface {
     }
 
 	/**
+	 * Add the event listeners to this model
+	 */
+	public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($entity)
+        {
+            $entity->created_by = Auth::user()->uid;
+        });
+
+        static::updating(function($entity)
+        {
+            $entity->updated_by = Auth::user()->uid;
+        });
+    }
+
+
+	/**
 	 * Access a course group by its title
 	 *
 	 * @param	string			$title					The title of a course group

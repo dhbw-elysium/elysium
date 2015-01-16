@@ -254,4 +254,28 @@ class Status extends Eloquent implements RemindableInterface {
         return array('deleted_at', 'created_at', 'updated_at');
     }
 
+	/**
+	 * Add the event listeners to this model
+	 */
+	public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($entity)
+        {
+            $entity->created_by = Auth::user()->uid;
+        });
+
+        static::updating(function($entity)
+        {
+            $entity->updated_by = Auth::user()->uid;
+        });
+
+        static::deleting(function($entity)
+        {
+            $entity->deleted_by = Auth::user()->uid;
+        });
+
+    }
+
 }
