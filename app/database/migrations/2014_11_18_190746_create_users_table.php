@@ -37,7 +37,14 @@ class CreateUsersTable extends Migration {
 				  ->on('user')
 				  ->onUpdate('cascade')
 				  ->onDelete('cascade');
-            $table->softDeletes();
+
+			$table->softDeletes();
+			$table->unsignedInteger('deleted_by')->nullable();
+			$table->foreign('deleted_by')
+				  ->references('uid')
+				  ->on('user')
+				  ->onUpdate('cascade')
+				  ->onDelete('cascade');
 		});
 
 		DB::table('user')->insert(

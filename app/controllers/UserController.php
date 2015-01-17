@@ -182,11 +182,16 @@ class UserController extends BaseController {
         );
 
 
-        if ($validator->passes()) {
-            User::destroy($uid);
+        if (Auth::user()->isAdmin() && $validator->passes()) {
+			$user	= User::find($uid);
 
-            return Response::make('', 200);
-        }
+			$user->deleted_by	= Auth::id();
+			$user->save();
+
+			$user->delete();
+
+			return Response::make('', 200);
+		}
 
         return Response::make('', 405);
     }

@@ -10,8 +10,6 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	use UserTrait, RemindableTrait, SoftDeletingTrait;
 
-    protected $dates = ['deleted_at'];
-
     /**
      * Defines the name of the admin role in database
      */
@@ -41,6 +39,18 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	 * @var string
 	 */
 	protected $primaryKey = 'uid';
+
+
+	/**
+	 * Contains the fields of the model which are dates
+	 *
+	 * @return array
+	 */
+	public function getDates()
+    {
+        return array('last_login', 'deleted_at', 'created_at', 'updated_at');
+    }
+
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -82,6 +92,16 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         static::updating(function($entity)
         {
             $entity->updated_by = Auth::user()->uid;
+        });
+
+        static::deleting(function($entity)
+        {
+            $entity->deleted_by = Auth::user()->uid;
+        });
+
+		static::restoring(function($entity)
+        {
+            $entity->deleted_by = null;
         });
     }
 
