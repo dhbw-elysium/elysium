@@ -250,6 +250,28 @@ class Docent extends Eloquent implements RemindableInterface {
 	}
 
 	/**
+	 * Get a list of docent ids
+	 *
+	 * @param	integer	$sid		A special status id
+	 * @return	array				A list of docents
+	 */
+	public static function docentListWithLatestStatus($sid) {
+
+		$query	= 'SELECT DISTINCT(d.did)
+					 FROM docent d
+			   INNER JOIN docent_status ds ON (ds.did = d.did)
+			   INNER JOIN (SELECT ds2.sid, ds2.did, MAX(ds2.created_at) AS latest_created FROM docent_status ds2 GROUP BY ds2.did) x ON (x.did = ds.did AND x.sid = ds.sid)
+			   INNER JOIN status s ON ds.sid = s.sid
+			   INNER JOIN docent_course dc ON dc.did = d.did
+			   INNER JOIN course c ON dc.cid = c.cid
+			   		WHERE s.sid = ?
+				 ORDER BY last_name ASC, first_name ASC
+		';
+
+		return DB::select($query, array($sid));
+	}
+
+	/**
 	 * Get value of a property prepared for html display
 	 *
 	 * @param	string	$property	The property to access
@@ -359,6 +381,23 @@ class Docent extends Eloquent implements RemindableInterface {
 		}
 
 		return $numberBlock;
+
+	}
+
+
+	public function statusHistory() {
+		$query	= 'SELECT ds.dsid, s.sid, s.title, s.glyph, ds.did, ds.comment, ds.created_at, ds.created_by, u.lastname, u.firstname
+					 FROM docent_status ds,
+						  status s,
+						  user u
+					WHERE s.sid = ds.sid
+					  AND ds.created_by = u.uid
+					  AND ds.did =?
+				 ORDER BY ds.created_at DESC';
+
+		$result	= DB::select($query, array($this->did));
+
+		return $result;
 
 	}
 
