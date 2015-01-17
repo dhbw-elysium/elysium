@@ -23,7 +23,20 @@ class CreateUsersTable extends Migration {
             $table->dateTime('last_login');
             $table->string('remember_token', 100)->nullable();
             $table->string('role', 64)->default(User::ROLE_ADMIN);
+
 			$table->timestamps();
+			$table->unsignedInteger('created_by');
+			$table->foreign('created_by')
+				  ->references('uid')
+				  ->on('user')
+				  ->onUpdate('cascade')
+				  ->onDelete('cascade');
+			$table->unsignedInteger('updated_by');
+			$table->foreign('updated_by')
+				  ->references('uid')
+				  ->on('user')
+				  ->onUpdate('cascade')
+				  ->onDelete('cascade');
 		});
 
 		DB::table('user')->insert(
