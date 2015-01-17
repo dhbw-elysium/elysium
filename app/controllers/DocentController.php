@@ -217,6 +217,24 @@ class DocentController extends BaseController {
 
 
     /**
+     * Track a status change of a docent
+     */
+    public function addStatusEntry() {
+        $status = new DocentStatus;
+
+        $status->did        = (int)Input::get('did');
+        $status->sid        = (int)Input::get('sid');
+        $status->comment    = Input::get('comment');
+
+        try {
+            $status->save();
+        } catch(Illuminate\Database\QueryException $e) {
+            return Response::make('', 504);
+        }
+        return Response::make('', 200);
+    }
+
+    /**
      * Get a json list of docents phone numbers
      *
      * @param   integer     $did        Docent id

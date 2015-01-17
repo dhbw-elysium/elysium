@@ -103,15 +103,15 @@ class Docent extends Eloquent implements RemindableInterface {
     {
         parent::boot();
 
-        static::creating(function($docent)
+        static::creating(function($entity)
         {
-            $docent->created_by = Auth::user()->uid;
+            $entity->created_by = Auth::user()->uid;
             $entity->updated_by = Auth::user()->uid;
         });
 
-        static::updating(function($docent)
+        static::updating(function($entity)
         {
-            $docent->updated_by = Auth::user()->uid;
+            $entity->updated_by = Auth::user()->uid;
         });
     }
 

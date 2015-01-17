@@ -86,6 +86,43 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<!-- Modal	docent status entry -->
+<div class="modal fade" id="modalDocentStatus" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+        <h4 class="modal-title">Statusänderung eintragen</h4>
+      </div>
+	  {{ Form::open() }}
+	  {{ Form::hidden('did', $docent->did)}}
+      <div class="modal-body">
+			<div class="form-group">
+            	<label for="statusSid" class="control-label">Typ</label>
+            	<select class="form-control" id="statusSid">
+            		@if (count($statusList = Status::orderBy('title')->get()))
+						@foreach ($statusList as $status)
+							<option value="{{{$status->sid}}}" title="{{{$status->description}}}">{{{$status->title}}} - {{{$status->description}}}</option>
+						@endforeach
+					@endif
+				</select>
+          	</div>
+			<div class="form-group">
+				<label for="statusComment" class="control-label">Kommentar</label>
+				<textarea class="form-control" id="statusComment" name="statusComment"></textarea>
+			</div>
+
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+		{{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
+      </div>
+	  {{ Form::close() }}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <div class="row docent-detail">
 	<div class="col-md-8">
 		<h2>
@@ -171,7 +208,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Anschrift:</label>
 								<div class="col-md-8">
-									{{$docent->displayAddress(Address::TYPE_PRIVATE)}}
+									<div>{{$docent->displayAddress(Address::TYPE_PRIVATE)}}</div>
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="address_private">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
@@ -255,7 +292,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Anschrift:</label>
 								<div class="col-md-8">
-									{{$docent->displayAddress(Address::TYPE_COMPANY)}}
+									<div>{{$docent->displayAddress(Address::TYPE_COMPANY)}}</div>
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="address_company">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
@@ -266,7 +303,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Telefon:</label>
 								<div class="col-md-8">
-									{{$docent->displayPhoneNumberList(false)}}
+									<div>{{$docent->displayPhoneNumberList(false)}}</div>
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-did="{{{$docent->did}}}" data-private="0" data-toggle="tooltip" title="Telefonnummern bearbeiten">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
@@ -326,8 +363,8 @@
 			</div>
 		<h3>Verlauf</h3>
 
-		<button type="button" class="btn btn-default btn-sm">
-		  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Aktion eintragen
+		<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modalDocentStatus" data-did="{{{$docent->did}}}">
+		  Statusänderung eintragen
 		</button>
 
 		<div class="panel-group" aria-multiselectable="true">
