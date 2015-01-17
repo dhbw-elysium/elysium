@@ -149,6 +149,72 @@ class DocentController extends BaseController {
     }
 
 
+    /**
+     * Update a docents property
+     *
+     * @param   integer     $did                Docent id
+     * @param   string      $targetElement      Form property
+     * @return mixed                            A http code
+     */
+    public function docentDataUpdate($did, $targetElement) {
+        $form   = array('elements' => array());
+
+        $docent = Docent::find($did);
+
+        $textElements   = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_part', 'company_job');
+        if (in_array($targetElement, $textElements )) {
+            $property   = $targetElement;
+            $tooltip    = '';
+            $type       = 'text';
+
+            switch($targetElement) {
+                case 'title':
+                case 'salution':
+                case 'birth_place':
+                case 'website':
+                case 'email':
+                case 'company_name':
+                case 'company_part':
+                case 'company_job':
+                    $docent->$targetElement = Input::get($targetElement);
+            }
+
+            $docent->save();
+
+        } else {
+            switch($targetElement) {
+                case 'birth_day':
+                    if (preg_match('/(\d{2}).(\d{2}).(\d{4})/', Input::get('birth_day'), $birthDay)) {
+                        $docent->birth_day  = new \DateTime(sprintf('%d-%d-%d', $birthDay[3], $birthDay[2], $birthDay[1]));
+                        $docent->save();
+                    } else {
+    		            return Response::make('', 405);
+                    }
+                    break;
+                case 'address_private':
+                case 'address_company':
+                    if ($targetElement == 'address_private') {
+                        $address = $docent->privateAddress();
+                    } else {
+                        $address = $docent->companyAddress();
+                    }
+
+                    $address->street    = Input::get('address_street');
+                    $address->city      = Input::get('address_city');
+                    $address->plz       = Input::get('address_plz');
+                    $address->save();
+                    break;
+                case 'name':
+                    $docent->first_name = Input::get('first_name');
+                    $docent->last_name  = Input::get('last_name');
+                    $docent->save();
+                    break;
+            }
+        }
+
+        return Response::make('', 200);
+    }
+
 
     /**
      * Get a json list of docents phone numbers

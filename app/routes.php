@@ -34,8 +34,9 @@ Route::group(array('before' => 'auth'), function() {
 
 	Route::get('docent/{did}', 'DocentController@showDocent');
 	Route::get('docent/{did}/phone-{group}.json', 'DocentController@docentPhoneList');
-	Route::get('docent/{did}/data-form-{element}.json', 'DocentController@docentDataForm');
 	Route::post('docent/phone-update', 'DocentController@postDocentPhoneUpdate');
+	Route::get('docent/{did}/data-form-{element}.json', 'DocentController@docentDataForm');
+	Route::post('docent/{did}/data-form-{element}', 'DocentController@docentDataUpdate');
 
     Route::get('user', 'UserController@showUsers');
     Route::get('user/list', 'UserController@showUsers');

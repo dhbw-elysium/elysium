@@ -329,7 +329,7 @@ $(function () {
             	template = template+'<input type="text" class="form-control" id="'+name+'" name="'+name+'" value="'+value+'" placeholder="(leer)">';
 			} else if(type == 'date') {
 				template = template+'<div class="input-group date">'+
-  					'<input type="text" class="form-control" value="'+value+'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>'+
+  					'<input type="text" class="form-control" value="'+value+'" name="'+name+'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>'+
 				'</div> ';
 
 			}
@@ -360,16 +360,17 @@ $(function () {
 
 		$('#modalDocentData .btn-primary').click(function (e) {
 			e.preventDefault();
-			var token = $('#modalDocentData [name=_token]').val();
+			var token = $('#modalDocentData [name=_token]').val(),
+				data = $(this).parent().parent().serializeArray();
 
 			$.ajax({
 				type: 'POST',
 				url: did+'/data-form-'+property,
-				data: $(this).parent().parent().serializeArray(),
+				data: data,
 				complete: function (jqXHR, status) {
 					//$('#modalDocentData').hide();
 					if (status == 'success') {
-						//location.reload();
+						location.reload();
 					} else {
 						$.toaster({
 							title: 'Status',
