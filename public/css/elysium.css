@@ -282,6 +282,12 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	padding-right: 0;
 }
 
+/* Phone number list */
+.docent-detail .col-md-8 > div {
+	float:left;
+	margin-right: 5px;
+}
+
 .docent-detail .col-md-8:hover > .btn-edit-inline {
 	opacity: 0.5;
 }

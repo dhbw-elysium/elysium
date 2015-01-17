@@ -171,7 +171,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Anschrift:</label>
 								<div class="col-md-8">
-									{{$docent->displayAddress(Address::TYPE_PRIVATE)}}
+									<div>{{$docent->displayAddress(Address::TYPE_PRIVATE)}}</div>
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="address_private">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
@@ -255,7 +255,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Anschrift:</label>
 								<div class="col-md-8">
-									{{$docent->displayAddress(Address::TYPE_COMPANY)}}
+									<div>{{$docent->displayAddress(Address::TYPE_COMPANY)}}</div>
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="address_company">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
@@ -266,7 +266,7 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Telefon:</label>
 								<div class="col-md-8">
-									{{$docent->displayPhoneNumberList(false)}}
+									<div>{{$docent->displayPhoneNumberList(false)}}</div>
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-did="{{{$docent->did}}}" data-private="0" data-toggle="tooltip" title="Telefonnummern bearbeiten">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
