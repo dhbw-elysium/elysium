@@ -10,10 +10,6 @@ h6,
   font-family: Tahoma, sans-serif;
 }
 
-body, body div {
-	font-family: Candara, Tahoma, sans-serif;
-}
-
 #header .navbar-brand {
 	margin: 4px 0 2px 0;
 	width: 110px;
@@ -86,40 +82,6 @@ body, body div {
 .navbar.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
 	background-color: #c3c3c3;
 	color: #698b22;
-}
-
-body a, ul.pagination li a {
-	color: #698b22;
-}
-
-body a:hover, body a:active {
-	color: #80a525;
-}
-
-body .label.label-primary, ul.pagination li.active span  {
-	background-color: #698b22;
-}
-
-ul.pagination li.active span  {
-	border-color: #5d7c1f;
-}
-
-body .btn-primary {
-	background-image: -webkit-linear-gradient(top, #80a525 0%, #608020 100%);
-	background-image: -o-linear-gradient(top, #80a525 0%, #608020 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#80a525), to(#608020));
-	background-image: linear-gradient(to bottom, #80a525  0%, #608020 100%);
-	background-repeat: repeat-x;
-	border-color: #57741d;
-}
-
-body .btn-primary:hover, body .btn-primary:focus {
-	background-image: -webkit-linear-gradient(top, #97c32c 0%, #82a927 100%);
-	background-image: -o-linear-gradient(top, #97c32c 0%, #82a927 100%);
-	background-image: -webkit-gradient(linear, left top, left bottom, from(#97c32c), to(#82a927));
-	background-image: linear-gradient(to bottom, #97c32c 0%, #82a927 100%);
-	border-color: #57741d;
-	background-position: 0;
 }
 
 .btn-add span {
@@ -305,6 +267,9 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	opacity: 1;
 }
 
+.docent-detail .docent-status-list h4 a:hover {
+
+}
 
 
 #modalPhoneNumber .row {
@@ -326,11 +291,6 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 .fixed-table-body,.panel-title,.panel-body {
 	font-family: Tahoma;
 }
-
-.table {
-  background-color: #e5f0d2;
-}
-
 .col-md-8,
 .col-md-4{
 	font-family: Tahoma;
