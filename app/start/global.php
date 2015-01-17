@@ -82,7 +82,9 @@ require app_path().'/filters.php';
 
 Event::listen('auth.login', function($user)
 {
+
+    Session::put('last_login', $user->last_login);
 	DB::update('UPDATE user SET last_login = NOW() WHERE uid = ?', array($user->uid));
 
-	Session::put('last_login', $user->last_login);
+
 });

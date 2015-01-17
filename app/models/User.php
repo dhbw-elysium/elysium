@@ -4,10 +4,13 @@ use Illuminate\Auth\UserTrait;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class User extends Eloquent implements UserInterface, RemindableInterface {
 
-	use UserTrait, RemindableTrait;
+	use UserTrait, RemindableTrait, SoftDeletingTrait;
+
+    protected $dates = ['deleted_at'];
 
     /**
      * Defines the name of the admin role in database
@@ -18,11 +21,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
      */
     const ROLE_USER = 'user';
     /**
-     * Defines the name of the admin role in database
+     * Defines the name of the title for a male person
      */
     const TITLE_MALE = 'Herr';
     /**
-     * Defines the name of the user role in database
+     * Defines the name of the title of a female person
      */
     const TITLE_FEMALE = 'Frau';
 	/**

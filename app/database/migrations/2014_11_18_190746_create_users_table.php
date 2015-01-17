@@ -15,7 +15,6 @@ class CreateUsersTable extends Migration {
 		Schema::create('user', function(Blueprint $table)
 		{
 			$table->integer('uid', true, true);
-            $table->string('title', 64);
             $table->string('firstname', 128);
             $table->string('lastname', 128);
             $table->string('email', 128);
@@ -23,6 +22,7 @@ class CreateUsersTable extends Migration {
             $table->dateTime('last_login');
             $table->string('remember_token', 100)->nullable();
             $table->string('role', 64)->default(User::ROLE_ADMIN);
+            $table->string('title', 64);
 
 			$table->timestamps();
 			$table->unsignedInteger('created_by');
@@ -37,6 +37,7 @@ class CreateUsersTable extends Migration {
 				  ->on('user')
 				  ->onUpdate('cascade')
 				  ->onDelete('cascade');
+            $table->softDeletes();
 		});
 
 		DB::table('user')->insert(
