@@ -280,6 +280,11 @@ class Docent extends Eloquent implements RemindableInterface {
 	public function displayData($property) {
 		$data	= $this->$property;
 
+		switch($property) {
+			case 'is_exdhbw':
+				return ($data ? 'ja' : 'nein');
+		}
+
 		if ($data) {
 			if ($data instanceof \DateTime) {
 

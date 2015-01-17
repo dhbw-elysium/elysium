@@ -257,7 +257,7 @@
 					<div class="row">
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Firmen-Name:</label>
+								<label class="col-md-4 control-label" title="Firmen-Name">Firma:</label>
 								<div class="col-md-8">
 									{{$docent->displayData('company_name')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="company_name">
@@ -315,9 +315,10 @@
 				</div>
 			</div>
 			<div role="tabpanel" class="tab-pane fade" id="qualification">
+
 				<div class="container-fluid form">
 					<div class="row">
-						<div class="col-sm-6 col-lg-6">
+						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Abschluss:</label>
 								<div class="col-md-8">
@@ -328,9 +329,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-sm-6 col-lg-6">
+						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Ehemalige(r):</label>
+								<label class="col-md-4 control-label" title="Ehemaliger DHBW Absolvent">Ehemalige(r):</label>
 								<div class="col-md-8">
 									{{$docent->displayData('is_exdhbw')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="is_exdhbw">
@@ -339,6 +340,53 @@
 								</div>
 							</div>
 						</div>
+						<div class="col-sm-12 col-lg-12">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Lehraufträge und Lehrtätigkeiten:</label>
+								<div class="col-md-8">
+									{{$docent->displayData('activity_teach')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="activity_teach">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-lg-12">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Praktische Tätigkeiten:</label>
+								<div class="col-md-8">
+									{{$docent->displayData('activity_practical')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="activity_practical">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-lg-12">
+							<div class="form-group">
+								<label class="col-md-4 control-label" title="Weitere mögliche Vorlesungsbereiche sowie bereits gehaltene Vorlesungen">Weitere mögl. Vorlesungsbereiche:</label>
+								<div class="col-md-8">
+									{{$docent->displayData('course_extra')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="course_extra">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-lg-12">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Anmerkungen, Ergänzungen:</label>
+								<div class="col-md-8">
+									{{$docent->displayData('extra')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="extra">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+
+
+
 
 					</div>
 				</div>

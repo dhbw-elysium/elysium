@@ -327,6 +327,9 @@ $(function () {
 
 			if (type == 'text' || type == 'email') {
             	template = template+'<input type="text" class="form-control" id="'+name+'" name="'+name+'" value="'+value+'" placeholder="(leer)">';
+			} else if(type == 'textarea') {
+            	template = template+'<textarea class="form-control" id="'+name+'" name="'+name+'" rows="10">'+value+'</textarea>';
+
 			} else if(type == 'date') {
 				template = template+'<div class="input-group date">'+
   					'<input type="text" class="form-control" value="'+value+'" name="'+name+'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>'+

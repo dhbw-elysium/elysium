@@ -21,7 +21,9 @@ class DocentController extends BaseController {
 
         $docent = Docent::find($did);
 
-        $textElements   = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_part', 'company_job');
+        $textareaElements   = array('activity_teach', 'activity_practical', 'course_extra', 'extra');
+        $textElements       = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_part', 'company_job');
+
         if (in_array($targetElement, $textElements )) {
             $property   = $targetElement;
             $tooltip    = '';
@@ -54,6 +56,39 @@ class DocentController extends BaseController {
                     break;
                 case 'company_job':
                     $label      = 'Beruf';
+                    break;
+            }
+
+            $formElement    = array(
+                'name'      => $targetElement,
+                'label'     => $label,
+                'tooltip'   => $tooltip,
+                'type'      => $type,
+                'value'     => e($docent->$property)
+            );
+
+            $form['elements'][] = $formElement;
+        } elseif (in_array($targetElement, $textareaElements )) {
+            $property   = $targetElement;
+            $tooltip    = '';
+            $type       = 'textarea';
+
+            switch($targetElement) {
+                case 'activity_teach':
+                    $label      = 'Lehrtätigkeiten';
+                    $tooltip    = 'Lehraufträge und Lehrtätigkeiten';
+                    break;
+                case 'activity_practical':
+                    $label      = 'Praktisches';
+                    $tooltip    = 'Praktische Tätigkeiten';
+                    break;
+                case 'course_extra':
+                    $label      = 'Weitere Vorlesungsbereiche';
+                    $tooltip    = 'Weitere mögliche Vorlesungsbereiche sowie bereits gehaltene Vorlesungen';
+                    break;
+                case 'extra':
+                    $label      = 'Anmerkungen';
+                    $tooltip    = 'Anmerkungen, Ergänzungen';
                     break;
             }
 
@@ -161,7 +196,11 @@ class DocentController extends BaseController {
 
         $docent = Docent::find($did);
 
-        $textElements   = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_part', 'company_job');
+        $textElements   = array(
+            'title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_part', 'company_job',
+            'activity_teach', 'activity_practical', 'course_extra', 'extra'
+        );
+
         if (in_array($targetElement, $textElements )) {
             $property   = $targetElement;
             $tooltip    = '';
@@ -176,6 +215,10 @@ class DocentController extends BaseController {
                 case 'company_name':
                 case 'company_part':
                 case 'company_job':
+                case 'activity_teach':
+                case 'activity_practical':
+                case 'course_extra':
+                case 'extra':
                     $docent->$targetElement = Input::get($targetElement);
             }
 
