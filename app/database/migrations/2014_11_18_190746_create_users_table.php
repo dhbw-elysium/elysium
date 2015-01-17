@@ -25,13 +25,13 @@ class CreateUsersTable extends Migration {
             $table->string('title', 64);
 
 			$table->timestamps();
-			$table->unsignedInteger('created_by');
+			$table->unsignedInteger('created_by')->nullable();
 			$table->foreign('created_by')
 				  ->references('uid')
 				  ->on('user')
 				  ->onUpdate('cascade')
 				  ->onDelete('cascade');
-			$table->unsignedInteger('updated_by');
+			$table->unsignedInteger('updated_by')->nullable();
 			$table->foreign('updated_by')
 				  ->references('uid')
 				  ->on('user')
