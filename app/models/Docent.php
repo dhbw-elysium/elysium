@@ -386,7 +386,7 @@ class Docent extends Eloquent implements RemindableInterface {
 
 
 	public function statusHistory() {
-		$query	= 'SELECT ds.dsid, s.sid, s.title, s.glyph, ds.did, ds.comment, ds.created_at, ds.created_by, u.lastname, u.firstname
+		$query	= 'SELECT ds.dsid, s.sid, s.title, s.glyph, s.description, ds.did, ds.comment, ds.created_at, ds.created_by, u.lastname, u.firstname
 					 FROM docent_status ds,
 						  status s,
 						  user u

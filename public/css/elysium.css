@@ -267,8 +267,43 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	opacity: 1;
 }
 
-.docent-detail .docent-status-list h4 a:hover {
+.docent-detail .docent-status-list .toolbar {
+	margin-bottom: 5px;
+}
 
+.docent-detail .docent-status-list .toolbar button {
+	width: 100%;
+}
+
+.docent-detail .docent-status-list .panel-heading {
+	padding: 7px;
+}
+
+.docent-detail .docent-status-list h4 a div {
+	font-size: 12px;
+	float:left;
+	line-height: 17px;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}
+
+.docent-detail .docent-status-list h4 a div.status-title {
+	width: 115px;
+}
+
+.docent-detail .docent-status-list h4 a div.status-responsible {
+	width: 110px;
+	text-align: center;
+}
+.docent-detail .docent-status-list h4 a div.status-date {
+	width: 115px;
+	text-align: right;
+	float:right;
+}
+
+.docent-detail .docent-status-list div.panel-body {
+	padding: 7px;
 }
 
 
