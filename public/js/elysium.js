@@ -493,6 +493,45 @@ $(function () {
 		});
 	});
 
+	$('#modalDocentStatus').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget),
+			did = button.data('did'),
+			modal = $(this);
+
+		$('#modalDocentStatus .btn-primary').click(function (e) {
+			e.preventDefault();
+			var buttonSubmit	= this,
+				token = $('#modalDocentStatus [name=_token]').val(),
+				sid = $('#modalDocentStatus #statusSid').val(),
+				comment = $('#modalDocentStatus #statusComment').val();
+			$(buttonSubmit).prop('disabled', true);
+
+			$.ajax({
+				type: 'POST',
+				url: 'status/add',
+				data: {
+					_token: token,
+					did: did,
+					sid: sid,
+					comment: comment
+				},
+				complete: function (jqXHR, status) {
+					//$('#modalDocentStatus').hide();
+					$(buttonSubmit).prop('disabled', false);
+					if (status == 'success') {
+						location.reload();
+					} else {
+						$.toaster({
+							title: 'Status',
+							priority: 'danger',
+							message: 'Die Statusänderung konnte nicht gespeichert werden'
+						});
+					}
+				}
+			});
+		});
+	});
+
 
 	$('.import-docent-exclude').change(function (event) {
 		var checkbox = $(event.target),

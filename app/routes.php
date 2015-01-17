@@ -37,6 +37,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::post('docent/phone-update', 'DocentController@postDocentPhoneUpdate');
 	Route::get('docent/{did}/data-form-{element}.json', 'DocentController@docentDataForm');
 	Route::post('docent/{did}/data-form-{element}', 'DocentController@docentDataUpdate');
+	Route::post('docent/status/add', 'DocentController@addStatusEntry');
 
     Route::get('user', 'UserController@showUsers');
     Route::get('user/list', 'UserController@showUsers');
