@@ -402,7 +402,7 @@ class Docent extends Eloquent implements RemindableInterface {
 	}
 
     /**
-     * Display the lastname, firstname of the docent
+     * Get the number of new Docents
      *
      * @return string
      */
