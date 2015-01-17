@@ -24,7 +24,9 @@ $nrNewDocents=Docent::getNumberOfNewDocents(Session::get('last_login', 0));
   @else
   <a class="list-group-item">keine Stati eingetragen</a>
   @endif
-
+<div>
+	{{ $statuses->links() }}
+</div>
 </ul>
 </div>
 
