@@ -49,14 +49,14 @@ class CreateUsersTable extends Migration {
 
 		DB::table('user')->insert(
 			array(
-				'uid'		=> 1,
-                'title'	=> User::TITLE_MALE,
-				'firstname'	=> 'Erik',
-				'lastname'	=> 'Theoboldt',
-				'email'		=> 'erik@teqneers.de',
-				'password'	=> Hash::make('admin'),
-                'last_login'    => new DateTime,
-                'role'	=> User::ROLE_ADMIN
+				'uid'			=> 1,
+                'title'			=> User::TITLE_MALE,
+				'firstname'		=> '',
+				'lastname'		=> 'Administrator',
+				'email'			=> 'admin@example.com',
+				'password'		=> Hash::make('admin'),
+                'last_login'	=> new DateTime,
+                'role'			=> User::ROLE_ADMIN
 			)
     	);
 	}
