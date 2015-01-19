@@ -8,10 +8,14 @@
 @section('content')
 
 <h1>Hallo {{{Auth::user()->title.' '.Auth::user()->lastname}}}</h1>
-<p>Seit ihrem letzten Login am {{Session::get('last_login', null);}} gibt es:</p>
 <?php
+
+$lastLogin = new DateTime(Session::get('last_login', null));
+
 $nrNewDocents=Docent::getNumberOfNewDocents(Session::get('last_login', 0));
 ?>
+<p>Seit ihrem letzten Login am {{$lastLogin->format('d.m.Y');}} gibt es:</p>
+
 <div class="col-sm-6">
 <ul class="list-group">
   <a href="{{{ URL::to('docents') }}}" class="list-group-item {{$nrNewDocents!=0 ? 'active' : ''}}">neue Dozenten <span class="badge">{{$nrNewDocents}}</span> </a>
@@ -22,7 +26,7 @@ $nrNewDocents=Docent::getNumberOfNewDocents(Session::get('last_login', 0));
   <a href="{{{ URL::to('docents') }}}" class="list-group-item">{{{$status->title}}}<span class="badge">{{count(Docent::docentListWithLatestStatus($status->sid))}}</span></a>
   @endforeach
   @else
-  <a class="list-group-item">keine Stati eingetragen</a>
+  <a class="list-group-item">keine Statuse eingetragen</a>
   @endif
 <div>
 	{{ $statuses->links() }}
