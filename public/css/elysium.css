@@ -34,7 +34,6 @@ h6,
 @media only screen and (min-width:992px){
 	#header .navbar.navbar-default {
 		border-top: 5px solid white;
-		margin-left: 30px;
 	}
 
 	#header .navbar.navbar-default .container {

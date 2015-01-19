@@ -30,38 +30,39 @@
     <body>
         <!-- Navbar -->
         <div class="container" id="header">
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-             <div class="container">
-                <div class="navbar-header">
-                  <div class="navbar-brand"></div>
-                </div>
-                <!-- Everything you want hidden at 940px or less, place within here -->
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        @if ( !Auth::guest() )
-                            <li><a href="{{{ URL::to('') }}}">Startseite</a></li>
-                            <li><a href="{{{ URL::to('docents') }}}">Dozentensuche</a></li>
-							@if(Auth::user()->isAdmin())
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administration <span class="caret"></span></a>
-                                <ul class="dropdown-menu" role="menu">
-        							<li><a href="{{{ URL::to('courses') }}}">Vorlesungen</a></li>
-	    						    <li><a href="{{{ URL::to('user/list') }}}">Benutzer</a></li>
-		    					    <li><a href="{{{ URL::to('status/list') }}}">Status</a></li>
-                                </ul>
-                            </li>
-							@endif
-                        @endif
-                    </ul>
+            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+                 <div class="container">
+                    <div class="navbar-header">
+                      <div class="navbar-brand"></div>
+                    </div>
+                    <!-- Everything you want hidden at 940px or less, place within here -->
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            @if ( !Auth::guest() )
+                                <li><a href="{{{ URL::to('') }}}">Startseite</a></li>
+                                <li><a href="{{{ URL::to('docents') }}}">Dozentensuche</a></li>
+                                @if(Auth::user()->isAdmin())
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Administration <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="{{{ URL::to('courses') }}}">Vorlesungen</a></li>
+                                        <li><a href="{{{ URL::to('user/list') }}}">Benutzer</a></li>
+                                        <li><a href="{{{ URL::to('status/list') }}}">Status</a></li>
+                                    </ul>
+                                </li>
+                                @endif
+                            @endif
+                        </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        @if ( Auth::guest() )
-                            <li>{{ HTML::link('login', 'Login') }}</li>
-                        @else
-                            <li><a href="{{{ URL::to('user/edit/'.Auth::user()->uid) }}}">Profil</a></li>
-                            <li style="font-weight: bold;">{{ HTML::link('logout', 'Logout') }}</li>
-                        @endif
-                    </ul>
+                        <ul class="nav navbar-nav navbar-right">
+                            @if ( Auth::guest() )
+                                <li>{{ HTML::link('login', 'Login') }}</li>
+                            @else
+                                <li><a href="{{{ URL::to('user/edit/'.Auth::user()->uid) }}}">Profil</a></li>
+                                <li style="font-weight: bold;">{{ HTML::link('logout', 'Logout') }}</li>
+                            @endif
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
