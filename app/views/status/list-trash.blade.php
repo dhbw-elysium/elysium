@@ -50,9 +50,6 @@
 				<th>Titel</th>
 				<th>Themenbereich</th>
 				<th class="row-action">
-					<a class="btn btn-default btn-add btn-xs" href="new" data-toggle="tooltip" data-placement="left" title="Neuen Status hinzufügen">
-					  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-					</a>
 				</th>
 			</tr>
 		  </thead>
@@ -80,7 +77,7 @@
 				@endforeach
 			@else
 				<tr>
-					<td colspan="4"><i>Keine Status vorhanden</i></td>
+					<td colspan="4"><i>Keine Status im Papierkorb vorhanden</i></td>
 				</tr>
 			@endif
 		  </tbody>
