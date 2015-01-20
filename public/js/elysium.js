@@ -215,7 +215,42 @@ $(function () {
 			});
 		});
 	});
+    $('#modalStatusRestore').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget),
+            sid = button.data('sid'),
+            title = button.data('title'),
+            modal = $(this);
 
+        modal.find('#statusRestoreSid').val(sid);
+        modal.find('#statusRestoreTitle').text(title);
+
+        $('#modalStatusRestore .btn-primary').click(function (e) {
+            e.preventDefault();
+            var token = $('#modalStatusRestore [name=_token]').val(),
+                sid = $('#modalStatusRestore #statusRestoreSid').val();
+
+            $.ajax({
+                type: 'POST',
+                url: 'restore',
+                data: {
+                    _token: token,
+                    statusSid: sid
+                },
+                complete: function (jqXHR, status) {
+                    $('#modalStatusRestore').hide();
+                    if (status == 'success') {
+                        location.reload();
+                    } else {
+                        $.toaster({
+                            title: 'Status',
+                            priority: 'danger',
+                            message: 'Der Status konnte nicht wiederhergestellt werden'
+                        });
+                    }
+                }
+            });
+        });
+    });
     $('#modalUserPassword').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget),
             uid = button.data('uid'),

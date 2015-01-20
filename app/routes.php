@@ -56,11 +56,13 @@ Route::group(array('before' => 'auth'), function() {
 
 	Route::get('status', 'StatusController@showStatusList');
 	Route::get('status/list', 'StatusController@showStatusList');
+    Route::get('status/list-trash', 'StatusController@showStatusListTrash');
 	Route::get('status/edit/{sid}', 'StatusController@showStatusEdit');
 	Route::post('status/edit/{sid}', 'StatusController@postStatusEdit');
 	Route::get('status/new', 'StatusController@showStatusEdit');
 	Route::post('status/new', 'StatusController@postStatusEdit');
 
 	Route::post('status/delete', 'StatusController@postStatusDelete');
+    Route::post('status/restore', 'StatusController@postStatusRestore');
 
 });

@@ -11,6 +11,11 @@ class StatusController extends BaseController {
         return View::make('status.list');
     }
 
+    public function showStatusListTrash()
+    {
+        return View::make('status.list-trash');
+    }
+
 
     public function showStatusEdit($sid = null)
     {
@@ -126,6 +131,28 @@ class StatusController extends BaseController {
 		}
 
 		return Response::make('', 405);
+    }
+
+    public function postStatusRestore()
+    {
+
+        $sid	= Input::get('statusSid');
+
+        /** @var \Illuminate\Validation\Validator $validator */
+        $validator = Validator::make(
+            array('sid' => $sid),
+            array('sid' => 'required|numeric')
+        );
+
+        if ($validator->passes()) {
+            $status	= Status::withTrashed()->find($sid);
+
+            $status->restore();
+
+            return Response::make('', 200);
+        }
+
+        return Response::make('', 405);
     }
 
 
