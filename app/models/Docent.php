@@ -202,6 +202,7 @@ class Docent extends Eloquent implements RemindableInterface {
 	public static function docentList($count = null, $offset = null) {
 
 		$query	= 'SELECT d.did,
+						  s.sid,
 						  d.last_name,
 						  d.first_name,
 						  s.title as status_title,
@@ -234,6 +235,7 @@ class Docent extends Eloquent implements RemindableInterface {
 			if (!isset($docents[$did])) {
 				$docents[$did]	= array(
 					'did'			=> $did,
+					'sid'			=> (int)$docentData->sid,
 					'first_name'	=> e($docentData->first_name),
 					'last_name'		=> e($docentData->last_name),
 					'status_glyph'	=> e($docentData->status_glyph),
