@@ -700,14 +700,18 @@ $(function () {
 			filter: '<li class="multiselect-item filter"><div class="input-group"><input class="form-control multiselect-search" type="text"></div></li>'
 		},
 		onChange: function(option, checked) {
-			// Get selected options.
-			//$('#docent-list').bootstrapTable().trigger('search');
 			$('#docent-list').bootstrapTable('refresh');
-//			debugger
-			var selectedOptions = this.getSelected();
-console.log(selectedOptions);
 		}
 	});
+
+	if ($('.docents-filter-dropdown').length) {
+		switch (window.location.hash) {
+			case '#docentListImported':
+				$('.filter-status').multiselect('select', 1);	//Status::STATUS_IMPORT
+				break;
+		}
+	}
+
 
 
 	$('.import-docent-exclude').change(function (event) {
