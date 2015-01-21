@@ -119,7 +119,7 @@ class StatusController extends BaseController {
 			array('sid' => 'required|numeric')
 		);
 
-        if ($validator->passes()) {
+        if ($sid != Status::STATUS_IMPORT && $validator->passes()) {
 			$status	= Status::find($sid);
 
 			$status->deleted_by	= Auth::id();
