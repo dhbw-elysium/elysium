@@ -23,7 +23,7 @@ $nrNewDocents=Docent::getNumberOfNewDocents(Session::get('last_login', 0));
  <ul class="list-group">
   @if (count($statuses	= Status::orderBy('sid')->paginate(15)))
   @foreach ($statuses as $status)
-  <a href="{{{ URL::to('docents') }}}" class="list-group-item">{{{$status->title}}}<span class="badge">{{count(Docent::docentListWithLatestStatus($status->sid))}}</span></a>
+  <a href="{{{ URL::to('docents?sid='.$status->sid) }}}" class="list-group-item">{{{$status->title}}}<span class="badge">{{count(Docent::docentListWithLatestStatus($status->sid))}}</span></a>
   @endforeach
   @else
   <a class="list-group-item">keine Status eingetragen</a>

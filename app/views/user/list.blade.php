@@ -33,7 +33,7 @@
 <div class="row">
 	<div class="panel-body">
 
-				<table class="table table-striped table-grid">
+				<table class="table table-striped table-grid table-hover">
 				  <thead>
 					<tr>
 						<th class="row-id">#</th>
@@ -69,7 +69,7 @@
 						@endforeach
 					@else
 						<tr>
-							<td colspan="4"><i>Kein Benutzern eingetragen</i></td>
+							<td colspan="4"><i>Kein Benutzer eingetragen</i></td>
 						</tr>
 					@endif
 				  </tbody>
