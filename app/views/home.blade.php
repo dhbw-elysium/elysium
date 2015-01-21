@@ -26,7 +26,7 @@ $nrNewDocents=Docent::getNumberOfNewDocents(Session::get('last_login', 0));
   <a href="{{{ URL::to('docents') }}}" class="list-group-item">{{{$status->title}}}<span class="badge">{{count(Docent::docentListWithLatestStatus($status->sid))}}</span></a>
   @endforeach
   @else
-  <a class="list-group-item">keine Statuse eingetragen</a>
+  <a class="list-group-item">keine Status eingetragen</a>
   @endif
 <div>
 	{{ $statuses->links() }}
