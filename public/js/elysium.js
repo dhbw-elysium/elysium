@@ -1,5 +1,121 @@
 $(function () {
 
+	/**	 Begin bootstrap table override **/
+	var calculateObjectValue = function (self, name, args, defaultValue) {
+        if (typeof name === 'string') {
+            // support obj.func1.func2
+            var names = name.split('.');
+
+            if (names.length > 1) {
+                name = window;
+                $.each(names, function (i, f) {
+                    name = name[f];
+                });
+            } else {
+                name = window[name];
+            }
+        }
+        if (typeof name === 'object') {
+            return name;
+        }
+        if (typeof name === 'function') {
+            return name.apply(self, args);
+        }
+        return defaultValue;
+    };
+
+	var bootstrapTableExtensions = {
+		statusList: [],
+
+		courseList: [],
+
+    	getData: function () {
+			return this.data;	//needs to be overwritten because we have no other opportunity to check our manual filters
+		},
+
+		initSearch: function () {
+			var that = this;
+
+			if (this.options.sidePagination !== 'server') {
+				var s = this.searchText && this.searchText.toLowerCase();
+				var f = $.isEmptyObject(this.filterColumns) ? null: this.filterColumns;
+
+				// Check filter
+				this.data = f ? $.grep(this.options.data, function (item, i) {
+					for (var key in f) {
+						if (item[key] !== f[key]) {
+							return false;
+						}
+					}
+					return true;
+				}) : this.options.data;
+
+				this.data = s ? $.grep(this.data, function (item, i) {
+					for (var key in item) {
+						key = $.isNumeric(key) ? parseInt(key, 10) : key;
+						var value = item[key];
+
+						// Fix #142: search use formated data
+						value = calculateObjectValue(that.header,
+							that.header.formatters[$.inArray(key, that.header.fields)],
+							[value, item, i], value);
+
+						var index = $.inArray(key, that.header.fields);
+						if (index !== -1 && that.header.searchables[index] &&
+							(typeof value === 'string' ||
+							typeof value === 'number') &&
+							(value + '').toLowerCase().indexOf(s) !== -1) {
+							return true;
+						}
+					}
+					return false;
+				}) : this.data;
+
+				//course filter
+				if ($('.filter-course').length) {
+					that.courseList = [];
+
+					$('.filter-course option:selected').each(function() {
+        		        that.courseList.push(parseInt(this.value, 10));
+					});
+
+					if (that.courseList.length) {
+						this.data = $.grep(this.data, function (item) {
+							for (var courseId in item.courses) {
+								courseId	= parseInt(courseId, 10);
+								if ($.inArray(courseId, that.courseList) != -1) {
+									return true;
+								}
+							}
+							return false;
+						});
+					}
+				}
+
+				//status filter
+				if ($('.filter-status').length) {
+					that.statusList = [];
+
+					$('.filter-status option:selected').each(function() {
+        		        that.statusList.push(parseInt(this.value, 10));
+					});
+
+					if (that.statusList.length) {
+						this.data = $.grep(this.data, function (item) {
+							if ($.inArray(parseInt(item.sid, 10), that.statusList) != -1) {
+								return true;
+							}
+							return false;
+						});
+					}
+				}
+			}
+		}
+	};
+	$.extend(true, $.fn.bootstrapTable.Constructor.prototype, bootstrapTableExtensions);
+	/**	 End bootstrap table override **/
+
+
 	$('[data-toggle="tooltip"]').tooltip();
 
 	$('#modalCourse').on('show.bs.modal', function (event) {
@@ -581,17 +697,13 @@ $(function () {
 		allSelectedText: 'Alle ausgewählt',
 		numberDisplayed: 3,
 		templates: {
-			button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
-			ul: '<ul class="multiselect-container dropdown-menu"></ul>',
-			filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
-			filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
-			li: '<li><a href="javascript:void(0);"><label></label></a></li>',
-			divider: '<li class="multiselect-item divider"></li>',
-			liGroup: '<li class="multiselect-item group"><label class="multiselect-group"></label></li>'
+			filter: '<li class="multiselect-item filter"><div class="input-group"><input class="form-control multiselect-search" type="text"></div></li>'
 		},
 		onChange: function(option, checked) {
 			// Get selected options.
-			debugger
+			//$('#docent-list').bootstrapTable().trigger('search');
+			$('#docent-list').bootstrapTable('refresh');
+//			debugger
 			var selectedOptions = this.getSelected();
 console.log(selectedOptions);
 		}
@@ -616,74 +728,16 @@ console.log(selectedOptions);
 	});
 
 
+
 	$('#docent-list').bootstrapTable({
 		}).on('click-row.bs.table', function (e, row) {
 		   window.location.href = 'docent/'+row.did;
-  		}).on('search.bs.table', function (e, pattern) {
-			var table = $(this);
-			table.bootstrapTable('getData');
-  		}).on('load-success.bs.table', function (e, name, args) {
-			var table = $(this);
-			table.bootstrapTable('getData');
-/*
-			$.each(table.bootstrapTable('getData'), function (index, value) {
-			});
-			var newData	= table.bootstrapTable('getData').shift();
-
-		table.bootstrapTable('setData', newData);
-*/
-
-		//debugger
-//  		}).on('all.bs.table', function (e, name, args) {
-//		console.log('Event:', name, ', data:', args);
-
 	});
 
-	$('#docent-list-toolbar1').bootstrapTableFilter({
-	filters:[
-
-		{
-			field: 'first_name',
-			label: 'Vorname',
-			type: 'search',
-			enabled: true   // filter is visible by default
-		}
-		/*
-		{
-			field: 'label',
-			label: 'Label',
-			type: 'search',
-			enabled: true   // filter is visible by default
-		},
-		{
-			field: 'role',
-			label: 'Role',
-			type: 'select',
-			values: [
-				{id: 'ROLE_ANONYMOUS', label: 'Anonymous'},
-				{id: 'ROLE_USER', label: 'User'},
-				{id: 'ROLE_ADMIN', label: 'Admin'}
-			]
-		},
-		{
-			field: 'username',
-			label: 'User Name',
-			type: 'search'
-		},
-		{
-			field: 'city',
-			label: 'City',
-			type: 'ajaxSelect',
-			source: 'http://example.com/get-cities.php'
-		}
-		*/
-	]
-});
 
 });
 
 function docentStatusFormatter(value, row) {
 	return '<i class="glyphicon ' + row.status_glyph + '"></i> ' + value;
 }
-
 

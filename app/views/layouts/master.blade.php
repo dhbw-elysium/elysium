@@ -109,8 +109,6 @@
 			{{ HTML::script('js/bootstrap-table-de-DE.min.js') }}
         @endif
         {{ HTML::script('js/bootstrap-multiselect.js') }}
-		{{ HTML::script('js/bootstrap-table-filter.js') }}
-		{{ HTML::script('js/bootstrap-table-filter.de-DE.js') }}
         {{ HTML::script('js/jquery.toaster.js') }}
         {{ HTML::script('js/bootstrap-datepicker.js') }}
         {{ HTML::script('js/bootstrap-datepicker.de.js') }}

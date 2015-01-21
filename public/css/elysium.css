@@ -153,6 +153,35 @@ form .form-group .course-tag-list {
 	font-size: 1.2em;
 }
 
+#docent-list-toolbar .form-group {
+	margin-right: 10px;
+}
+
+.multiselect.dropdown-toggle.btn.btn-default {
+	max-width: 350px;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+}
+
+ul.multiselect-container.dropdown-menu {
+	overflow-x: hidden;
+}
+
+.multiselect-container .multiselect-item.filter .input-group {
+	width: 100%;
+}
+
+.multiselect-container .multiselect-item.filter .input-group span.input-group-btn {
+	width: 30px;
+}
+
+.multiselect-container.dropdown-menu .multiselect-item.multiselect-group.multiselect-group-clickable {
+	padding-top: 5px;
+	line-height: 20px;
+}
+
+
 /* ########### Glyhlist START ########### */
 form .glyph-list li span.glyphicon {
 	margin: 0;
