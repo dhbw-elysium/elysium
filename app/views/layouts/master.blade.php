@@ -11,11 +11,17 @@
 
         <!-- CSS are placed here -->
         {{ HTML::style('css/elysium.css') }}
-        {{ HTML::style('css/bootstrap.css') }}
-        {{ HTML::style('css/bootstrap-theme.css') }}
+        @if(Config::get('app.debug'))
+            {{ HTML::style('css/bootstrap.css') }}
+            {{ HTML::style('css/bootstrap-theme.css') }}
+        @else
+            {{ HTML::style('css/bootstrap.min.css') }}
+            {{ HTML::style('css/bootstrap-theme.min.css') }}
+        @endif
 		{{ HTML::style('css/bootstrap-table.min.css') }}
         {{ HTML::style('css/datepicker.css') }}
         {{ HTML::style('css/datepicker3.css') }}
+        {{ HTML::style('css/bootstrap-multiselect.css') }}
 
         <style>
         @section('styles')
@@ -102,7 +108,7 @@
 			{{ HTML::script('js/bootstrap-table.min.js') }}
 			{{ HTML::script('js/bootstrap-table-de-DE.min.js') }}
         @endif
-
+        {{ HTML::script('js/bootstrap-multiselect.js') }}
 		{{ HTML::script('js/bootstrap-table-filter.js') }}
 		{{ HTML::script('js/bootstrap-table-filter.de-DE.js') }}
         {{ HTML::script('js/jquery.toaster.js') }}

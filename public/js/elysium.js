@@ -570,6 +570,33 @@ $(function () {
 		});
 	});
 
+	$('.docents-filter-dropdown').multiselect({
+		//includeSelectAllOption: true,
+		enableCaseInsensitiveFiltering: true,
+		enableClickableOptGroups: true,
+		filterPlaceholder: 'Optionen filtern',
+		nonSelectedText: '(keine Einschränkung)',
+		selectAllText: ' Alle auswählen',
+		nSelectedText: ' ausgewählt',
+		allSelectedText: 'Alle ausgewählt',
+		numberDisplayed: 3,
+		templates: {
+			button: '<button type="button" class="multiselect dropdown-toggle" data-toggle="dropdown"></button>',
+			ul: '<ul class="multiselect-container dropdown-menu"></ul>',
+			filter: '<li class="multiselect-item filter"><div class="input-group"><span class="input-group-addon"><i class="glyphicon glyphicon-search"></i></span><input class="form-control multiselect-search" type="text"></div></li>',
+			filterClearBtn: '<span class="input-group-btn"><button class="btn btn-default multiselect-clear-filter" type="button"><i class="glyphicon glyphicon-remove-circle"></i></button></span>',
+			li: '<li><a href="javascript:void(0);"><label></label></a></li>',
+			divider: '<li class="multiselect-item divider"></li>',
+			liGroup: '<li class="multiselect-item group"><label class="multiselect-group"></label></li>'
+		},
+		onChange: function(option, checked) {
+			// Get selected options.
+			debugger
+			var selectedOptions = this.getSelected();
+console.log(selectedOptions);
+		}
+	});
+
 
 	$('.import-docent-exclude').change(function (event) {
 		var checkbox = $(event.target),
@@ -588,18 +615,39 @@ $(function () {
 		checkbox.prop('disabled', false);
 	});
 
+
 	$('#docent-list').bootstrapTable({
 		}).on('click-row.bs.table', function (e, row) {
 		   window.location.href = 'docent/'+row.did;
+  		}).on('search.bs.table', function (e, pattern) {
+			var table = $(this);
+			table.bootstrapTable('getData');
+  		}).on('load-success.bs.table', function (e, name, args) {
+			var table = $(this);
+			table.bootstrapTable('getData');
+/*
+			$.each(table.bootstrapTable('getData'), function (index, value) {
+			});
+			var newData	= table.bootstrapTable('getData').shift();
+
+		table.bootstrapTable('setData', newData);
+*/
+
+		//debugger
+//  		}).on('all.bs.table', function (e, name, args) {
+//		console.log('Event:', name, ', data:', args);
+
 	});
 
-	$('#docent-list-toolbar').bootstrapTableFilter({
+	$('#docent-list-toolbar1').bootstrapTableFilter({
 	filters:[
+
 		{
-			field: 'did',    // field identifier
-			label: 'ID',    // filter label
-			type: 'range'   // filter type
-		},
+			field: 'first_name',
+			label: 'Vorname',
+			type: 'search',
+			enabled: true   // filter is visible by default
+		}
 		/*
 		{
 			field: 'label',
@@ -615,7 +663,7 @@ $(function () {
 				{id: 'ROLE_ANONYMOUS', label: 'Anonymous'},
 				{id: 'ROLE_USER', label: 'User'},
 				{id: 'ROLE_ADMIN', label: 'Admin'}
-			],
+			]
 		},
 		{
 			field: 'username',

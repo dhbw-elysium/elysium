@@ -542,7 +542,7 @@
     };
 
     BootstrapTableFilter.prototype.toggleRefreshButton = function(show) {
-        this.$refreshButton.toggle(show);
+        //this.$refreshButton.toggle(show);
     };
 
     BootstrapTableFilter.prototype.isSelected = function(field, option, value) {
@@ -565,6 +565,7 @@
     BootstrapTableFilter.prototype.getData = function() {
         var that = this;
         var ret = {};
+        debugger
         $.each(that.filters, function(field, filter) {
             if (filter.enabled) {
                 if (typeof filter.selectedOptions !== 'undefined') {
