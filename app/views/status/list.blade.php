@@ -48,7 +48,7 @@
 				<th class="row-id">#</th>
 				<th>Symbol</th>
 				<th>Titel</th>
-				<th>Themenbereich</th>
+				<th>Beschreibung</th>
 				<th class="row-action">
 					<a class="btn btn-default btn-add btn-xs" href="new" data-toggle="tooltip" data-placement="left" title="Neuen Status hinzufügen">
 					  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>

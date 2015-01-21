@@ -48,7 +48,7 @@
 				<th class="row-id">#</th>
 				<th>Symbol</th>
 				<th>Titel</th>
-				<th>Themenbereich</th>
+				<th>Beschreibung</th>
 				<th class="row-action">
 				</th>
 			</tr>
