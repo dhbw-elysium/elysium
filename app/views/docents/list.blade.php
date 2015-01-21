@@ -54,7 +54,7 @@
 				<select multiple class="docents-filter-dropdown filter-status" name="filterStatus">
 				@if (count($stautsList	= Status::orderBy('title')->get()))
 					@foreach ($stautsList as $status)
-					  <option value="{{$status->sid}}" title="{{{$status->description}}}">{{{$status->title}}}</option>
+					  <option value="{{$status->sid}}" title="{{{$status->description}}}" {{(Input::has('sid') && Input::get('sid') == $status->sid) ? 'selected="selected"' : ''}}>{{{$status->title}}}</option>
 					@endforeach
 				@endif
 				</select>
