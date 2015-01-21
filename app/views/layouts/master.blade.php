@@ -10,8 +10,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
         <!-- CSS are placed here -->
-        {{ HTML::style('css/elysium.css') }}
         @if(Config::get('app.debug'))
+            {{ HTML::style('css/elysium.css') }}
             {{ HTML::style('css/bootstrap.css') }}
             {{ HTML::style('css/bootstrap-theme.css') }}
             {{ HTML::style('css/bootstrap-table.min.css') }}
