@@ -10,11 +10,13 @@
 	<div class="col-md-4">
 		<h1>Dozenten</h1>
 	</div>
+	@if(Auth::user()->isAdmin())
 	<div class="col-md-8">
 		<div style="float: right;margin-top: 20px;margin-bottom: 10px;">
 			<a href="docents/import/upload" class="btn btn-default"><span class="glyphicon glyphicon-import" aria-hidden="true"></span> Importieren</a>
 		</div>
 	</div>
+	@endif
 </div>
 
 <div class="row" id="docent-list-page">
