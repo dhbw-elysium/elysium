@@ -36,8 +36,8 @@
 	<nav class="navbar navbar-default" role="navigation">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="list">Status <span class="sr-only">(current)</span></a></li>
-        <li class="active"><a href="#">Papierkorb <span class="sr-only">(current)</span></a></li>
+        <li><a href="list">aktiv </a></li>
+        <li class="active"><a href="#">inaktiv (Papierkorb) <span class="sr-only">(current)</span></a></li>
 	  </ul>
 	</div>
 	</nav>
