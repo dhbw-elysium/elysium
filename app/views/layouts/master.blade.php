@@ -14,14 +14,13 @@
         @if(Config::get('app.debug'))
             {{ HTML::style('css/bootstrap.css') }}
             {{ HTML::style('css/bootstrap-theme.css') }}
+            {{ HTML::style('css/bootstrap-table.min.css') }}
+            {{ HTML::style('css/datepicker.css') }}
+            {{ HTML::style('css/datepicker3.css') }}
+            {{ HTML::style('css/bootstrap-multiselect.css') }}
         @else
-            {{ HTML::style('css/bootstrap.min.css') }}
-            {{ HTML::style('css/bootstrap-theme.min.css') }}
+            {{ HTML::style('css/all.css') }}
         @endif
-		{{ HTML::style('css/bootstrap-table.min.css') }}
-        {{ HTML::style('css/datepicker.css') }}
-        {{ HTML::style('css/datepicker3.css') }}
-        {{ HTML::style('css/bootstrap-multiselect.css') }}
 
         <style>
         @section('styles')
@@ -98,19 +97,18 @@
         </div>
 
 		<!-- Scripts are placed here -->
-        {{ HTML::script('js/jquery-1.11.1.min.js') }}
         @if(Config::get('app.debug'))
+            {{ HTML::script('js/jquery-1.11.1.min.js') }}
 			{{ HTML::script('js/bootstrap.js') }}
 			{{ HTML::script('js/bootstrap-table.js') }}
+            {{ HTML::script('js/bootstrap-table-de-DE.min.js') }}
+            {{ HTML::script('js/bootstrap-multiselect.js') }}
+            {{ HTML::script('js/jquery.toaster.js') }}
+            {{ HTML::script('js/bootstrap-datepicker.js') }}
+            {{ HTML::script('js/bootstrap-datepicker.de.js') }}
+            {{ HTML::script('js/elysium.js') }}
         @else
-			{{ HTML::script('js/bootstrap.min.js') }}
-			{{ HTML::script('js/bootstrap-table.min.js') }}
+			{{ HTML::script('js/all.js') }}
         @endif
-        {{ HTML::script('js/bootstrap-table-de-DE.min.js') }}
-        {{ HTML::script('js/bootstrap-multiselect.js') }}
-        {{ HTML::script('js/jquery.toaster.js') }}
-        {{ HTML::script('js/bootstrap-datepicker.js') }}
-        {{ HTML::script('js/bootstrap-datepicker.de.js') }}
-        {{ HTML::script('js/elysium.js') }}
     </body>
 </html>
