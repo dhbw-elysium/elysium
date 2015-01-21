@@ -74,7 +74,7 @@ h6,
 	background-repeat: repeat-x;
 }
 
-.navbar.navbar-default .navbar-nav > li > a {
+#header .navbar.navbar-default .navbar-nav > li > a {
 	text-transform:uppercase;
 	color: #0a0a0a;
 }

@@ -36,8 +36,8 @@
 	<nav class="navbar navbar-default" role="navigation">
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Status <span class="sr-only">(current)</span></a></li>
-        <li><a href="list-trash">Papierkorb <span class="sr-only">(current)</span></a></li>
+        <li class="active"><a href="#">aktiv <span class="sr-only">(current)</span></a></li>
+        <li><a href="list-trash">inaktiv (Papierkorb)</a></li>
 	  </ul>
 	</div>
 	</nav>
@@ -74,7 +74,7 @@
 						<a class="btn btn-default btn-xs" href="edit/{{{$status->sid}}}" data-toggle="tooltip" data-placement="left" title="Status bearbeiten">
 						  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 						</a>
-						<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{$status->title}}">
+						<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{$status->title}}"  {{($status->sid == Status::STATUS_IMPORT) ? 'disabled' : ''}}>
 						  <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
 						</button>
 					</td>
