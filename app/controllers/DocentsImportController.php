@@ -7,47 +7,53 @@ class DocentsImportController extends BaseController {
 
     public function docentsImportUpload()
     {
-        return View::make('docents.import');
+        if(Auth::user()->isAdmin()) {
+            return View::make('docents.import');
+        }else{
+            return Redirect::to('home');
+        }
     }
 
     public function docentsImportProcess()
     {
+        if(Auth::user()->isAdmin()) {
+            if (Input::hasFile('file')) {
+                /** @var \Symfony\Component\HttpFoundation\File\UploadedFile $file */
+                $file = Input::file('file');
 
-		if (Input::hasFile('file')) {
-			/** @var \Symfony\Component\HttpFoundation\File\UploadedFile $file */
-			$file = Input::file('file');
+                if ($file->getMimeType() == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                    $parser = DocentParser::fromExcel($file->getRealPath());
+                    $docents = $parser->docents();
+                }
 
-			if ($file->getMimeType() == 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
-				$parser = DocentParser::fromExcel($file->getRealPath());
-				$docents = $parser->docents();
-			}
+                Form::macro('docentLabel', function ($id, $property, $title) {
+                    return '<label for="docent[' . $id . '][' . $property . ']" class="col-md-4 control-label">' . $title . '</label>';
+                });
+            } else {
+                $parser = DocentParser::fromInput(Input::get('docent'));
+                $docents = $parser->docents();
+            }
 
-			Form::macro('docentLabel', function ($id, $property, $title) {
-				return '<label for="docent[' . $id . '][' . $property . ']" class="col-md-4 control-label">' . $title . '</label>';
-			});
-		} else {
-			$parser		= DocentParser::fromInput(Input::get('docent'));
-			$docents	= $parser->docents();
-		}
+            if (isset($parser) && isset($docents) && is_array($docents)) {
+                if ($parser->valid() && Input::get('valid')) {
+                    $docentsCount = $this->_excuteImport($docents);
 
-		if (isset($parser) && isset($docents) && is_array($docents)) {
-			if ($parser->valid() && Input::get('valid')) {
-				$docentsCount	= $this->_excuteImport($docents);
+                    return View::make('docents.importsummary')->with('docentCount', $docentsCount);
+                }
 
-				return View::make('docents.importsummary')->with('docentCount', $docentsCount);
-			}
+                $docents = $this->_processDcocents($docents);
 
-			$docents	= $this->_processDcocents($docents);
+                return View::make('docents.importprocess')->with('docents', $docents);
 
-			return View::make('docents.importprocess')->with('docents', $docents);
-
-		} else {
-			return View::make('docents.importprocess')->with('docents', array())->with('danger', 'Import Fehlgeschlagen');
-		}
+            } else {
+                return View::make('docents.importprocess')->with('docents', array())->with('danger', 'Import Fehlgeschlagen');
+            }
 
 
-
-        return View::make('docents.importprocess');
+            return View::make('docents.importprocess');
+        }else{
+            return Redirect::to('home');
+        }
     }
 
 

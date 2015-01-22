@@ -9,7 +9,7 @@ class UserController extends BaseController {
         }
         else
         {
-            return View::make('home');   // no
+            return Redirect::to('home');   // no
         }
 
     }
@@ -23,7 +23,7 @@ class UserController extends BaseController {
         }
         else
         {
-            return View::make('home');   // no
+            return Redirect::to('home');  // no
         }
     }
     public function postUserPasswordUpdate(){
