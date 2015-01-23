@@ -137,6 +137,7 @@ $(function () {
 		modal.find('#courseCgid').val(cgid);
 		modal.find('#courseTitle').val(courseTitle);
 
+		modal.find('.btn-primary').unbind('click'); //remove previously attached events to prevent request from being sent twice
 		$('#modalCourse .btn-primary').click(function (e) {
 			e.preventDefault();
 			$(this).prop('disabled', true);
@@ -182,6 +183,7 @@ $(function () {
 		modal.find('#courseDeleteCid').val(cid);
 		modal.find('#courseDeleteTitle').text(title);
 
+		modal.find('.btn-primary').unbind('click');
 		$('#modalCourseDelete .btn-primary').click(function (e) {
 			$(this).prop('disabled', true);
 			e.preventDefault();
@@ -231,6 +233,7 @@ $(function () {
 		modal.find('#courseGroupCgid').val(cgid);
 		modal.find('#courseGroupTitle').val(courseGroupTitle);
 
+		modal.find('.btn-primary').unbind('click');
 		$('#modalCourseGroup .btn-primary').click(function (e) {
 			e.preventDefault();
 			$(this).prop('disabled', true);
@@ -286,6 +289,7 @@ $(function () {
 		modal.find('#courseGroupDeleteCgid').val(cgid);
 		modal.find('#courseGroupDeleteTitle').text(title);
 
+		modal.find('.btn-primary').unbind('click');
 		$('#modalCourseGroupDelete .btn-primary').click(function (e) {
 			e.preventDefault();
 			$(this).prop('disabled', true);
@@ -326,6 +330,7 @@ $(function () {
 		modal.find('#statusDeleteSid').val(sid);
 		modal.find('#statusDeleteTitle').text(title);
 
+		modal.find('.btn-primary').unbind('click');
 		$('#modalStatusDelete .btn-primary').click(function (e) {
 			e.preventDefault();
 			$(this).prop('disabled', true);
@@ -365,6 +370,7 @@ $(function () {
         modal.find('#statusRestoreSid').val(sid);
         modal.find('#statusRestoreTitle').text(title);
 
+		modal.find('.btn-primary').unbind('click');
         $('#modalStatusRestore .btn-primary').click(function (e) {
 			e.preventDefault();
 			$(this).prop('disabled', true);
@@ -402,6 +408,7 @@ $(function () {
 
         modal.find('#modalUserPassword [name=userPasswordUid]').val(uid);
 
+		modal.find('.btn-primary').unbind('click');
         $('#modalUserPassword .btn-primary').click(function (e) {
             e.preventDefault();
             var passwordField = $('#modalUserPassword [name=password]'),
@@ -461,6 +468,7 @@ $(function () {
         modal.find('#userDeleteUid').val(uid);
         modal.find('#userDeleteName').text(name);
 
+		modal.find('.btn-primary').unbind('click');
         $('#modalUserDelete .btn-primary').click(function (e) {
 			e.preventDefault();
 			$(this).prop('disabled', true);
@@ -560,6 +568,7 @@ $(function () {
 		});
 
 
+		modal.find('.btn-primary').unbind('click');
 		$('#modalDocentData .btn-primary').click(function (e) {
 			e.preventDefault();
 			$(this).prop('disabled', true);
@@ -594,6 +603,7 @@ $(function () {
 			did = button.data('did'),
 			modal = $(this);
 
+		modal.find('.btn-primary').unbind('click');
 		$('#modalDocentTime .btn-primary').click(function (e) {
 			e.preventDefault();
 			$(this).prop('disabled', true);
@@ -706,6 +716,7 @@ $(function () {
 		});
 
 
+		modal.find('.btn-primary').unbind('click');
 		$('#modalPhoneNumber .btn-primary').click(function (e) {
 			e.preventDefault();
 			$(this).prop('disabled', true);
@@ -747,6 +758,7 @@ $(function () {
     	    modal.find('#statusComment').val(comment);
 		}
 
+		modal.find('.btn-primary').unbind('click');
 		$('#modalDocentStatus .btn-primary').click(function (e) {
 			e.preventDefault();
 			var buttonSubmit	= this,
@@ -793,6 +805,7 @@ $(function () {
         modal.find('#docentStatusDeleteDsid').val(dsid);
 
 
+		modal.find('.btn-primary').unbind('click');
 		$('#modalDocentStatusDelete .btn-primary').click(function (e) {
 			e.preventDefault();
 			$(this).prop('disabled', true);
