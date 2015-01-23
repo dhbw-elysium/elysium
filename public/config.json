@@ -16,7 +16,7 @@
     "@link-color": "@brand-primary",
     "@link-hover-color": "darken(@link-color, 15%)",
     "@link-hover-decoration": "underline",
-    "@font-family-sans-serif": "Candara, Tahoma, sans-serif",
+    "@font-family-sans-serif": "Tahoma, sans-serif",
     "@font-family-serif": "Georgia, \"Times New Roman\", Times, serif",
     "@font-family-monospace": "Menlo, Monaco, Consolas, \"Courier New\", monospace",
     "@font-family-base": "@font-family-sans-serif",
@@ -406,17 +406,15 @@
     "modals.less"
   ],
   "js": [
-    "alert.js",
     "button.js",
     "dropdown.js",
     "modal.js",
     "tooltip.js",
     "popover.js",
     "tab.js",
-    "affix.js",
     "collapse.js",
     "scrollspy.js",
     "transition.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=2dad32de50572312118f"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=0d80e7406450a963bae5"
 }
