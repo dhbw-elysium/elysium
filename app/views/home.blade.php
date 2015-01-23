@@ -70,7 +70,7 @@ $nrNewDocents=Docent::getNumberOfNewDocents(Session::get('last_login', 0));
 <div class="col-sm-5">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h2 class="panel-title">Status im System</h2>
+				<h2 class="panel-title">Dozenten mit folgendem Status im System</h2>
 			</div>
  <ul class="list-group">
   @if (count($statuses	= Status::orderBy('sid')->paginate(15)))
