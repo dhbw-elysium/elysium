@@ -27,7 +27,7 @@ $nrNewDocents=Docent::getNumberOfNewDocents(Session::get('last_login', 0));
  						<th class="row-id">#</th>
  						<th>Nachname</th>
  						<th>Vorname</th>
- 						<th>Imported</th>
+ 						<th>Importiert am</th>
  						<th class="row-action">
 
  						</th>

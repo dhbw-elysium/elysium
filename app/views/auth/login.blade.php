@@ -7,11 +7,9 @@
 
 {{-- Content --}}
 @section('content')
-<div class="page-header">
-    <h2>Anmeldung</h2>
-</div>
+
 <div class="row">
-<div class="col-sm-offset-4 col-sm-4">
+<div class="col-sm-offset-4 col-sm-4 " style="margin-top:100px">
 <div class="panel panel-primary" >
 <div class="panel-heading">Login</div>
                                     <div class="panel-body">
@@ -52,7 +50,7 @@
 
     <!-- Login button -->
     <div class="form-group">
-        <div class="col-sm-offset-1 col-sm-10">
+        <div class="col-sm-12">
             {{ Form::submit('Anmelden', array('class' => 'btn btn-default btn-primary btn-block')) }}
         </div>
     </div>
