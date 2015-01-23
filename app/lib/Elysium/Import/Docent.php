@@ -6,6 +6,13 @@ namespace Elysium\Import;
 class Docent {
 
 	/**
+	 * If this is set to true, this docent will not be imported
+	 *
+	 * @var boolean
+	 */
+	protected $_excluded	= false;
+
+	/**
 	 * Data of this entity
 	 *
 	 * @var array
@@ -152,13 +159,36 @@ class Docent {
 	}
 
 	/**
+	 * Is this docent excluded?
+	 *
+	 * @return boolean
+	 */
+	public function isExcluded() {
+		return $this->_excluded;
+	}
+
+	/**
+	 * Set that this docent is excluded and will not be imported to database
+	 *
+	 * @param boolean $excluded
+	 */
+	public function setExcluded($excluded = true) {
+		$this->_excluded	= $excluded;
+	}
+
+	/**
 	 * Create entity from this element
+	 *
+	 * @return	Docent|boolean		Created entitiy or false if this one should not be included
 	 */
 	public function createEntity() {
-		$data	= $this->_data;
+
+		if ($this->isExcluded()) {
+			return false;
+		}
 
 		//add time data
-		$data	= array_merge($data, $this->_data['time']->times());
+		$data	= array_merge($this->_data, $this->_data['time']->times());
 
 		//bank data
 		$data['bank_name']		= $data['bank_classic']['name'];
@@ -204,25 +234,29 @@ class Docent {
 
 		if(isset($data['phone_number_private'])) {
 			foreach($data['phone_number_private'] as $type => $number) {
-				$phoneNumber				= new \PhoneNumber();
-				$phoneNumber->did			= $docent->did;
-				$phoneNumber->is_private	= true;
-				$phoneNumber->type			= $type;
-				$phoneNumber->number		= $number;
+				if (trim($number)) {
+					$phoneNumber				= new \PhoneNumber();
+					$phoneNumber->did			= $docent->did;
+					$phoneNumber->is_private	= true;
+					$phoneNumber->type			= $type;
+					$phoneNumber->number		= $number;
 
-				$phoneNumber->save();
+					$phoneNumber->save();
+				}
 			}
 		}
 
 		if(isset($data['phone_number_company'])) {
 			foreach($data['phone_number_company'] as $type => $number) {
-				$phoneNumber				= new \PhoneNumber();
-				$phoneNumber->did			= $docent->did;
-				$phoneNumber->is_private	= false;
-				$phoneNumber->type			= $type;
-				$phoneNumber->number		= $number;
+				if (trim($number)) {
+					$phoneNumber				= new \PhoneNumber();
+					$phoneNumber->did			= $docent->did;
+					$phoneNumber->is_private	= false;
+					$phoneNumber->type			= $type;
+					$phoneNumber->number		= $number;
 
-				$phoneNumber->save();
+					$phoneNumber->save();
+				}
 			}
 		}
 

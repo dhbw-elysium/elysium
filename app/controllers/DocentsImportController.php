@@ -343,7 +343,9 @@ class DocentsImportController extends BaseController {
 
 		/** @var \Elysium\Import\Docent $docent */
 		foreach($docents as $docent) {
-			$docent->createEntity();
+			if (!$docent->isExcluded()) {
+				$docent->createEntity();
+			}
 			++$docentCount;
 		}
 

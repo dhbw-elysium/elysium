@@ -14,12 +14,20 @@ class DocentParserInput extends DocentParser {
 	 */
 	public function __construct(array $docents) {
 		foreach($docents as $docentData) {
+			if (isset($docentData['exclude'])) {
+				continue;
+			}
+
 			$docent	= new Docent();
 			$docent->addData('time', DocentData\TeachTimeSet::fromTimeCodeList(array()));
 
 			foreach($docentData as $property => $data) {
 				try {
 					switch($property) {
+						case 'exclude':
+							$docent->setExcluded();
+							continue 2;
+							break;
 						case 'time':
 							$data	= DocentData\TeachTimeSet::fromTimeCodeList($data);
 							break;
@@ -40,6 +48,12 @@ class DocentParserInput extends DocentParser {
 
 			$this->_docents[]	= $docent;
 		}
+	}
+
+	/**
+	 * @return void
+	 */
+	public function parse() {
 	}
 
 
