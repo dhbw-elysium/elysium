@@ -248,11 +248,21 @@ $(function () {
 					courseGroupTitle: title
 				},
 				complete: function (jqXHR, status) {
+
 					$(buttonSubmit).prop('disabled', false);
-					$('#modalCourse').hide();
-					if (status == 'success') {
+					if (jqXHR.status = 406) {
+						$.toaster({
+							title: 'Themenbereich',
+							priority: 'danger',
+							message: 'Es ist bereits ein Themenbereich mit diesem Namen vorhanden',
+							timeout: 5000
+						});
+					} else if (status == 'success') {
+						$('#modalCourse').hide();
 						location.reload();
 					} else {
+						$('#modalCourse').hide();
+						location.reload();
 						$.toaster({
 							title: 'Themenbereich',
 							priority: 'danger',
@@ -659,7 +669,7 @@ $(function () {
 							'<input type="hidden" name="pid[]" value="'+pid+'" class="pid">'+
 						'</div>'+
 						'<div class="form-group button-remove-number">'+
-							'<button type="button" class="btn btn-danger">'+
+							'<button type="button" class="btn btn-default btn-remove">'+
 							  '<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'+
 							'</button>'+
 						'</div>'+

@@ -111,7 +111,7 @@
 						</div>
 
 						 <div class="form-group button-remove-number">
-							<button type="button" class="btn btn-danger">
+							<button type="button" class="btn btn-remove">
 							  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 							</button>
 						</div>
@@ -122,7 +122,7 @@
 		  <div class="row">
 			  <div class="col-sm-12">
 				  <div class="button-add-number">
-					<button type="button" class="btn btn-success">
+					<button type="button" class="btn btn btn-default btn-add">
 						<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 					</button>
 				  </div>

@@ -100,6 +100,10 @@ class CoursesController extends BaseController {
             'title'	=> 'required'
         );
 
+		if (count(DB::table('course_group')->where('title', '=', $data['title'])->get())) {
+			return Response::make('', 406);
+		}
+
 		/** @var \Illuminate\Validation\Validator $validator */
 		$validator = Validator::make($data, $rules);
 
