@@ -11,7 +11,7 @@
 
 
 
-<ul class="nav nav-tabs">
+<ul class="nav nav-tabs nav-import-docents">
   <li role="presentation" class="disabled"><a href="#">Hochladen</a></li>
   <li role="presentation" class="disabled"><a href="#">Überprüfen</a></li>
   <li role="presentation" class="active"><a href="#">Zusammenfassung</a></li>

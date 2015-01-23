@@ -34,6 +34,10 @@ body .label {
 	border: 0;
 }
 
+.nav.nav-tabs.nav-import-docents li.disabled > a {
+	color: #82a826;
+}
+
 @media only screen and (min-width:992px){
 	#header .navbar.navbar-default {
 		border-top: 5px solid white;
