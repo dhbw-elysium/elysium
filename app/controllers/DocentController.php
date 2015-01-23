@@ -195,12 +195,25 @@ class DocentController extends BaseController {
                         $address = $docent->companyAddress();
                     }
 
+                    $addressData    = array(
+                        'street' => '',
+                        'city' => '',
+                        'plz' => ''
+                    );
+                    if ($address) {
+                        $addressData    = array(
+                            'street'    => e($address->street),
+                            'city'      => e($address->city),
+                            'plz'       => e($address->plz),
+                        );
+                    }
+
                     $formElement    = array(
                         'name'      => 'address_street',
                         'label'     => 'Straße',
                         'tooltip'   => 'Straße und Hausnummer',
                         'type'      => 'text',
-                        'value'     => e($address->street)
+                        'value'     => $addressData['street']
                     );
                     $form['elements'][] = $formElement;
 
@@ -209,7 +222,7 @@ class DocentController extends BaseController {
                         'label'     => 'Ort',
                         'tooltip'   => '',
                         'type'      => 'text',
-                        'value'     => e($address->city)
+                        'value'     => $addressData['city']
                     );
                     $form['elements'][] = $formElement;
 
@@ -219,7 +232,7 @@ class DocentController extends BaseController {
                         'label'     => 'PLZ',
                         'tooltip'   => 'Postleitzahl',
                         'type'      => 'text',
-                        'value'     => e($address->plz)
+                        'value'     => $addressData['plz']
                     );
                     $form['elements'][] = $formElement;
                     break;
@@ -332,6 +345,18 @@ class DocentController extends BaseController {
                         $address = $docent->privateAddress();
                     } else {
                         $address = $docent->companyAddress();
+                    }
+
+                    if (!$address) {
+                        $address    = new Address();
+                        $address->save();
+
+                        if ($targetElement == 'address_private') {
+                            $docent->private_aid    = $address->aid;
+                        } else {
+                            $docent->company_aid    = $address->aid;
+                        }
+                        $docent->save();
                     }
 
                     $address->street    = Input::get('address_street');

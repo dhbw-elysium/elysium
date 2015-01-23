@@ -346,6 +346,10 @@ class Docent extends Eloquent implements RemindableInterface {
 				throw new InvalidArgumentException('Unknown address type transmitted');
 		}
 
+		if (!$address) {
+			return '';
+		}
+
 		return sprintf('%s<br>%s %s', e($address->street), e($address->plz), e($address->city));
 	}
 
