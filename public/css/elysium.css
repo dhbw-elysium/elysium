@@ -20,6 +20,9 @@ body h6
 }
 
 
+body .label {
+	padding: .1em .6em .3em;
+}
 
 #header .navbar.navbar-default {
 	background-color: transparent;
