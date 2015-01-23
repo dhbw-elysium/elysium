@@ -20,7 +20,7 @@
 	  {{ Form::hidden('sid', '0', array('id' => 'statusDeleteSid')); }}
       <div class="modal-body">
 		  <p>Möchten Sie den Status &raquo;<span id="statusDeleteTitle" style="color:#454545;"></span>&laquo; wirklich in den Papierkorb verschieben?</p>
-		  <p>Bei Dozenten denen ein solcher Status zugewiesen ist wird er weiterhin angezeigt. Sie können ihn aber nicht erneut einem Dozenten zuweisen.</p>
+		  <p>Bei Dozenten, denen ein solcher Status zugewiesen ist, wird er weiterhin angezeigt. Sie können ihn aber nicht erneut einem Dozenten zuweisen.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
@@ -79,7 +79,7 @@
         						<a class="btn btn-default btn-xs" href="edit/{{{$status->sid}}}" data-toggle="tooltip" data-placement="left" title="Status bearbeiten">
         						  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         						</a>
-        						<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{$status->title}}"  {{($status->sid == Status::STATUS_IMPORT) ? 'disabled' : ''}}>
+        						<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{{$status->title}}}"  {{($status->sid == Status::STATUS_IMPORT) ? 'disabled' : ''}}>
         						  <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
         						</button>
         					</td>
