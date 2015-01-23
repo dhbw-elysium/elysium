@@ -19,9 +19,10 @@ body h6
 	background-repeat: no-repeat;
 }
 
-
-body .label {
-	padding: .2em .6em .3em;
+@-moz-document url-prefix() {
+	body label {
+		padding: .1em .6em .3em;
+	}
 }
 
 #header .navbar.navbar-default {
