@@ -10,7 +10,7 @@ class AuthController extends BaseController {
         if (Auth::check())
         {
             // Redirect to homepage
-            return Redirect::to('')->with('success', 'You are already logged in');
+            return Redirect::to('')->with('success', 'Sie sind bereits angemeldet');
         }
 
         // Show the login page
@@ -44,7 +44,7 @@ class AuthController extends BaseController {
             if (Auth::attempt($userdata))
             {
 				// Redirect to homepage
-               return Redirect::to('')->with('success', 'Erfolgreich angemeldet');
+               return Redirect::to('');
             }
             else
             {
@@ -65,6 +65,6 @@ class AuthController extends BaseController {
         Auth::logout();
 
         // Redirect to homepage
-        return Redirect::to('')->with('success', 'You are logged out');
+        return Redirect::to('')->with('success', 'Sie haben sich erfolgreich abgemeldet. Auf Wiedersehen!');
     }
 }
