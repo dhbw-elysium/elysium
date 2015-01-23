@@ -139,7 +139,9 @@ $(function () {
 
 		$('#modalCourse .btn-primary').click(function (e) {
 			e.preventDefault();
-			var token = $('#modalCourse [name=_token]').val(),
+			$(this).prop('disabled', true);
+			var buttonSubmit = this,
+				token = $('#modalCourse [name=_token]').val(),
 				cid = $('#modalCourse #courseCid').val(),
 				cgid = $('#modalCourse #courseCgid').val(),
 				title = $('#modalCourse #courseTitle').val();
@@ -154,6 +156,7 @@ $(function () {
 					courseTitle: title
 				},
 				complete: function (jqXHR, status) {
+					$(buttonSubmit).prop('disabled', false);
 					$('#modalCourse').hide();
 					if (status == 'success') {
 						location.reload();
@@ -180,8 +183,10 @@ $(function () {
 		modal.find('#courseDeleteTitle').text(title);
 
 		$('#modalCourseDelete .btn-primary').click(function (e) {
+			$(this).prop('disabled', true);
 			e.preventDefault();
-			var token = $('#modalCourseDelete [name=_token]').val(),
+			var buttonSubmit = this,
+				token = $('#modalCourseDelete [name=_token]').val(),
 				cid = $('#modalCourseDelete #courseDeleteCid').val();
 
 			$.ajax({
@@ -193,6 +198,7 @@ $(function () {
 				},
 				complete: function (jqXHR, status) {
 					$('#modalCourseDelete').hide();
+					$(buttonSubmit).prop('disabled', false);
 					if (status == 'success') {
 						location.reload();
 					} else {
@@ -227,7 +233,9 @@ $(function () {
 
 		$('#modalCourseGroup .btn-primary').click(function (e) {
 			e.preventDefault();
-			var token = $('#modalCourseGroup [name=_token]').val(),
+			$(this).prop('disabled', true);
+			var buttonSubmit = this,
+				token = $('#modalCourseGroup [name=_token]').val(),
 				cgid = $('#modalCourseGroup #courseGroupCgid').val(),
 				title = $('#modalCourseGroup #courseGroupTitle').val();
 
@@ -240,6 +248,7 @@ $(function () {
 					courseGroupTitle: title
 				},
 				complete: function (jqXHR, status) {
+					$(buttonSubmit).prop('disabled', false);
 					$('#modalCourse').hide();
 					if (status == 'success') {
 						location.reload();
@@ -269,7 +278,9 @@ $(function () {
 
 		$('#modalCourseGroupDelete .btn-primary').click(function (e) {
 			e.preventDefault();
-			var token = $('#modalCourseGroupDelete [name=_token]').val(),
+			$(this).prop('disabled', true);
+			var buttonSubmit = this,
+				token = $('#modalCourseGroupDelete [name=_token]').val(),
 				cgid = $('#modalCourseGroupDelete #courseGroupDeleteCgid').val();
 
 			$.ajax({
@@ -280,6 +291,7 @@ $(function () {
 					courseGroupCgid: cgid
 				},
 				complete: function (jqXHR, status) {
+					$(buttonSubmit).prop('disabled', false);
 					$('#modalCourseGroupDelete').hide();
 					if (status == 'success') {
 						location.reload();
@@ -306,7 +318,9 @@ $(function () {
 
 		$('#modalStatusDelete .btn-primary').click(function (e) {
 			e.preventDefault();
-			var token = $('#modalStatusDelete [name=_token]').val(),
+			$(this).prop('disabled', true);
+			var buttonSubmit = this,
+				token = $('#modalStatusDelete [name=_token]').val(),
 				sid = $('#modalStatusDelete #statusDeleteSid').val();
 
 			$.ajax({
@@ -318,6 +332,7 @@ $(function () {
 				},
 				complete: function (jqXHR, status) {
 					$('#modalStatusDelete').hide();
+					$(buttonSubmit).prop('disabled', false);
 					if (status == 'success') {
 						location.reload();
 					} else {
@@ -341,8 +356,10 @@ $(function () {
         modal.find('#statusRestoreTitle').text(title);
 
         $('#modalStatusRestore .btn-primary').click(function (e) {
-            e.preventDefault();
-            var token = $('#modalStatusRestore [name=_token]').val(),
+			e.preventDefault();
+			$(this).prop('disabled', true);
+			var buttonSubmit = this,
+            	token = $('#modalStatusRestore [name=_token]').val(),
                 sid = $('#modalStatusRestore #statusRestoreSid').val();
 
             $.ajax({
@@ -354,6 +371,7 @@ $(function () {
                 },
                 complete: function (jqXHR, status) {
                     $('#modalStatusRestore').hide();
+					$(buttonSubmit).prop('disabled', false);
                     if (status == 'success') {
                         location.reload();
                     } else {
@@ -434,8 +452,10 @@ $(function () {
         modal.find('#userDeleteName').text(name);
 
         $('#modalUserDelete .btn-primary').click(function (e) {
-            e.preventDefault();
-            var token = $('#modalUserDelete [name=_token]').val(),
+			e.preventDefault();
+			$(this).prop('disabled', true);
+			var buttonSubmit = this,
+            	token = $('#modalUserDelete [name=_token]').val(),
                 uid = $('#modalUserDelete #userDeleteUid').val();
 
             $.ajax({
@@ -447,6 +467,7 @@ $(function () {
                 },
                 complete: function (jqXHR, status) {
                     $('#modalUserDelete').hide();
+					$(buttonSubmit).prop('disabled', false);
                     if (status == 'success') {
                         location.reload();
                     } else {
@@ -514,7 +535,9 @@ $(function () {
 
 		$('#modalDocentData .btn-primary').click(function (e) {
 			e.preventDefault();
-			var token = $('#modalDocentData [name=_token]').val(),
+			$(this).prop('disabled', true);
+			var buttonSubmit = this,
+				 token = $('#modalDocentData [name=_token]').val(),
 				data = $(this).parent().parent().serializeArray();
 
 			$.ajax({
@@ -522,6 +545,7 @@ $(function () {
 				url: did+'/data-form-'+property,
 				data: data,
 				complete: function (jqXHR, status) {
+					$(buttonSubmit).prop('disabled', false);
 					//$('#modalDocentData').hide();
 					if (status == 'success') {
 						location.reload();
@@ -625,7 +649,9 @@ $(function () {
 
 		$('#modalPhoneNumber .btn-primary').click(function (e) {
 			e.preventDefault();
-			var token = $('#modalPhoneNumber [name=_token]').val();
+			$(this).prop('disabled', true);
+			var buttonSubmit = this,
+				token = $('#modalPhoneNumber [name=_token]').val();
 
 			$.ajax({
 				type: 'POST',
@@ -633,6 +659,7 @@ $(function () {
 				data: $(this).parent().parent().serializeArray(),
 				complete: function (jqXHR, status) {
 					$('#modalPhoneNumber').hide();
+					$(buttonSubmit).prop('disabled', false);
 					if (status == 'success') {
 						location.reload();
 					} else {
@@ -734,6 +761,10 @@ $(function () {
 
 
 	$('#docent-list').bootstrapTable({
+		formatSearch: function () {
+			return 'Suche nach Vor/Nachname, Vorlesung oder Status';
+		}
+
 		}).on('click-row.bs.table', function (e, row) {
 		   window.location.href = 'docent/'+row.did;
 	});

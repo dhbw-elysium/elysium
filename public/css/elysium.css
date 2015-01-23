@@ -284,6 +284,10 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	color: dimgray;
 }
 
+.docent-detail .tab-pane .col-md-4 {
+	text-align: right;
+}
+
 .docent-detail .col-md-8 {
 	word-wrap: break-word;
 }
