@@ -503,17 +503,6 @@
 
 						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Studienvorlesungen</label>
-								<div class="col-md-8">
-									{{$docent->displayData('x')}}
-									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="xxx">
-									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-									</button>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-12 col-lg-12">
-							<div class="form-group">
 								<label class="col-md-4 control-label">Kontodaten (klassisch)</label>
 								<div class="col-md-8">
 									<div>

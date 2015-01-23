@@ -22,7 +22,8 @@ class DocentController extends BaseController {
         $docent = Docent::find($did);
 
         $textareaElements   = array('activity_teach', 'activity_practical', 'course_extra', 'extra');
-        $textElements       = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_part', 'company_job');
+        $textElements       = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name',
+            'company_part', 'company_job', 'graduation');
 
         if (in_array($targetElement, $textElements )) {
             $property   = $targetElement;
@@ -36,6 +37,10 @@ class DocentController extends BaseController {
                     break;
                 case 'salution':
                     $label      = 'Anrede';
+                    break;
+                case 'graduation':
+                    $label      = 'Abschluss';
+                    $tooltip    = 'Akademischer Abschluss';
                     break;
                 case 'birth_place':
                     $label      = 'Geburtsort';
@@ -104,6 +109,16 @@ class DocentController extends BaseController {
 
         } else {
             switch($targetElement) {
+                case 'is_exdhbw':
+                    $formElement    = array(
+                        'name'      => 'is_exdhbw',
+                        'label'     => 'Ehemalige(r)',
+                        'tooltip'   => 'Ehemaliger DHBW Absolvent',
+                        'type'      => 'boolean',
+                        'value'     => (int)$docent->is_exdhbw
+                    );
+                    $form['elements'][] = $formElement;
+                    break;
                 case 'bank_classic':
                     $formElement    = array(
                         'name'      => 'bank_name',
@@ -254,7 +269,7 @@ class DocentController extends BaseController {
 
         $textElements   = array(
             'title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_part', 'company_job',
-            'activity_teach', 'activity_practical', 'course_extra', 'extra',
+            'activity_teach', 'activity_practical', 'course_extra', 'extra', 'graduation'
         );
 
         if (in_array($targetElement, $textElements )) {
@@ -265,6 +280,7 @@ class DocentController extends BaseController {
             switch($targetElement) {
                 case 'title':
                 case 'salution':
+                case 'graduation':
                 case 'birth_place':
                 case 'website':
                 case 'email':
@@ -286,6 +302,10 @@ class DocentController extends BaseController {
 
         } else {
             switch($targetElement) {
+                case 'is_exdhbw':
+                    $docent->is_exdhbw  = Input::get('is_exdhbw');
+                    $docent->save();
+                    break;
                 case 'bank_classic':
                     $docent->bank_name      = Input::get('bank_name');
                     $docent->bank_blz       = Input::get('bank_blz');

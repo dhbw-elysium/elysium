@@ -502,6 +502,23 @@ $(function () {
 			} else if(type == 'textarea') {
             	template = template+'<textarea class="form-control" id="'+name+'" name="'+name+'" rows="10">'+value+'</textarea>';
 
+			} else if(type == 'boolean') {
+            	template = template+'<select class="form-control" id="'+name+'" name="'+name+'">';
+
+            	template = template+'<option value="1"';
+				if (value == 1) {
+					template = template+'selected="selected"';
+				}
+				template = template+'>ja</option>';
+
+				template = template+'<option value="0"';
+				if (value == 0) {
+					template = template+'selected="selected"';
+				}
+				template = template+'>nein</option>';
+
+				template = template+'</select>';
+
 			} else if(type == 'date') {
 				template = template+'<div class="input-group date">'+
   					'<input type="text" class="form-control" value="'+value+'" name="'+name+'"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>'+

@@ -288,6 +288,10 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	text-align: right;
 }
 
+.docent-detail .container-fluid.form .row > div {
+	margin-bottom: 5px;
+}
+
 .docent-detail .col-md-8 {
 	word-wrap: break-word;
 }
