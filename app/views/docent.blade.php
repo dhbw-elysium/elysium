@@ -440,11 +440,10 @@
 
 
 
-
 					</div>
 				</div>
-
 			</div>
+
 			<div role="tabpanel" class="tab-pane fade" id="extra">
 				<div class="container-fluid form">
 					<div class="row">
@@ -501,6 +500,7 @@
 								</div>
 							</div>
 						</div>
+
 						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
 								<label class="col-md-4 control-label">Studienvorlesungen</label>
@@ -514,9 +514,31 @@
 						</div>
 						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Kontodaten</label>
+								<label class="col-md-4 control-label">Kontodaten (klassisch)</label>
 								<div class="col-md-8">
-
+									<div>
+										{{$docent->displayData('bank_name')}}<br>
+										{{$docent->displayData('bank_blz')}} (BLZ)<br>
+										{{$docent->displayData('bank_number')}} (Kontonummer)<br>
+									</div>
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="bank_classic">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-lg-12">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Kontodaten (modern)</label>
+								<div class="col-md-8">
+									<div>
+										{{$docent->displayData('bank_name')}}<br>
+										{{$docent->displayData('bank_iban')}} (IBAN)<br>
+										{{$docent->displayData('bank_bic')}} (BIC)<br>
+									</div>
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="bank_modern">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
 								</div>
 							</div>
 						</div>
