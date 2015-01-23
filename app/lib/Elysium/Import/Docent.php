@@ -229,8 +229,9 @@ class Docent {
 				$docentCourseRelation[]	= array('cid' => $course->cid, 'did' => $docent->did);
 			}
 		}
-
-		\DB::table('docent_course')->insert($docentCourseRelation);
+		if ($docentCourseRelation) {
+			\DB::table('docent_course')->insert($docentCourseRelation);
+		}
 
 		if(isset($data['phone_number_private'])) {
 			foreach($data['phone_number_private'] as $type => $number) {
