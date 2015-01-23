@@ -8,12 +8,27 @@ class StatusController extends BaseController {
 
     public function showStatusList()
     {
-        return View::make('status.list');
+        if(Auth::user()->isAdmin()){
+            return View::make('status.list');
+        }
+        else
+        {
+            return Redirect::to('home');   // no
+        }
+
+
+
     }
 
     public function showStatusListTrash()
     {
-        return View::make('status.list-trash');
+        if(Auth::user()->isAdmin()) {
+            return View::make('status.list-trash');
+        }
+        else
+            {
+                return Redirect::to('home');   // no
+            }
     }
 
 

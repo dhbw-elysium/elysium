@@ -8,7 +8,14 @@ class CoursesController extends BaseController {
 
     public function showCourses()
     {
-        return View::make('courses');
+        if(Auth::user()->isAdmin()) {
+
+            return View::make('courses');
+        }
+    else
+        {
+            return Redirect::to('home');   // no
+        }
     }
 
 	/**
