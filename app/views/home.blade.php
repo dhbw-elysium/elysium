@@ -14,12 +14,64 @@ $lastLogin = new DateTime(Session::get('last_login', null));
 
 $nrNewDocents=Docent::getNumberOfNewDocents(Session::get('last_login', 0));
 ?>
-<p>Seit ihrem letzten Login am {{$lastLogin->format('d.m.Y');}} gibt es:</p>
+<div class="row">
+<div class="col-sm-7">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title">Neue Dozenten (seit {{$lastLogin->format('d.m.Y');}})</h2>
+			</div>
 
-<div class="col-sm-6">
-<ul class="list-group">
-  <a href="{{{ URL::to('docents') }}}" class="list-group-item {{$nrNewDocents!=0 ? 'active' : ''}}">neue Dozenten <span class="badge">{{$nrNewDocents}}</span> </a>
- </ul>
+<table class="table table-striped table-grid table-hover">
+ 				  <thead>
+ 					<tr>
+ 						<th class="row-id">#</th>
+ 						<th>Nachname</th>
+ 						<th>Vorname</th>
+ 						<th>Imported</th>
+ 						<th class="row-action">
+
+ 						</th>
+ 					</tr>
+ 				  </thead>
+ 				  <tbody>
+
+            		@if (count($docentList = Docent::where('created_at','>=', $lastLogin)->orderBy('last_name')->paginate(15)))
+						@foreach ($docentList as $docent)
+
+                            <tr>
+                            <td class="row-id">{{{$docent->did}}}</td>
+                            <td>{{{$docent->last_name}}}</td>
+                            <td>{{{$docent->first_name}}}</td>
+                            <td>{{{$docent->created_at->format('d.m.Y')}}}</td>
+                            <td class="row-action">
+                            <a class="btn btn-default btn-xs" href="{{{ URL::to('docent/'.$docent->did) }}}">
+                            <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                            </a>
+                            </td>
+                            </tr>
+
+
+						@endforeach
+
+						     @else
+                               <tr>
+                                <td colspan="4"><i>Keine neuen Dozenten vorhanden</i></td>
+                                </tr>
+                             @endif
+
+
+                    </tbody>
+                    </table>
+                    <div>
+                    {{ $docentList->links() }}
+                    </div>
+</div>
+</div>
+<div class="col-sm-5">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title">Status im System</h2>
+			</div>
  <ul class="list-group">
   @if (count($statuses	= Status::orderBy('sid')->paginate(15)))
   @foreach ($statuses as $status)
@@ -32,6 +84,8 @@ $nrNewDocents=Docent::getNumberOfNewDocents(Session::get('last_login', 0));
 	{{ $statuses->links() }}
 </div>
 </ul>
+</div>
+</div>
 </div>
 
 
