@@ -693,7 +693,7 @@ $(function () {
 		var addNumber = function(type, number, pid) {
 		  	$('#modalPhoneNumber .form-number-elements').append(numberTemplate(type, number, pid));
 
-			$('#modalPhoneNumber .form-number-elements .btn-danger').click(function(e) {
+			$('#modalPhoneNumber .form-number-elements .btn-remove').click(function(e) {
 				e.preventDefault();
 				var pid	= $(this).parent().parent().find('input.pid').val();
 				$(this).parent().parent().parent().parent().remove();
@@ -710,7 +710,7 @@ $(function () {
 			});
 		});
 
-		$('#modalPhoneNumber .btn-success').click(function (e) {
+		$('#modalPhoneNumber .btn-add').click(function (e) {
 			e.preventDefault();
 			addNumber(null, '');
 		});
