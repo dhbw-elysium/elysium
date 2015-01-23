@@ -20,7 +20,7 @@ body h6
 }
 
 @-moz-document url-prefix() {
-	body label {
+	body .label {
 		padding: .1em .6em .3em;
 	}
 }
