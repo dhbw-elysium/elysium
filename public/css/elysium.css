@@ -292,6 +292,14 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	margin-bottom: 5px;
 }
 
+.docent-detail .col-sm-6.col-lg-6 {
+	padding: 0 2px;
+}
+
+.docent-detail .col-md-8 {
+	padding: 0 7px;
+}
+
 .docent-detail .col-md-8 {
 	word-wrap: break-word;
 }
