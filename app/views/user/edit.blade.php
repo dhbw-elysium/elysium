@@ -67,7 +67,7 @@
                     {{Form::label('firstname', 'Vorname',array('class'=>'col-sm-3 control-label'))}}
 
                     <div class="col-sm-9">
-                        {{Form::text('firstname', ($user ? $user->firstname : ''), array('class'=>'form-control'))}}
+                        {{Form::text('firstname', ($user ? $user->firstname : ''), array('class'=>'form-control', 'required'))}}
                     </div>
                 </div>
 
@@ -75,14 +75,14 @@
                     {{Form::label('lastname', 'Nachname',array('class'=>'col-sm-3 control-label'))}}
 
                     <div class="col-sm-9">
-                        {{Form::text('lastname', ($user ? $user->lastname : ''), array('class'=>'form-control'))}}
+                        {{Form::text('lastname', ($user ? $user->lastname : ''), array('class'=>'form-control', 'required'))}}
                     </div>
                 </div>
                 <div class="form-group">
                     {{Form::label('email', 'E-Mail Addresse',array('class'=>'col-sm-3 control-label'))}}
 
                     <div class="col-sm-9">
-                        {{Form::email('email', ($user ? $user->email : ''), array('class'=>'form-control'))}}
+                        {{Form::email('email', ($user ? $user->email : ''), array('class'=>'form-control', 'required'))}}
                     </div>
                 </div>
                 @if(Auth::user()->isAdmin())
@@ -101,7 +101,7 @@
                                     {{Form::label('password', 'Passwort',array('class'=>'col-sm-3 control-label'))}}
 
                     <div class="col-sm-9">
-                        {{Form::password('password', array('class'=>'form-control'))}}
+                        {{Form::password('password', array('class'=>'form-control', 'pattern'=>'.{5,}', 'title'=>'Das Passwort muss mindestens 5 Zeichen lang sein', 'required'))}}
                     </div>
                                 </div>
                                 @endif
