@@ -260,6 +260,37 @@ class DocentController extends BaseController {
 
 
     /**
+     * Update teach time data of docent
+     *
+     * @return Response
+     */
+    public function docentDataUpdateTeachTime($did) {
+        if ($did = (int)Input::get('did')) {
+
+            $docent = Docent::find($did);
+
+            $docent->time_mo_am = Input::has('time_mo_am');
+            $docent->time_tu_am = Input::has('time_tu_am');
+            $docent->time_we_am = Input::has('time_we_am');
+            $docent->time_th_am = Input::has('time_th_am');
+            $docent->time_fr_am = Input::has('time_fr_am');
+
+            $docent->time_mo_pm = Input::has('time_mo_pm');
+            $docent->time_tu_pm = Input::has('time_tu_pm');
+            $docent->time_we_pm = Input::has('time_we_pm');
+            $docent->time_th_pm = Input::has('time_th_pm');
+            $docent->time_fr_pm = Input::has('time_fr_pm');
+
+            $docent->save();
+
+            return Response::make('', 200);
+        }
+
+        return Response::make('', 405);
+    }
+
+
+    /**
      * Track a status change of a docent
      */
     public function addStatusEntry() {

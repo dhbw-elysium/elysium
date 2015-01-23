@@ -562,6 +562,38 @@ $(function () {
 
 	});
 
+	$('#modalDocentTime').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget),
+			did = button.data('did'),
+			modal = $(this);
+
+		$('#modalDocentTime .btn-primary').click(function (e) {
+			e.preventDefault();
+			$(this).prop('disabled', true);
+			var buttonSubmit = this,
+				token = $('#modalDocentTime [name=_token]').val();
+
+			$.ajax({
+				type: 'POST',
+				url: did+'/data-teach-time',
+				data: $(this).parent().parent().serializeArray(),
+				complete: function (jqXHR, status) {
+					$('#modalPhoneNumber').hide();
+					$(buttonSubmit).prop('disabled', false);
+					if (status == 'success') {
+						location.reload();
+					} else {
+						$.toaster({
+							title: 'Status',
+							priority: 'danger',
+							message: 'Beim speichern der bevorzugten Vorlesungszeiten ist Fehler aufgetreten'
+						});
+					}
+				}
+			});
+		});
+	});
+
 	$('#modalPhoneNumber').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget),
 			did = parseInt(button.data('did')),

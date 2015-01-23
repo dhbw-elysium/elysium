@@ -7,6 +7,59 @@
 
 @section('content')
 
+<!-- Modal	docent times -->
+<div class="modal fade" id="modalDocentTime" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+        <h4 class="modal-title">Bevorzugte Vorlesungszeiten</h4>
+      </div>
+	  {{ Form::open() }}
+	  {{ Form::hidden('did', $docent->did)}}
+      <div class="modal-body form-horizontal">
+		<table class="table table-condensed table-bordered table-docent-time">
+		<thead>
+			<tr>
+				<th></th>
+				<th>Mo</th>
+				<th>Di</th>
+				<th>Mi</th>
+				<th>Do</th>
+				<th>Fr</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<th>Vormittags</th>
+				<td>{{Form::checkbox('time_mo_am', 'true', (int)$docent->time_mo_am)}}</td>
+				<td>{{Form::checkbox('time_tu_am', 'true', (int)$docent->time_tu_am)}}</td>
+				<td>{{Form::checkbox('time_we_am', 'true', (int)$docent->time_we_am)}}</td>
+				<td>{{Form::checkbox('time_th_am', 'true', (int)$docent->time_th_am)}}</td>
+				<td>{{Form::checkbox('time_fr_am', 'true', (int)$docent->time_fr_am)}}</td>
+			</tr>
+			<tr>
+				<th>Nachmittags</th>
+				<td>{{Form::checkbox('time_mo_pm', 'true', (int)$docent->time_mo_pm)}}</td>
+				<td>{{Form::checkbox('time_tu_pm', 'true', (int)$docent->time_tu_pm)}}</td>
+				<td>{{Form::checkbox('time_we_pm', 'true', (int)$docent->time_we_pm)}}</td>
+				<td>{{Form::checkbox('time_th_pm', 'true', (int)$docent->time_th_pm)}}</td>
+				<td>{{Form::checkbox('time_fr_pm', 'true', (int)$docent->time_fr_pm)}}</td>
+			</tr>
+		</tbody>
+		</table>
+
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+		{{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
+      </div>
+	  {{ Form::close() }}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 <!-- Modal	docent property -->
 <div class="modal fade" id="modalDocentData" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
@@ -142,7 +195,7 @@
 			<li role="presentation" class="active"><a href="#personaldata" aria-controls="personaldata" role="tab" data-toggle="tab">Personendaten</a></li>
 			<li role="presentation"><a href="#company" aria-controls="company" role="tab" data-toggle="tab">Beruf</a></li>
 			<li role="presentation"><a href="#qualification" aria-controls="qualification" role="tab" data-toggle="tab">Qualifikation</a></li>
-			<li role="presentation"><a href="#course" aria-controls="course" role="tab" data-toggle="tab">Vorlesungsinformationen</a></li>
+			<li role="presentation"><a href="#extra" aria-controls="course" role="tab" data-toggle="tab">Weitere Informationen</a></li>
 		  </ul>
 
 		  <div class="tab-content">
@@ -151,7 +204,7 @@
 					<div class="row">
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Titel:</label>
+								<label class="col-md-4 control-label">Titel</label>
 								<div class="col-md-8">
 									{{$docent->displayData('title')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="title">
@@ -162,7 +215,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Anrede:</label>
+								<label class="col-md-4 control-label">Anrede</label>
 								<div class="col-md-8">
 									{{$docent->displayData('salution')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="salution">
@@ -173,7 +226,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Name:</label>
+								<label class="col-md-4 control-label">Name</label>
 								<div class="col-md-8">
 									{{$docent->displayName()}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="name">
@@ -184,7 +237,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">E-Mail:</label>
+								<label class="col-md-4 control-label">E-Mail</label>
 								<div class="col-md-8">
 									{{$docent->displayData('email')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="email">
@@ -195,7 +248,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Telefon:</label>
+								<label class="col-md-4 control-label">Telefon</label>
 								<div class="col-md-8">
 									<div>{{$docent->displayPhoneNumberList(true)}}</div>
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-did="{{{$docent->did}}}" data-private="1" data-toggle="tooltip" title="Telefonnummern bearbeiten">
@@ -206,7 +259,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Anschrift:</label>
+								<label class="col-md-4 control-label">Anschrift</label>
 								<div class="col-md-8">
 									<div>{{$docent->displayAddress(Address::TYPE_PRIVATE)}}</div>
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="address_private">
@@ -217,7 +270,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Webseite:</label>
+								<label class="col-md-4 control-label">Webseite</label>
 								<div class="col-md-8">
 									{{$docent->displayData('website')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="website">
@@ -228,7 +281,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Geburtstag:</label>
+								<label class="col-md-4 control-label">Geburtstag</label>
 								<div class="col-md-8">
 									{{$docent->displayData('birth_day')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="birth_day">
@@ -239,7 +292,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Geburtsort:</label>
+								<label class="col-md-4 control-label">Geburtsort</label>
 								<div class="col-md-8">
 									{{$docent->displayData('birth_place')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="birth_place">
@@ -257,7 +310,7 @@
 					<div class="row">
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label" title="Firmen-Name">Firma:</label>
+								<label class="col-md-4 control-label" title="Firmen-Name">Firma</label>
 								<div class="col-md-8">
 									{{$docent->displayData('company_name')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="company_name">
@@ -268,7 +321,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Abteilung:</label>
+								<label class="col-md-4 control-label">Abteilung</label>
 								<div class="col-md-8">
 									{{$docent->displayData('company_part')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="company_part">
@@ -279,7 +332,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Beruf:</label>
+								<label class="col-md-4 control-label">Beruf</label>
 								<div class="col-md-8">
 									{{$docent->displayData('company_job')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="company_job">
@@ -290,7 +343,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Anschrift:</label>
+								<label class="col-md-4 control-label">Anschrift</label>
 								<div class="col-md-8">
 									<div>{{$docent->displayAddress(Address::TYPE_COMPANY)}}</div>
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="address_company">
@@ -301,7 +354,7 @@
 						</div>
 						<div class="col-sm-6 col-lg-6">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Telefon:</label>
+								<label class="col-md-4 control-label">Telefon</label>
 								<div class="col-md-8">
 									<div>{{$docent->displayPhoneNumberList(false)}}</div>
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalPhoneNumber" data-did="{{{$docent->did}}}" data-private="0" data-toggle="tooltip" title="Telefonnummern bearbeiten">
@@ -320,7 +373,7 @@
 					<div class="row">
 						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Abschluss:</label>
+								<label class="col-md-4 control-label">Abschluss</label>
 								<div class="col-md-8">
 									{{$docent->displayData('graduation')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="graduation">
@@ -331,7 +384,7 @@
 						</div>
 						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
-								<label class="col-md-4 control-label" title="Ehemaliger DHBW Absolvent">Ehemalige(r):</label>
+								<label class="col-md-4 control-label" title="Ehemaliger DHBW Absolvent">Ehemalige(r)</label>
 								<div class="col-md-8">
 									{{$docent->displayData('is_exdhbw')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="is_exdhbw">
@@ -342,7 +395,7 @@
 						</div>
 						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Lehraufträge und Lehrtätigkeiten:</label>
+								<label class="col-md-4 control-label">Lehraufträge und Lehrtätigkeiten</label>
 								<div class="col-md-8">
 									{{$docent->displayData('activity_teach')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="activity_teach">
@@ -353,7 +406,7 @@
 						</div>
 						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Praktische Tätigkeiten:</label>
+								<label class="col-md-4 control-label">Praktische Tätigkeiten</label>
 								<div class="col-md-8">
 									{{$docent->displayData('activity_practical')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="activity_practical">
@@ -364,7 +417,7 @@
 						</div>
 						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
-								<label class="col-md-4 control-label" title="Weitere mögliche Vorlesungsbereiche sowie bereits gehaltene Vorlesungen">Weitere mögl. Vorlesungsbereiche:</label>
+								<label class="col-md-4 control-label" title="Weitere mögliche Vorlesungsbereiche sowie bereits gehaltene Vorlesungen">Weitere mögl. Vorlesungsbereiche</label>
 								<div class="col-md-8">
 									{{$docent->displayData('course_extra')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="course_extra">
@@ -375,7 +428,7 @@
 						</div>
 						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
-								<label class="col-md-4 control-label">Anmerkungen, Ergänzungen:</label>
+								<label class="col-md-4 control-label">Anmerkungen, Ergänzungen</label>
 								<div class="col-md-8">
 									{{$docent->displayData('extra')}}
 									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="extra">
@@ -392,8 +445,85 @@
 				</div>
 
 			</div>
-			<div role="tabpanel" class="tab-pane fade" id="course">
+			<div role="tabpanel" class="tab-pane fade" id="extra">
+				<div class="container-fluid form">
+					<div class="row">
+						<div class="col-sm-12 col-lg-12">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Bevorzugtes Studienfach</label>
+								<div class="col-md-8">
+									{{$docent->displayData('xxx')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="xxx">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-lg-12">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Bevorzugte Vorlesungszeiten</label>
+								<div class="col-md-8">
+									<div>
+										<table class="table table-condensed table-bordered table-docent-time">
+										<thead>
+											<tr>
+												<th></th>
+												<th>Mo</th>
+												<th>Di</th>
+												<th>Mi</th>
+												<th>Do</th>
+												<th>Fr</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th>Vormittags</th>
+												<td>{{($docent->time_mo_am) ? 'x' : ''}}</td>
+												<td>{{($docent->time_tu_am) ? 'x' : ''}}</td>
+												<td>{{($docent->time_we_am) ? 'x' : ''}}</td>
+												<td>{{($docent->time_th_am) ? 'x' : ''}}</td>
+												<td>{{($docent->time_fr_am) ? 'x' : ''}}</td>
+											</tr>
+											<tr>
+												<th>Nachmittags</th>
+												<td>{{($docent->time_mo_pm) ? 'x' : ''}}</td>
+												<td>{{($docent->time_tu_pm) ? 'x' : ''}}</td>
+												<td>{{($docent->time_we_pm) ? 'x' : ''}}</td>
+												<td>{{($docent->time_th_pm) ? 'x' : ''}}</td>
+												<td>{{($docent->time_fr_pm) ? 'x' : ''}}</td>
+											</tr>
+										</tbody>
+										</table>
+									</div>
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentTime">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-lg-12">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Studienvorlesungen</label>
+								<div class="col-md-8">
+									{{$docent->displayData('x')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="xxx">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-lg-12">
+							<div class="form-group">
+								<label class="col-md-4 control-label">Kontodaten</label>
+								<div class="col-md-8">
 
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+				</div>
 			</div>
 		  </div>
 
