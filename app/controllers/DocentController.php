@@ -22,7 +22,8 @@ class DocentController extends BaseController {
         $docent = Docent::find($did);
 
         $textareaElements   = array('activity_teach', 'activity_practical', 'course_extra', 'extra');
-        $textElements       = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_part', 'company_job');
+        $textElements       = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name',
+            'company_part', 'company_job', 'graduation');
 
         if (in_array($targetElement, $textElements )) {
             $property   = $targetElement;
@@ -36,6 +37,10 @@ class DocentController extends BaseController {
                     break;
                 case 'salution':
                     $label      = 'Anrede';
+                    break;
+                case 'graduation':
+                    $label      = 'Abschluss';
+                    $tooltip    = 'Akademischer Abschluss';
                     break;
                 case 'birth_place':
                     $label      = 'Geburtsort';
@@ -104,6 +109,72 @@ class DocentController extends BaseController {
 
         } else {
             switch($targetElement) {
+                case 'is_exdhbw':
+                    $formElement    = array(
+                        'name'      => 'is_exdhbw',
+                        'label'     => 'Ehemalige(r)',
+                        'tooltip'   => 'Ehemaliger DHBW Absolvent',
+                        'type'      => 'boolean',
+                        'value'     => (int)$docent->is_exdhbw
+                    );
+                    $form['elements'][] = $formElement;
+                    break;
+                case 'bank_classic':
+                    $formElement    = array(
+                        'name'      => 'bank_name',
+                        'label'     => 'Kreditinstitut',
+                        'tooltip'   => 'Name des Kreditinstituts',
+                        'type'      => 'text',
+                        'value'     => e($docent->bank_name)
+                    );
+                    $form['elements'][] = $formElement;
+
+                    $formElement    = array(
+                        'name'      => 'bank_blz',
+                        'label'     => 'BLZ',
+                        'tooltip'   => 'Bankleitzahl',
+                        'type'      => 'text',
+                        'value'     => e($docent->bank_blz)
+                    );
+                    $form['elements'][] = $formElement;
+
+                    $formElement    = array(
+                        'name'      => 'bank_number',
+                        'label'     => 'Kontonummer',
+                        'tooltip'   => 'Kontonummer',
+                        'type'      => 'text',
+                        'value'     => e($docent->bank_number)
+                    );
+                    $form['elements'][] = $formElement;
+                    break;
+                case 'bank_modern':
+                    $formElement    = array(
+                        'name'      => 'bank_name',
+                        'label'     => 'Kreditinstitut',
+                        'tooltip'   => 'Name des Kreditinstituts',
+                        'type'      => 'text',
+                        'value'     => e($docent->bank_name)
+                    );
+                    $form['elements'][] = $formElement;
+
+                    $formElement    = array(
+                        'name'      => 'bank_iban',
+                        'label'     => 'IBAN',
+                        'tooltip'   => 'Internationale Bankkontonummer',
+                        'type'      => 'text',
+                        'value'     => e($docent->bank_iban)
+                    );
+                    $form['elements'][] = $formElement;
+
+                    $formElement    = array(
+                        'name'      => 'bank_bic',
+                        'label'     => 'BIC',
+                        'tooltip'   => 'Geschäftskennzeichen',
+                        'type'      => 'text',
+                        'value'     => e($docent->bank_bic)
+                    );
+                    $form['elements'][] = $formElement;
+                    break;
                 case 'birth_day':
                     $birthDate  = new \DateTime($docent->birth_day);
 
@@ -198,7 +269,7 @@ class DocentController extends BaseController {
 
         $textElements   = array(
             'title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_part', 'company_job',
-            'activity_teach', 'activity_practical', 'course_extra', 'extra'
+            'activity_teach', 'activity_practical', 'course_extra', 'extra', 'graduation'
         );
 
         if (in_array($targetElement, $textElements )) {
@@ -209,6 +280,7 @@ class DocentController extends BaseController {
             switch($targetElement) {
                 case 'title':
                 case 'salution':
+                case 'graduation':
                 case 'birth_place':
                 case 'website':
                 case 'email':
@@ -219,6 +291,10 @@ class DocentController extends BaseController {
                 case 'activity_practical':
                 case 'course_extra':
                 case 'extra':
+                case 'bank_blz':
+                case 'bank_number':
+                case 'bank_iban':
+                case 'bank_bic':
                     $docent->$targetElement = Input::get($targetElement);
             }
 
@@ -226,6 +302,22 @@ class DocentController extends BaseController {
 
         } else {
             switch($targetElement) {
+                case 'is_exdhbw':
+                    $docent->is_exdhbw  = Input::get('is_exdhbw');
+                    $docent->save();
+                    break;
+                case 'bank_classic':
+                    $docent->bank_name      = Input::get('bank_name');
+                    $docent->bank_blz       = Input::get('bank_blz');
+                    $docent->bank_number    = Input::get('bank_number');
+                    $docent->save();
+                    break;
+                case 'bank_modern':
+                    $docent->bank_name      = Input::get('bank_name');
+                    $docent->bank_iban      = Input::get('bank_iban');
+                    $docent->bank_bic       = Input::get('bank_bic');
+                    $docent->save();
+                    break;
                 case 'birth_day':
                     if (preg_match('/(\d{2}).(\d{2}).(\d{4})/', Input::get('birth_day'), $birthDay)) {
                         $docent->birth_day  = new \DateTime(sprintf('%d-%d-%d', $birthDay[3], $birthDay[2], $birthDay[1]));
