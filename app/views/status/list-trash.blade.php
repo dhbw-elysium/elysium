@@ -55,7 +55,7 @@
                 		  <thead>
                 			<tr>
                 				<th class="row-id">#</th>
-                				<th>Symbol</th>
+                				<th style="max-width:60px;">Symbol</th>
                 				<th>Titel</th>
                 				<th>Beschreibung</th>
                 				<th class="row-action">
