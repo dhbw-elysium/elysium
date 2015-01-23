@@ -18,7 +18,7 @@ $nrNewDocents=Docent::getNumberOfNewDocents(Session::get('last_login', 0));
 <div class="col-sm-7">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h2 class="panel-title">Neue Dozenten (seit {{$lastLogin->format('d.m.Y');}})</h2>
+				<h2 class="panel-title">Neue Dozenten (seit Ihrem letzten Login am {{$lastLogin->format('d.m.Y');}})</h2>
 			</div>
 
 <table class="table table-striped table-grid table-hover">
