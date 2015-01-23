@@ -103,7 +103,7 @@
 </div>
 <div class="row">
 	<div class="col-xs-1" style="margin-top: 10px;margin-bottom: 40px;">
-		<a class="btn btn-default" href="http://localhost/elysium/public/status/list">Abbrechen</a>
+		<a class="btn btn-default" href="list">Abbrechen</a>
 	</div>
 	<div class="col-xs-1" style="margin-top: 10px;margin-bottom: 40px;">
 		{{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}

@@ -126,7 +126,7 @@
 <div class="panel panel-default">
   <div class="panel-body">
   <div style="float: right">
-  <a class="btn btn-default" href="http://localhost/elysium/public/docents/import/upload">Abbrechen</a>
+  <a class="btn btn-default" href="upload">Abbrechen</a>
 	{{ Form::submit('Importieren', array('class' => 'btn btn-primary', 'name' => 'do-import')) }}
 	</div>
   </div>
