@@ -145,8 +145,24 @@ span.label-course-tag {
 	text-align: right;
 }
 
+.row.docent-import-begin {
+	margin-top:25px;
+}
+
+.docent-import-begin label {
+	margin-bottom:15px;
+}
+
+.docent-import-begin .panel {
+	height: 100px;
+}
+
 .panel-docent-import-docent textarea {
 	min-height: 200px;
+}
+
+.panel-docent-import-docent .col-md-4 {
+	word-wrap: break-word;
 }
 
 form .form-group .course-tag-list {

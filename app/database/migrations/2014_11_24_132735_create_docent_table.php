@@ -46,11 +46,11 @@ class CreateDocentTable extends Migration {
 			$table->boolean('time_th_pm');
 			$table->boolean('time_fr_am');
 			$table->boolean('time_fr_pm');
-			$table->string('activity_teach');
-			$table->string('activity_practical');
-			$table->string('course_extra');
-			$table->string('extra');
-			$table->string('comment');
+			$table->text('activity_teach');
+			$table->text('activity_practical');
+			$table->text('course_extra');
+			$table->text('extra');
+			$table->text('comment');
 
 			$table->timestamps();
 			$table->unsignedInteger('created_by');

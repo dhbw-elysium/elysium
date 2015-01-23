@@ -86,23 +86,23 @@ class DocentsImportController extends BaseController {
 						case 'bank_classic':
 							$groupClass[]	= 'form-group-elements-3';
 							$element		= '
-								<label for="'.$elementKey.'[name]" class="control-label">Kreditinstitut:</label>
+								<label for="'.$elementKey.'[name]" class="control-label">Kreditinstitut</label>
 								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[name]" type="text" value="'.$data['name'].'">
 
-								<label for="'.$elementKey.'[blz]" class="control-label" title="Bankleitzahl">BLZ:</label>
+								<label for="'.$elementKey.'[blz]" class="control-label" title="Bankleitzahl">BLZ</label>
 								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[blz]" type="text" value="'.$data['blz'].'">
 
-								<label for="'.$elementKey.'[number]" class="control-label">Kontonummer:</label>
+								<label for="'.$elementKey.'[number]" class="control-label">Kontonummer</label>
 								<input class="form-control" numberholder="(leer)" name="'.$elementKey.'[number]" type="text" value="'.$data['number'].'">
 								';
 							break;
 						case 'bank_modern':
 							$groupClass[]	= 'form-group-elements-3';
 								$element	= '
-								<label for="'.$elementKey.'[iban]" class="control-label" title="International Bank Account Number">IBAN:</label>
+								<label for="'.$elementKey.'[iban]" class="control-label" title="International Bank Account Number">IBAN</label>
 								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[iban]" type="text" value="'.((isset($data['iban'])) ? $data['iban'] : '').'">
 
-								<label for="'.$elementKey.'[bic]" class="control-label" title="Bank Identifier Code">BIC:</label>
+								<label for="'.$elementKey.'[bic]" class="control-label" title="Bank Identifier Code">BIC</label>
 								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[bic]" type="text" value="'.((isset($data['bic'])) ? $data['bic'] : '').'">
 								';
 							break;
@@ -111,7 +111,7 @@ class DocentsImportController extends BaseController {
 						case 'phone_number_private':
 							$element	= '';
 
-							$elementTemplate	= '<label for="%s" class="control-label">%s:</label>
+							$elementTemplate	= '<label for="%s" class="control-label">%s</label>
 									<input class="form-control" placeholder="(leer)" name="%s" type="text" value="%s">';
 
 							foreach($data as $type => $number) {
@@ -144,13 +144,13 @@ class DocentsImportController extends BaseController {
 						case 'private_address':
 						case 'company_address':
 							$element	= '
-								<label for="'.$elementKey.'[street]" class="control-label">Straße, Hausnummer:</label>
+								<label for="'.$elementKey.'[street]" class="control-label">Straße, Hausnummer</label>
 								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[street]" type="text" value="'.$data['street'].'">
 
-								<label for="'.$elementKey.'[plz]" class="control-label">PLZ:</label>
+								<label for="'.$elementKey.'[plz]" class="control-label">PLZ</label>
 								<input class="form-control" placeholder="(leer)" name="'.$elementKey.'[plz]" type="text" value="'.$data['plz'].'">
 
-								<label for="'.$elementKey.'[city]" class="control-label">Ort:</label>
+								<label for="'.$elementKey.'[city]" class="control-label">Ort</label>
 								<input class="form-control" cityholder="(leer)" name="'.$elementKey.'[city]" type="text" value="'.$data['city'].'">
 								';
 
@@ -270,7 +270,7 @@ class DocentsImportController extends BaseController {
 					implode(' ', array('col-sm-6', 'col-lg-6')),
 					$elementKey,
 					'',
-					'Vorlesungszeiten:',
+					'Vorlesungszeiten',
 					$element
 				);
 			});
@@ -290,7 +290,7 @@ class DocentsImportController extends BaseController {
 			$courseTemplate	= '
 				<div class="col-sm-6 col-lg-6">
 					<div class="form-group">
-						<label for="%s" class="col-md-4 control-label%s">%s%s:</label>
+						<label for="%s" class="col-md-4 control-label%s">%s%s</label>
 						<div class="col-md-8 course-tag-list">
 							%s
 						</div>
@@ -309,15 +309,15 @@ class DocentsImportController extends BaseController {
 					$courseHint	= '';
 
 					if (!array_key_exists($courseGroup, $courseGroups) || in_array($course, $courseGroups[$courseGroup])) {
-						$badge		= ' (*)';
-						$courseHint	= ' (wird neu angelegt)';
+						$badge		= '';	//deactivated
+						$courseHint	= '';	//deactivated
 					}
 
 					$form .= sprintf(
 						$formTemplate,
 						e($course),
 						$courseHint,
-						e($course),
+						((strlen($course) > 38) ? e(substr($course, 0, 40)).'...': e($course)),
 						$badge,
 						$elementKey,
 						e($course),
