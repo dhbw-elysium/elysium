@@ -71,12 +71,23 @@ class UserController extends BaseController {
                 'email'	=> 'required|email'
             );
 
+        $messages = array(
+            'firstname.required' => 'Es muss ein Vorname angegeben werden',
+            'lastname.required'      => 'Der Nachname muss angegeben werden',
+            'email.required'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
+            'email.email'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
+            'email.unique'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden'
+        );
+
+
           if(Input::has('role')){
                 $data['role']   = Input::get('role');
                 $rules['role']  = 'required';
+
            }
 
-            $validator = Validator::make($data, $rules);
+
+            $validator = Validator::make($data, $rules, $messages);
 
             if ($validator->passes()) {
 
@@ -104,11 +115,16 @@ class UserController extends BaseController {
                 }
             }
 
-
+        $messages=$validator->messages();
+        $returnMessage='';
+        foreach ($messages->all() as $message)
+        {
+            $returnMessage=$returnMessage.' '.$message.'.';
+        }
 
                // return View::make('user.edit')->with('uid',(int)$uid);//
 
-                return Redirect::to('')->with('danger', 'Änderung ist fehlgeschlagen');
+                return Redirect::to('')->with('danger', 'Änderung ist fehlgeschlagen.'.' '.$returnMessage);
 
 
 }
@@ -138,8 +154,18 @@ class UserController extends BaseController {
                 'password' => 'required|min:5'
 
             );
+            $messages = array(
+                'firstname.required' => 'Es muss ein Vorname angegeben werden',
+                'lastname.required'      => 'Der Nachname muss angegeben werden',
+                'email.required'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
+                'email.email'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
+                'email.unique'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
+                'password.required'      => 'Es muss ein 5 stelliges Passwort angegeben werden',
+                'password.min'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden'
 
-            $validator = Validator::make($data, $rules);
+            );
+
+            $validator = Validator::make($data, $rules, $messages);
 
             if ($validator->passes()) {
                 $user = new User;
@@ -157,10 +183,10 @@ class UserController extends BaseController {
             $returnMessage='';
             foreach ($messages->all() as $message)
             {
-            $returnMessage=$returnMessage.' '.$message;
+            $returnMessage=$returnMessage.' '.$message.'.';
             }
 
-            return Redirect::to('user/list')->with('danger', 'Benutzer anlegen fehlgeschlagen'.' '.$returnMessage);
+            return Redirect::to('user/list')->with('danger', 'Benutzer anlegen fehlgeschlagen.'.' '.$returnMessage);
         }
         return Redirect::to('home')->with('danger', 'Hier ist ein Fehler aufgetreten!');
     }
