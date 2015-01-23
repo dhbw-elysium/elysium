@@ -54,24 +54,24 @@
 		@endif
 
 		<div class="row">
-			{{ Form::docentBlock($id, 'salution', 'Anrede:') }}
-			{{ Form::docentBlock($id, 'title', 'Titel:') }}
+			{{ Form::docentBlock($id, 'salution', 'Anrede') }}
+			{{ Form::docentBlock($id, 'title', 'Titel') }}
 
-			{{ Form::docentBlock($id, 'first_name', 'Vorname:') }}
-			{{ Form::docentBlock($id, 'last_name', 'Nachname:') }}
+			{{ Form::docentBlock($id, 'first_name', 'Vorname') }}
+			{{ Form::docentBlock($id, 'last_name', 'Nachname') }}
 
-			{{ Form::docentBlock($id, 'graduation', 'Abschluss:') }}
-			{{ Form::docentBlock($id, 'lbv', 'LBV-Nummer:') }}
+			{{ Form::docentBlock($id, 'graduation', 'Abschluss') }}
+			{{ Form::docentBlock($id, 'lbv', 'LBV-Nummer') }}
 
 
-			{{ Form::docentBlock($id, 'email', 'E-Mail:') }}
-			{{ Form::docentBlock($id, 'website', 'Webseite:') }}
+			{{ Form::docentBlock($id, 'email', 'E-Mail') }}
+			{{ Form::docentBlock($id, 'website', 'Webseite') }}
 
-			{{ Form::docentBlock($id, 'birth_day', 'Geburstdatum:') }}
-			{{ Form::docentBlock($id, 'birth_place', 'Geburtsort:') }}
+			{{ Form::docentBlock($id, 'birth_day', 'Geburstdatum') }}
+			{{ Form::docentBlock($id, 'birth_place', 'Geburtsort') }}
 
-			{{ Form::docentBlock($id, 'bank_classic', 'Bankverbindung (Klassisch):') }}
-			{{ Form::docentBlock($id, 'bank_modern', 'Bankverbindung (modern):') }}
+			{{ Form::docentBlock($id, 'bank_classic', 'Bankverbindung (Klassisch)') }}
+			{{ Form::docentBlock($id, 'bank_modern', 'Bankverbindung (modern)') }}
 
 
 			{{ Form::docentBlock($id, 'phone_number_private', 'Telefon (Privat)') }}
@@ -80,14 +80,14 @@
 			{{ Form::docentBlock($id, 'private_address', 'Privat-Adresse') }}
 			{{ Form::docentBlock($id, 'company_address', 'Firmen-Adresse') }}
 
-			{{ Form::docentBlock($id, 'company_job', 'Beruf:') }}
-			{{ Form::docentBlock($id, 'company_name', 'Arbeitgeber:') }}
+			{{ Form::docentBlock($id, 'company_job', 'Beruf') }}
+			{{ Form::docentBlock($id, 'company_name', 'Arbeitgeber') }}
 
-			{{ Form::docentBlock($id, 'company_department', 'Abteilung:') }}
+			{{ Form::docentBlock($id, 'company_department', 'Abteilung') }}
 
 			<div class="col-sm-6 col-lg-6">
 				<div class="form-group">
-					<label for="docent[{{$id}}][is_exdhbw]" class="col-md-4 control-label">Ehemaliger:</label>
+					<label for="docent[{{$id}}][is_exdhbw]" class="col-md-4 control-label">Ehemaliger</label>
 					<div class="col-md-8">
 						{{Form::checkbox('docent['.$id.'][is_exdhbw]', 'is_exdhbw', $docent->data('is_exdhbw'))}}
 						<label for="docent[{{$id}}][is_exdhbw]" class="control-label" style="min-height: 34px;"> Ehemalige/r BA-/DHBW-Student/in</label>
@@ -97,13 +97,13 @@
 
 			{{ Form::docentTimeBlock($id) }}
 
-			{{ Form::docentBlock($id, 'activity_teach', 'Lehraufträge und Lehrtätigkeiten:') }}
-			{{ Form::docentBlock($id, 'activity_practical', 'Praktische Tätigkeiten:') }}
+			{{ Form::docentBlock($id, 'activity_teach', 'Lehraufträge und Lehrtätigkeiten') }}
+			{{ Form::docentBlock($id, 'activity_practical', 'Praktische Tätigkeiten') }}
 
-			{{ Form::docentBlock($id, 'extra', 'Anmerkungen, Ergänzungen:') }}
-			{{ Form::docentBlock($id, 'course_extra', 'Weitere mögliche Vorlesungsbereiche sowie bereits gehaltene Vorlesungen:') }}
+			{{ Form::docentBlock($id, 'extra', 'Anmerkungen, Ergänzungen') }}
+			{{ Form::docentBlock($id, 'course_extra', 'Weitere mögliche Vorlesungsbereiche sowie bereits gehaltene Vorlesungen') }}
 
-			{{ Form::docentBlock($id, 'imported_at', 'Eingangsdatum:', 'Datum des Eingangs der Bewerbung') }}
+			{{ Form::docentBlock($id, 'imported_at', 'Eingangsdatum', 'Datum des Eingangs der Bewerbung') }}
 
 
 

@@ -161,6 +161,10 @@ span.label-course-tag {
 	min-height: 200px;
 }
 
+.panel-docent-import-docent .col-md-4 {
+	word-wrap: break-word;
+}
+
 form .form-group .course-tag-list {
 	font-size: 1.2em;
 }
