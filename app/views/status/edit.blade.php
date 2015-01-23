@@ -57,13 +57,13 @@
 	<div class="col-md-4">
 		  <div class="form-group">
 			{{Form::label('title', 'Titel')}}
-			{{Form::text('title', ((Input::has('title') || $sid === null) ? Input::get('title') : $status->title), array('class'=>'form-control', 'placeholder' => 'Titel'))}}
+			{{Form::text('title', ((Input::has('title') || $sid === null) ? Input::get('title') : $status->title), array('class'=>'form-control', 'placeholder' => 'Titel', 'required'))}}
 		  </div>
 	</div>
 	<div class="col-md-8">
 		  <div class="form-group">
 			{{Form::label('description', 'Beschreibung')}}
-			{{Form::text('description', ((Input::has('description') || $sid === null) ? Input::get('description') : $status->description), array('class'=>'form-control', 'placeholder' => 'Beschreibung', 'rows' => 4))}}
+			{{Form::text('description', ((Input::has('description') || $sid === null) ? Input::get('description') : $status->description), array('class'=>'form-control', 'placeholder' => 'Beschreibung', 'rows' => 4, 'required'))}}
 		  </div>
 	</div>
 </div>
@@ -88,7 +88,7 @@
 		<li class="{{$glyphClass}}">
 			<label>
 				<div class="glyph-list-box">
-					{{Form::radio('glyph', $glyph, $glyph == ((Input::has('glyph') || $sid === null) ? Input::get('glyph') : $status->glyph))}}
+					{{Form::radio('glyph', $glyph, $glyph == ((Input::has('glyph') || $sid === null) ? Input::get('glyph', 'glyphicon-ok') : $status->glyph))}}
 				</div>
 				<div class="glyph-list-preview">
 					<div>
