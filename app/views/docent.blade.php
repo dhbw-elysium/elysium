@@ -139,6 +139,29 @@
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 
+<!-- Modal	status entry delete -->
+<div class="modal fade" id="modalDocentStatusDelete" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+        <h4 class="modal-title">Statuseintrag entfernen</h4>
+      </div>
+	  {{ Form::open() }}
+	  {{ Form::hidden('did', $docent->did)}}
+	  {{ Form::hidden('dsid', 0, array('id' => 'docentStatusDeleteDsid')); }}
+      <div class="modal-body">
+		Möchten Sie den gewählten Statuseintrag wirklich löschen?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+		{{ Form::submit('Statuseintrag löschen', array('class' => 'btn btn-primary')) }}
+      </div>
+	  {{ Form::close() }}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- Modal	docent status entry -->
 <div class="modal fade" id="modalDocentStatus" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog">
@@ -149,6 +172,7 @@
       </div>
 	  {{ Form::open() }}
 	  {{ Form::hidden('did', $docent->did)}}
+	  {{ Form::hidden('dsid', 0, array('id' => 'docentUpdateDsid')); }}
       <div class="modal-body">
 			<div class="form-group">
             	<label for="statusSid" class="control-label">Typ</label>
@@ -554,7 +578,7 @@
 
 		<div class="docent-status-list">
 			<div class="toolbar">
-				<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modalDocentStatus" data-did="{{{$docent->did}}}">
+				<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modalDocentStatus" data-dsid="0" data-sid="0" data-comment="">
 				  <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Statusänderung eintragen
 				</button>
 			</div>
@@ -582,7 +606,17 @@
 					</div>
 					<div id="collapse{{{$status->dsid}}}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
 					  <div class="panel-body">
-						{{{$status->comment}}}
+							{{{$status->comment}}}
+							<div style="float:right;">
+								<div class="btn-group btn-group-xs" role="group">
+								<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalDocentStatus" data-dsid="{{$status->dsid}}" data-sid="{{$status->sid}}" data-comment="{{{$status->comment}}}">
+								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+								</button>
+								<button type="button" class="btn btn-default" data-toggle="modal" data-target="#modalDocentStatusDelete" data-dsid="{{$status->dsid}}">
+								  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+								</button>
+							</div>
+						  </div>
 					  </div>
 					</div>
 				</div>

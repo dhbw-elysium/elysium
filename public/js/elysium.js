@@ -250,7 +250,7 @@ $(function () {
 				complete: function (jqXHR, status) {
 
 					$(buttonSubmit).prop('disabled', false);
-					if (jqXHR.status = 406) {
+					if (jqXHR.status == 406) {
 						$.toaster({
 							title: 'Themenbereich',
 							priority: 'danger',
@@ -736,21 +736,33 @@ $(function () {
 	$('#modalDocentStatus').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget),
 			did = button.data('did'),
+			sid = button.data('sid'),
+			dsid = button.data('dsid'),
+			comment = button.data('comment'),
 			modal = $(this);
+
+		if (sid) {
+	        modal.find('#docentUpdateDsid').val(dsid);
+    	    modal.find('#statusSid').val(sid);
+    	    modal.find('#statusComment').val(comment);
+		}
 
 		$('#modalDocentStatus .btn-primary').click(function (e) {
 			e.preventDefault();
 			var buttonSubmit	= this,
 				token = $('#modalDocentStatus [name=_token]').val(),
+				dsid = $('#modalDocentStatus #docentUpdateDsid').val(),
+				did = $('#modalDocentStatus  [name=did]').val(),
 				sid = $('#modalDocentStatus #statusSid').val(),
 				comment = $('#modalDocentStatus #statusComment').val();
 			$(buttonSubmit).prop('disabled', true);
 
 			$.ajax({
 				type: 'POST',
-				url: 'status/add',
+				url: 'status/update',
 				data: {
 					_token: token,
+					dsid: dsid,
 					did: did,
 					sid: sid,
 					comment: comment
@@ -765,6 +777,48 @@ $(function () {
 							title: 'Status',
 							priority: 'danger',
 							message: 'Die Statusänderung konnte nicht gespeichert werden'
+						});
+					}
+				}
+			});
+		});
+	});
+
+
+	$('#modalDocentStatusDelete').on('show.bs.modal', function (event) {
+		var button = $(event.relatedTarget),
+			dsid = button.data('dsid'),
+			modal = $(this);
+
+        modal.find('#docentStatusDeleteDsid').val(dsid);
+
+
+		$('#modalDocentStatusDelete .btn-primary').click(function (e) {
+			e.preventDefault();
+			$(this).prop('disabled', true);
+			var buttonSubmit = this,
+				token = $('#modalDocentStatusDelete [name=_token]').val(),
+				did = $('#modalDocentStatusDelete [name=did]').val(),
+				dsid = $('#modalDocentStatusDelete [name=dsid]').val();
+
+			$.ajax({
+				type: 'POST',
+				url: did+'/status/delete',
+				data: {
+					_token: token,
+					did: did,
+					dsid: dsid
+				},
+				complete: function (jqXHR, status) {
+					$(buttonSubmit).prop('disabled', false);
+					$('#modalDocentStatusDelete').hide();
+					if (status == 'success') {
+						location.reload();
+					} else {
+						$.toaster({
+							title: 'Status',
+							priority: 'danger',
+							message: 'Der Statuseintrag konnte nicht entfernt werden'
 						});
 					}
 				}

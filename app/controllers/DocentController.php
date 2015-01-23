@@ -410,8 +410,16 @@ class DocentController extends BaseController {
     /**
      * Track a status change of a docent
      */
-    public function addStatusEntry() {
-        $status = new DocentStatus;
+    public function updateStatusEntry() {
+        if (Input::has('dsid')) {
+            $status = DocentStatus::find(Input::get('dsid'));
+
+            if (!$status) {
+                return Response::make('', 406);
+            }
+        } else {
+            $status = new DocentStatus;
+        }
 
         $status->did        = (int)Input::get('did');
         $status->sid        = (int)Input::get('sid');
@@ -420,9 +428,33 @@ class DocentController extends BaseController {
         try {
             $status->save();
         } catch(Illuminate\Database\QueryException $e) {
-            return Response::make('', 504);
+            return Response::make('', 405);
         }
         return Response::make('', 200);
+    }
+
+
+    /**
+     * Delete a docents status entry
+     *
+     * @param   int     $did        Affected docent
+     */
+    public function docentDataDeleteStatus($did) {
+        $docent = Docent::find($did);
+
+        if ($docent) {
+            $dsid   = (int)Input::get('dsid');
+
+            $status = DocentStatus::find($dsid);
+
+            if ($status) {
+                $status->delete();
+
+                return Response::make('', 200);
+            }
+        }
+
+        return Response::make('', 403);
     }
 
     /**
