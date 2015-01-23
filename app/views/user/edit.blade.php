@@ -105,13 +105,16 @@
                     </div>
                                 </div>
                                 @endif
+
                 <div class="btn-group" style="float:right;" role="group">
-                 <a class="btn btn-default" href="{{{ URL::to('user/list/') }}}">Abbrechen</a>
                  @if(!$user==null)
                  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalUserPassword" data-uid="{{$uid}}">Neues Passwort</button>
 		         @endif
 		         {{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
                  </div>
+                 <div style="float:right; margin-right: 10px;">
+                                  <a class="btn btn-default" href="{{{ URL::to('user/list/') }}}">Abbrechen</a>
+                                  </div>
 
          {{ Form::close() }}
 
