@@ -666,9 +666,18 @@ $(function () {
 		var modal = $(this);
 
 		$('#assignedCourse').multiselect({
+			//includeSelectAllOption: true,
+			enableCaseInsensitiveFiltering: true,
+			enableClickableOptGroups: true,
+			filterPlaceholder: 'Optionen filtern',
 			nonSelectedText: '(keine Vorlesung ausgewählt)',
-			numberDisplayed: 4
-
+			selectAllText: ' Alle auswählen',
+			nSelectedText: ' ausgewählt',
+			allSelectedText: 'Alle ausgewählt',
+			numberDisplayed: 4,
+			templates: {
+				filter: '<li class="multiselect-item filter"><div class="input-group"><input class="form-control multiselect-search" type="text"></div></li>'
+			}
 		});
 
 		modal.find('.btn-primary').unbind('click');
@@ -924,15 +933,6 @@ $(function () {
 		}
 	});
 
-	if ($('.docents-filter-dropdown').length) {
-		switch (window.location.hash) {
-			case '#docentListImported':
-				$('.filter-status').multiselect('select', 1);	//Status::STATUS_IMPORT
-				break;
-		}
-	}
-
-
 
 	$('.import-docent-exclude').change(function (event) {
 		var checkbox = $(event.target),
@@ -959,7 +959,23 @@ $(function () {
 		}
 
 		}).on('click-row.bs.table', function (e, row) {
-		   window.location.href = 'docent/'+row.did;
+			window.location.href = 'docent/'+row.did;
+		}).on('load-success.bs.table', function(data) {
+			if (!$('#docent-list-clear').length) {
+				var tpl	= '';
+				tpl = tpl + '<button type="button" class="btn btn-default" id="docent-list-clear" title="Filter und Suchfeld zurücksetzen">';
+				tpl = tpl + '	  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>';
+				tpl = tpl + '</button>';
+
+			  	$('.columns.columns-right.btn-group.pull-right').append(tpl);
+				$('#docent-list-clear').click(function (e) {
+					e.preventDefault();
+					$('.docents-filter-dropdown').multiselect('deselectAll', false);
+					$('.docents-filter-dropdown').multiselect('refresh');
+					$('#docent-list').bootstrapTable('refresh');
+				});
+
+			}
 	});
 
 
