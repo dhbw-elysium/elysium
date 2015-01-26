@@ -81,7 +81,7 @@ class CreateStatusTable extends Migration {
 		);
 		DB::table('status')->insert(
 			array(
-				'title'			=> 'Bewerbungsgespräch vereinbart',
+				'title'			=> 'Gesgespräch vereinbart',
 				'description'	=> 'Der Bewerber wurde zum Bewerbungsgespräch eingeladen',
 				'glyph'			=> 'glyphicon glyphicon-phone-alt',
 				'created_at'	=> new DateTime(),
@@ -92,7 +92,7 @@ class CreateStatusTable extends Migration {
 		);
 		DB::table('status')->insert(
 			array(
-				'title'			=> 'Absage vom Dozenten',
+				'title'			=> 'Absage Doz.',
 				'description'	=> 'Der Dozent hat eine Absage mitgeteilt',
 				'glyph'			=> 'glyphicon glyphicon-thumbs-down',
 				'created_at'	=> new DateTime(),
@@ -115,7 +115,7 @@ class CreateStatusTable extends Migration {
 		DB::table('status')->insert(
 			array(
 				'title'			=> 'Fehlende Informationen',
-				'description'	=> 'Es fehlen noch ein oder mehrere Informationen, die vom Bewerber eingereicht werden müssen',
+				'description'	=> 'Es fehlen noch Informationen des Bewerbers',
 				'glyph'			=> 'glyphicon glyphicon-warning-sign',
 				'created_at'	=> new DateTime(),
 				'created_by'	=> 1,
@@ -123,6 +123,19 @@ class CreateStatusTable extends Migration {
 				'updated_by'	=> 1,
 			)
     	);
+		DB::table('status')->insert(
+			array(
+				'title'			=> 'Im Einsatz',
+				'description'	=> 'Der Dozent hält eine oder mehrere Vorlesung(en)',
+				'glyph'			=> 'glyphicon glyphicon-warning-sign',
+				'created_at'	=> new DateTime(),
+				'created_by'	=> 1,
+				'updated_at'	=> new DateTime(),
+				'updated_by'	=> 1,
+			)
+    	);
+
+
 	}
 
 	/**
