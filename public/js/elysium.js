@@ -654,7 +654,7 @@ $(function () {
 					$('#modalDocentCourseList').hide();
 					$(buttonSubmit).prop('disabled', false);
 					if (status == 'success') {
-						location.reload();
+						$('#course-list').bootstrapTable('refresh');
 					} else {
 						$.toaster({
 							title: 'Status',
