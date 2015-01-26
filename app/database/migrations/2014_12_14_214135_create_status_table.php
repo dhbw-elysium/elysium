@@ -60,7 +60,7 @@ class CreateStatusTable extends Migration {
 				'sid'			=> 2,
 				'title'			=> 'Eingegangen',
 				'description'	=> 'Der Bewerber hat seine Daten in die Webseite eingetragen',
-				'glyph'			=> 'glyphicon glyphicon-upload',
+				'glyph'			=> 'glyphicon glyphicon-asterisk',
 				'created_at'	=> new DateTime(),
 				'created_by'	=> 1,
 				'updated_at'	=> new DateTime(),
@@ -127,7 +127,7 @@ class CreateStatusTable extends Migration {
 			array(
 				'title'			=> 'Im Einsatz',
 				'description'	=> 'Der Dozent hält eine oder mehrere Vorlesung(en)',
-				'glyph'			=> 'glyphicon glyphicon-warning-sign',
+				'glyph'			=> 'glyphicon glyphicon-briefcase',
 				'created_at'	=> new DateTime(),
 				'created_by'	=> 1,
 				'updated_at'	=> new DateTime(),

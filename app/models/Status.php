@@ -243,10 +243,22 @@ class Status extends Eloquent implements RemindableInterface {
 	/**
 	 * Get the list of available glyhicons
 	 *
-	 * @return array
+	 * @param	boolean		$addGlyphiconClass		Add glyhicon to each element to make the output directly useable
+	 * 												in html class
+	 * @return	array
 	 */
-	public static function glyphicons() {
-		return self::$glyphicons;
+	public static function glyphicons($addGlyphiconClass = false) {
+		$glyphList	= self::$glyphicons;
+
+		if ($addGlyphiconClass) {
+			$glyph	= null;
+			foreach($glyphList as &$glyph) {
+				$glyph	= 'glyphicon '.$glyph;
+			}
+			unset($glyph);
+		}
+
+		return $glyphList;
 	}
 
 	/**

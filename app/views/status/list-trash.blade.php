@@ -69,7 +69,7 @@
                 					<td class="row-id">{{{$status->sid}}}</td>
                 					<td>
                 						@if($status->glyph)
-                							<i class="glyphicon {{{$status->glyph}}}"></i>
+                							<i class="{{{$status->glyph}}}"></i>
                 						@else
                 							<i class="text-label-empty">(keines)</i>
                 						@endif

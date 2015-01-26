@@ -73,7 +73,7 @@
 		<label>Symbol</label>
   	</div>
 	<ul>
-	@foreach(Status::glyphicons() as $glyph)
+	@foreach(Status::glyphicons(true) as $glyph)
 		<?php
 			$glyphClass	= '';
 
@@ -88,7 +88,7 @@
 		<li class="{{$glyphClass}}">
 			<label>
 				<div class="glyph-list-box">
-					{{Form::radio('glyph', $glyph, $glyph == ((Input::has('glyph') || $sid === null) ? Input::get('glyph', 'glyphicon-ok') : $status->glyph))}}
+					{{Form::radio('glyph', $glyph, $glyph == ((Input::has('glyph') || $sid === null) ? Input::get('glyph', 'glyphicon glyphicon-ok') : $status->glyph))}}
 				</div>
 				<div class="glyph-list-preview">
 					<div>
