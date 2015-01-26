@@ -202,7 +202,7 @@ $(function () {
 					$('#modalCourseDelete').hide();
 					$(buttonSubmit).prop('disabled', false);
 					if (status == 'success') {
-						location.reload();
+						$('#course-list').bootstrapTable('refresh');
 					} else {
 						$.toaster({
 							title: 'Vorlesung',
@@ -684,7 +684,7 @@ $(function () {
 					$('#modalDocentCourseList').hide();
 					$(buttonSubmit).prop('disabled', false);
 					if (status == 'success') {
-						$('#course-list').bootstrapTable('refresh');
+						location.reload();
 					} else {
 						$.toaster({
 							title: 'Status',
