@@ -180,7 +180,9 @@ class Docent extends Eloquent implements RemindableInterface {
 
 		$result	= DB::select($query, array($this->did));
 
-		throw new \OutOfRangeException('Given docent has no status assigned');
+		if (!count($result)) {
+			throw new \OutOfRangeException('Given docent has no status assigned');
+		}
 
 		return $result[0];
 	}
