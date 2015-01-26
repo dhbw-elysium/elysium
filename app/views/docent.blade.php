@@ -45,7 +45,7 @@
 				?>
 				<label for="assignedCourse">Vorlesungen</label>
 				<div>
-					<select multiple class="docents-filter-dropdown filter-course" name="assignedCourse[]" id="assignedCourse">
+					<select multiple class="filter-course" name="assignedCourse[]" id="assignedCourse">
 						@if (count($groups	= CourseGroup::orderBy('title')->get()))
 							@foreach ($groups as $group)
 								@if (count($courses	= Course::where('cgid', '=', $group->cgid)->orderBy('title')->get()))
@@ -661,6 +661,8 @@
 				@foreach($courses as $course)
 					<span class="label label-primary">{{$course['title']}}</span>
 				@endforeach
+				@else
+					<i class="empty">(Keine Kurse zugewiesen)</i>
 				@endif
 			</div>
 		</div>
