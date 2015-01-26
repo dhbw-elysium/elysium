@@ -137,7 +137,8 @@ class Docent extends Eloquent implements RemindableInterface {
 	 * @return	mixed
 	 */
 	public static function duplicateCandidates($lastName, $firstName) {
-		$query	= DB::table('docent')->select('last_name', 'first_name', 'company_job');
+		$query	= DB::table('docent')->select('last_name', 'first_name', 'company_job')
+									 ->where('deleted_at', '=', null);
 
 		if (strlen($lastName)) {
 			$query->where('last_name', 'LIKE', $lastName);
@@ -178,6 +179,8 @@ class Docent extends Eloquent implements RemindableInterface {
 				    LIMIT 1';
 
 		$result	= DB::select($query, array($this->did));
+
+		throw new \OutOfRangeException('Given docent has no status assigned');
 
 		return $result[0];
 	}

@@ -274,9 +274,12 @@
 				@endif
 				{{{$docent->first_name}}} {{{$docent->last_name}}}
 					<?php
-						$status	= $docent->statusLatest();
+						try {
+							$status	= $docent->statusLatest();
+						} catch(\OutOfRangeException $e) {
+			  				echo '<span class="badge"><span class="'.e($status->glyph).'" aria-hidden="true" title="'.e($status->title).'"></span></span>';
+						}
 					?>
-			  	<span class="badge"><span class="{{{$status->glyph}}}" aria-hidden="true" title="{{{$status->title}}}"></span></span>
 			</h2>
 			@if($docent->email)
 				<p><a href="mailto:{{{$docent->email}}}">{{{$docent->email}}}</a></p>
