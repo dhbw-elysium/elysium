@@ -64,6 +64,7 @@
                                 <li>{{ HTML::link('login', 'Login') }}</li>
                             @else
                                 <li><a href="{{{ URL::to('user/edit/'.Auth::user()->uid) }}}">Profil</a></li>
+                                <li>{{ link_to_asset('files/help.pdf', 'Help')}}</li>
                                 <li style="font-weight: bold;">{{ HTML::link('logout', 'Logout') }}</li>
                             @endif
                         </ul>
