@@ -190,11 +190,14 @@ class Docent extends Eloquent implements RemindableInterface {
 	/**
 	 * Add status change
 	 *
-	 * @param	integer	$sid			Status id
-	 * @param	string	$comment		Status content
+	 * @param	integer			$sid			Status id
+	 * @param	string			$comment		Status content
+	 * @param	\DateTime|null	$timestamp		The created/updated timestamp to use
 	 */
-	public function addStatus($sid, $comment) {
-		$timestamp	= new \DateTime();
+	public function addStatus($sid, $comment, $timestamp = null) {
+		if (!$timestamp) {
+			$timestamp	= new \DateTime();
+		}
 
 		DB::table('docent_status')->insert(
 			array(

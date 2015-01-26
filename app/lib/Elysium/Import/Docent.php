@@ -261,10 +261,15 @@ class Docent {
 			}
 		}
 
+		$docent->addStatus(
+			\Status::STATUS_RECEIVED,
+			'Bewerbung eingegangen am '.$data['imported_at'],
+			\DateTime::createFromFormat('d.m.Y H:i', $data['imported_at'].' 12:00')
+		);
 		$docent->addStatus(\Status::STATUS_IMPORT, 'Importiert aus Excel Datei');
-
 
 		return $docent;
 	}
+
 }
 
