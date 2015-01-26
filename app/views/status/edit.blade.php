@@ -101,15 +101,14 @@
 	@endforeach
 	</ul>
 </div>
+
 <div class="row">
-	<div class="col-xs-1" style="margin-top: 10px;margin-bottom: 40px;">
+	<div style="margin-top: 10px;margin-bottom: 40px;">
 	@if($sid === null)
 	    <a class="btn btn-default" href="list">Abbrechen</a>
 	 @else
 		<a class="btn btn-default" href="../../status/list">Abbrechen</a>
 		@endif
-	</div>
-	<div class="col-xs-1" style="margin-top: 10px;margin-bottom: 40px;">
 		{{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
 	</div>
 </div>

@@ -61,7 +61,7 @@ class StatusController extends BaseController {
 
 		$validator = Validator::make($data, $rules);
 
-		if ($validator->passes() && in_array($data['glyph'], Status::glyphicons())) {
+		if ($validator->passes() && in_array($data['glyph'], Status::glyphicons(true))) {
 			if ($data['sid'] == 0) {
 				$status	= new Status;
 			} else {
