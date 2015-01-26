@@ -2,10 +2,11 @@
 
 use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Docent extends Eloquent implements RemindableInterface {
 
-	use RemindableTrait;
+	use RemindableTrait, SoftDeletingTrait;
 
 	/**
 	 * The database table used by the model.
@@ -40,6 +41,7 @@ class Docent extends Eloquent implements RemindableInterface {
 		'company_job',
 		'company_name',
 		'company_aid',
+		'company_department',
 		'bank_name',
 		'bank_bic',
 		'bank_iban',
@@ -112,6 +114,16 @@ class Docent extends Eloquent implements RemindableInterface {
         static::updating(function($entity)
         {
             $entity->updated_by = Auth::user()->uid;
+        });
+
+        static::deleting(function($entity)
+        {
+            $entity->deleted_by = Auth::user()->uid;
+        });
+
+		static::restoring(function($entity)
+        {
+            $entity->deleted_by = null;
         });
     }
 

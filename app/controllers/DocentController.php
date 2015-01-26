@@ -23,7 +23,7 @@ class DocentController extends BaseController {
 
         $textareaElements   = array('activity_teach', 'activity_practical', 'course_extra', 'extra');
         $textElements       = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name',
-            'company_part', 'company_job', 'graduation');
+            'company_department', 'company_job', 'graduation');
 
         if (in_array($targetElement, $textElements )) {
             $property   = $targetElement;
@@ -55,7 +55,7 @@ class DocentController extends BaseController {
                 case 'company_name':
                     $label      = 'Firmen-Name';
                     break;
-                case 'company_part':
+                case 'company_department':
                     $label      = 'Abteilung';
                     $tooltip    = 'Firmen-Abteilung';
                     break;
@@ -281,7 +281,7 @@ class DocentController extends BaseController {
         $docent = Docent::find($did);
 
         $textElements   = array(
-            'title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_part', 'company_job',
+            'title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_department', 'company_job',
             'activity_teach', 'activity_practical', 'course_extra', 'extra', 'graduation'
         );
 
@@ -298,7 +298,7 @@ class DocentController extends BaseController {
                 case 'website':
                 case 'email':
                 case 'company_name':
-                case 'company_part':
+                case 'company_department':
                 case 'company_job':
                 case 'activity_teach':
                 case 'activity_practical':

@@ -28,7 +28,7 @@ class CreateDocentTable extends Migration {
             $table->string('lbv')->nullable();
             $table->string('company_job');
             $table->string('company_name');
-            $table->string('company_part');
+            $table->string('company_department');
             $table->integer('company_aid', false, true)->nullable();
             $table->string('bank_name')->nullable();
             $table->char('bank_bic', 11)->nullable();
@@ -68,6 +68,13 @@ class CreateDocentTable extends Migration {
 				  ->onUpdate('cascade')
 				  ->onDelete('cascade');
 
+			$table->softDeletes();
+			$table->unsignedInteger('deleted_by')->nullable();
+			$table->foreign('deleted_by')
+				  ->references('uid')
+				  ->on('user')
+				  ->onUpdate('cascade')
+				  ->onDelete('cascade');
 		});
 	}
 
