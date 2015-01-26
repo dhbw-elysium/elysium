@@ -229,8 +229,8 @@ class Docent extends Eloquent implements RemindableInterface {
 			   INNER JOIN docent_status ds ON (ds.did = d.did)
 			   INNER JOIN (SELECT ds2.did, MAX(ds2.dsid) AS latest_dsid FROM docent_status ds2 GROUP BY ds2.did) x ON (x.did = ds.did AND x.latest_dsid = ds.dsid)
 			   INNER JOIN status s ON ds.sid = s.sid
-			   INNER JOIN docent_course dc ON dc.did = d.did
-			   INNER JOIN course c ON dc.cid = c.cid
+			    LEFT JOIN docent_course dc ON dc.did = d.did
+			    LEFT JOIN course c ON dc.cid = c.cid
 			   		WHERE d.deleted_at IS NULL
 		';
 
@@ -281,8 +281,8 @@ class Docent extends Eloquent implements RemindableInterface {
 			   INNER JOIN docent_status ds ON (ds.did = d.did)
 			   INNER JOIN (SELECT ds2.did, MAX(ds2.dsid) AS latest_dsid FROM docent_status ds2 GROUP BY ds2.did) x ON (x.did = ds.did AND x.latest_dsid = ds.dsid)
 			   INNER JOIN status s ON ds.sid = s.sid
-			   INNER JOIN docent_course dc ON dc.did = d.did
-			   INNER JOIN course c ON dc.cid = c.cid
+			    LEFT JOIN docent_course dc ON dc.did = d.did
+			    LEFT JOIN course c ON dc.cid = c.cid
 			   		WHERE s.sid = ?
 			   		  AND d.deleted_at IS NULL
 				 ORDER BY last_name ASC, first_name ASC
