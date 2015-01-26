@@ -57,7 +57,7 @@
 	<div class="col-md-4">
 		  <div class="form-group">
 			{{Form::label('title', 'Titel')}}
-			{{Form::text('title', ((Input::has('title') || $sid === null) ? Input::get('title') : $status->title), array('class'=>'form-control', 'placeholder' => 'Titel', 'required'))}}
+			{{Form::text('title', ((Input::has('title') || $sid === null) ? Input::get('title') : $status->title), array('class'=>'form-control', 'placeholder' => 'Titel', 'required', 'pattern'=>'.{2,}', 'title'=>'Das Passwort muss mindestens 2 Zeichen lang sein'))}}
 		  </div>
 	</div>
 	<div class="col-md-8">
