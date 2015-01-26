@@ -21,7 +21,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
-		{{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
+		{{ Form::submit('Löschen', array('class' => 'btn btn-primary')) }}
       </div>
 	  {{ Form::close() }}
     </div><!-- /.modal-content -->
