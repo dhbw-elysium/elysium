@@ -303,10 +303,12 @@ class Docent extends Eloquent implements RemindableInterface {
 	/**
 	 * Get value of a property prepared for html display
 	 *
-	 * @param	string	$property	The property to access
-	 * @return	string				Html escaped content
+	 * @param	string	$property				The property to access
+	 * @param	boolean	$prepareForWordExport	Set to true to use htmlspecialchars() instead of e() and not using
+	 * 											html output
+	 * @return	string							Html escaped content
 	 */
-	public function displayData($property) {
+	public function displayData($property, $prepareForWordExport = false) {
 		$data	= $this->$property;
 
 		switch($property) {
@@ -328,9 +330,9 @@ class Docent extends Eloquent implements RemindableInterface {
 
 				return $data->format($format);
 			}
-			return e($data);
+			return ($prepareForWordExport) ? htmlspecialchars($data) : e($data);
 		} else {
-			return '<i class="empty" title="keine Angabe">(leer)</i>';
+			return ($prepareForWordExport) ? '(leer)' : '<i class="empty" title="keine Angabe">(leer)</i>';
 		}
 	}
 

@@ -7,7 +7,8 @@
 	"require": {
 		"laravel/framework": "4.2.*",
 		"caouecs/laravel4-lang": "dev-master",
-		"phpoffice/phpexcel": "1.8"
+		"phpoffice/phpexcel": "1.8",
+		"phpoffice/phpword": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

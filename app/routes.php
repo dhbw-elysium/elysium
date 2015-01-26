@@ -32,6 +32,7 @@ Route::group(array('before' => 'auth'), function() {
 	Route::get('docents/import/upload', 'DocentsImportController@docentsImportUpload');
 	Route::any('docents/import/process', 'DocentsImportController@docentsImportProcess');
 
+	Route::get('docent/{did}/export', 'DocentController@docentExport');
 	Route::get('docent/{did}', 'DocentController@showDocent');
 	Route::get('docent/{did}/phone-{group}.json', 'DocentController@docentPhoneList');
 	Route::post('docent/phone-update', 'DocentController@postDocentPhoneUpdate');
