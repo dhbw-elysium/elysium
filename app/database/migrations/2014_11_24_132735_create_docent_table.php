@@ -28,6 +28,7 @@ class CreateDocentTable extends Migration {
             $table->string('lbv')->nullable();
             $table->string('company_job');
             $table->string('company_name');
+            $table->string('company_part');
             $table->integer('company_aid', false, true)->nullable();
             $table->string('bank_name')->nullable();
             $table->char('bank_bic', 11)->nullable();
@@ -48,6 +49,7 @@ class CreateDocentTable extends Migration {
 			$table->boolean('time_fr_pm');
 			$table->text('activity_teach');
 			$table->text('activity_practical');
+            $table->string('course_group_preferred');
 			$table->text('course_extra');
 			$table->text('extra');
 			$table->text('comment');

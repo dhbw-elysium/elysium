@@ -44,7 +44,7 @@ class CreateStatusTable extends Migration {
 
 		DB::table('status')->insert(
 			array(
-				'sid'			=> '1',
+				'sid'			=> 1,
 				'title'			=> 'Importiert',
 				'description'	=> 'Der betroffene Datensatz wurde aus einer Excel-Datei importiert',
 				'glyph'			=> 'glyphicon glyphicon-upload',
@@ -54,6 +54,20 @@ class CreateStatusTable extends Migration {
 				'updated_by'	=> 1,
 			)
 		);
+
+		DB::table('status')->insert(
+			array(
+				'sid'			=> 2,
+				'title'			=> 'Eingegangen',
+				'description'	=> 'Der Bewerber hat seine Daten in die Webseite eingetragen',
+				'glyph'			=> 'glyphicon glyphicon-upload',
+				'created_at'	=> new DateTime(),
+				'created_by'	=> 1,
+				'updated_at'	=> new DateTime(),
+				'updated_by'	=> 1,
+			)
+		);
+
 		DB::table('status')->insert(
 			array(
 				'title'			=> 'Ungeeignet',

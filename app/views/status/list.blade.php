@@ -79,7 +79,7 @@
         						<a class="btn btn-default btn-xs" href="edit/{{{$status->sid}}}" data-toggle="tooltip" data-placement="left" title="Status bearbeiten">
         						  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         						</a>
-        						<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{{$status->title}}}"  {{($status->sid == Status::STATUS_IMPORT) ? 'disabled' : ''}}>
+        						<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalStatusDelete" data-sid="{{{$status->sid}}}" data-title="{{{$status->title}}}" {{($status->sid == Status::STATUS_IMPORT || $status->sid == Status::STATUS_RECEIVED) ? 'disabled' : ''}}>
         						  <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
         						</button>
         					</td>

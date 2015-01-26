@@ -51,6 +51,7 @@ Route::group(array('before' => 'auth'), function() {
     Route::post('user/edit/update', 'UserController@postUserUpdate');
     Route::post('user/edit/update/password', 'UserController@postUserPasswordUpdate');
 
+	Route::get('courses/list.json', 'CoursesController@courseListForTable');
 	Route::post('course/update', 'CoursesController@postCourseUpdate');
 	Route::post('course/delete', 'CoursesController@postCourseDelete');
 	Route::post('courseGroup/update', 'CoursesController@postCourseGroupUpdate');

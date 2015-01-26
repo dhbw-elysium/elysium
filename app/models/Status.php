@@ -14,6 +14,11 @@ class Status extends Eloquent implements RemindableInterface {
 	const STATUS_IMPORT	= 1;
 
 	/**
+	 * Contains the sid of the received docent request date status
+	 */
+	const STATUS_RECEIVED	= 2;
+
+	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
@@ -274,6 +279,10 @@ class Status extends Eloquent implements RemindableInterface {
 
         static::deleting(function($entity)
         {
+			if (in_array($entity->sid, array(self::STATUS_IMPORT, self::STATUS_RECEIVED))) {
+				return false;
+			}
+
             $entity->deleted_by = Auth::user()->uid;
         });
 
