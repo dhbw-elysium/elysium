@@ -434,4 +434,44 @@ class Docent extends Eloquent implements RemindableInterface {
     return DB::table('docent')->where('created_at','>=', $date)->count();
     }
 
+	/**
+	 * Get a list of ids
+	 *
+	 * @return	array
+	 */
+	public function assignedCourseList() {
+		$result	= DB::table('docent_course')->where('did','=', $this->did)->get();
+
+		$courseIdList	= array();
+		foreach($result as $course) {
+			$courseIdList[]	= $course->cid;
+		}
+
+		return $courseIdList;
+	}
+
+	/**
+	 * Remove a course assignment for this docent
+	 *
+	 * @param	integer		$cid		Course id
+	 * @return	integer					Affected rows
+	 */
+	public function removeCourseAssignment($cid) {
+		return DB::table('docent_course')->where('did', '=', $this->did)->where('cid','=', $cid)->delete();
+	}
+
+	/**
+	 * Remove a course assignment for this docent
+	 *
+	 * @param	integer		$cid		Course id
+	 * @return	integer					Affected rows
+	 */
+	public function addCourseAssignment($cid) {
+		return DB::table('docent_course')->insert(
+    		array(
+				'did' => $this->did,
+				'cid' => $cid
+			)
+		);
+	}
 }

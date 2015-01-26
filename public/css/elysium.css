@@ -188,7 +188,12 @@ form .form-group .course-tag-list {
     text-overflow: ellipsis;
 }
 
+.modal .multiselect.dropdown-toggle.btn.btn-default {
+	max-width: 570px;
+}
+
 ul.multiselect-container.dropdown-menu {
+	max-height: 300px;
 	overflow-x: hidden;
 }
 
@@ -318,6 +323,7 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	margin-right: 5px;
 }
 
+.docent-detail .col-md-4 #docent-course-list:hover .btn-edit-inline,
 .docent-detail .col-md-8:hover > .btn-edit-inline {
 	opacity: 0.5;
 }
