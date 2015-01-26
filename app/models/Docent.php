@@ -61,6 +61,7 @@ class Docent extends Eloquent implements RemindableInterface {
 		'activity_teach',
 		'activity_practical',
 		'course_extra',
+		'course_group_preferred',
 		'extra'
 	);
 

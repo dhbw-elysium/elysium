@@ -23,7 +23,7 @@ class DocentController extends BaseController {
 
         $textareaElements   = array('activity_teach', 'activity_practical', 'course_extra', 'extra');
         $textElements       = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name',
-            'company_department', 'company_job', 'graduation');
+            'company_department', 'company_job', 'graduation', 'course_group_preferred');
 
         if (in_array($targetElement, $textElements )) {
             $property   = $targetElement;
@@ -58,6 +58,10 @@ class DocentController extends BaseController {
                 case 'company_department':
                     $label      = 'Abteilung';
                     $tooltip    = 'Firmen-Abteilung';
+                    break;
+                case 'course_group_preferred':
+                    $label      = 'Themenbereich';
+                    $tooltip    = 'Bevorzugtes Studienfach (Themenbereich)';
                     break;
                 case 'company_job':
                     $label      = 'Beruf';
@@ -282,7 +286,7 @@ class DocentController extends BaseController {
 
         $textElements   = array(
             'title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_department', 'company_job',
-            'activity_teach', 'activity_practical', 'course_extra', 'extra', 'graduation'
+            'activity_teach', 'activity_practical', 'course_extra', 'extra', 'graduation', 'course_group_preferred'
         );
 
         if (in_array($targetElement, $textElements )) {
@@ -303,6 +307,7 @@ class DocentController extends BaseController {
                 case 'activity_teach':
                 case 'activity_practical':
                 case 'course_extra':
+                case 'course_group_preferred':
                 case 'extra':
                 case 'bank_blz':
                 case 'bank_number':

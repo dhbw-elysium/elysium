@@ -96,6 +96,7 @@
 			</div>
 
 			{{ Form::docentTimeBlock($id) }}
+			{{ Form::docentBlock($id, 'course_group_preferred', 'Bevorzugtes Studienfach') }}
 
 			{{ Form::docentBlock($id, 'activity_teach', 'Lehraufträge und Lehrtätigkeiten') }}
 			{{ Form::docentBlock($id, 'activity_practical', 'Praktische Tätigkeiten') }}

@@ -60,7 +60,7 @@ class Docent {
 			'city'		=> null
 		),
 		'is_exdhbw'				=> null,
-		'course_group'			=> null,
+		'course_group_preferred'	=> null,
 		'time'					=> null,
 		'activity_teach'		=> null,
 		'activity_practical'	=> null,
