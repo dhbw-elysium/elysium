@@ -51,7 +51,7 @@
 								@if (count($courses	= Course::where('cgid', '=', $group->cgid)->orderBy('title')->get()))
 							  <optgroup label="{{{$group->title}}}">
 									@foreach ($courses as $course)
-									  <option value="{{$course->cid}}" {{(in_array($course->cid, $courseIdList) ? 'selected="selected"' : '')}}>{{{$course->title}}}</option>
+									  <option value="{{$course->cid}}" {{{(in_array($course->cid, $courseIdList) ? 'selected="selected"' : '')}}}>{{{$course->title}}}</option>
 									@endforeach
 							  </optgroup>
 								@endif
@@ -273,6 +273,10 @@
 				<small>{{{$docent->title}}}</small>
 				@endif
 				{{{$docent->first_name}}} {{{$docent->last_name}}}
+					<?php
+						$status	= $docent->statusLatest();
+					?>
+			  	<span class="badge"><span class="{{{$status->glyph}}}" aria-hidden="true" title="{{{$status->title}}}"></span></span>
 			</h2>
 			@if($docent->email)
 				<p><a href="mailto:{{{$docent->email}}}">{{{$docent->email}}}</a></p>

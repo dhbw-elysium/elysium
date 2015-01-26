@@ -286,6 +286,10 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	padding-right: 0;
 }
 
+.docent-detail .timestamps {
+	text-align: center;
+}
+
 .docent-detail .table-docent-time td {
 	min-width: 40px;
 }
@@ -329,6 +333,10 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 .docent-detail .col-md-8 > div {
 	float:left;
 	margin-right: 5px;
+}
+
+.docent-detail .col-md-8 span.badge {
+	font-size: 20px;
 }
 
 .docent-detail .col-md-4 #docent-course-list:hover .btn-edit-inline,
