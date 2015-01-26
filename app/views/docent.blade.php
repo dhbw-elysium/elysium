@@ -17,7 +17,7 @@
 	  {{ Form::open() }}
 	  {{ Form::hidden('did', $docent->did)}}
       <div class="modal-body">
-		  <p>Möchten Sie den Dozenten &raquo;<span style="color:#454545;">{{{$docent->first_name.' '.$docent->lastname}}}</span>&laquo; wirklich in den Papierkorb verschieben?</p>
+		  <p>Möchten Sie den Dozenten &raquo;<span style="color:#454545;">{{{$docent->first_name.' '.$docent->last_name}}}</span>&laquo; wirklich in den Papierkorb verschieben?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
