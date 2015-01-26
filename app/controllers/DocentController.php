@@ -3,7 +3,11 @@ class DocentController extends BaseController {
 
     public function showDocent($did) {
 
-		$docent	= Docent::find($did);
+        try {
+    		$docent	= Docent::findOrFail($did);
+        } catch(Exception $e) {
+            return View::make('docent-error')->with('danger', 'Dozent nicht gefunden');
+        }
 
         return View::make('docent')->with('docent', $docent);
     }
@@ -269,6 +273,18 @@ class DocentController extends BaseController {
 
 
         return Response::json($form);
+    }
+
+    /**
+     * Delete a docent
+     */
+    public function docentDelete() {
+        $did    = Input::get('did');
+        $docent = Docent::find($did);
+
+        $docent->delete();
+
+        return Response::make('', 200);
     }
 
     /**

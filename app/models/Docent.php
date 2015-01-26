@@ -228,6 +228,7 @@ class Docent extends Eloquent implements RemindableInterface {
 			   INNER JOIN status s ON ds.sid = s.sid
 			   INNER JOIN docent_course dc ON dc.did = d.did
 			   INNER JOIN course c ON dc.cid = c.cid
+			   		WHERE d.deleted_at IS NULL
 		';
 
 		$query	.= ' ORDER BY last_name ASC, first_name ASC';

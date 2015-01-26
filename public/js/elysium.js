@@ -598,6 +598,36 @@ $(function () {
 
 	});
 
+	$('#modalDocentDelete').on('show.bs.modal', function (event) {
+		var modal = $(this);
+
+		modal.find('.btn-primary').unbind('click');
+		$('#modalDocentDelete .btn-primary').click(function (e) {
+			e.preventDefault();
+			$(this).prop('disabled', true);
+			var buttonSubmit = this;
+
+			$.ajax({
+				type: 'POST',
+				url: 'delete',
+				data: $(this).parent().parent().serializeArray(),
+				complete: function (jqXHR, status) {
+					$('#modalDocentDelete').hide();
+					$(buttonSubmit).prop('disabled', false);
+					if (status == 'success') {
+					   window.location.href = '../docents';
+					} else {
+						$.toaster({
+							title: 'Status',
+							priority: 'danger',
+							message: 'Der Dozent konnte nicht in den Papierkorb verschoben werden'
+						});
+					}
+				}
+			});
+		});
+	});
+
 	$('#modalDocentTime').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget),
 			did = button.data('did'),

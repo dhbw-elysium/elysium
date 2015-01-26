@@ -6,6 +6,28 @@
 @stop
 
 @section('content')
+<!-- Modal delete docent -->
+<div class="modal fade" id="modalDocentDelete" tabindex="-1" nbrole="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+        <h4 class="modal-title">Dozenten in den Papierkorb verschieben</h4>
+      </div>
+	  {{ Form::open() }}
+	  {{ Form::hidden('did', $docent->did)}}
+      <div class="modal-body">
+		  <p>Möchten Sie den Dozenten &raquo;<span style="color:#454545;">{{{$docent->first_name.' '.$docent->lastname}}}</span>&laquo; wirklich in den Papierkorb verschieben?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+		{{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
+      </div>
+	  {{ Form::close() }}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <!-- Modal	edit assigned courses of docent -->
 <div class="modal fade" id="modalDocentCourseList" tabindex="-1" nbrole="dialog" aria-hidden="true">
   <div class="modal-dialog">
@@ -244,18 +266,28 @@
 
 <div class="row docent-detail">
 	<div class="col-md-8">
-		<h2>
-			@if($docent->title)
-			<small>{{{$docent->title}}}</small>
+		<div style="width:100%;">
+			<div style="float:left;">
+			<h2>
+				@if($docent->title)
+				<small>{{{$docent->title}}}</small>
+				@endif
+				{{{$docent->first_name}}} {{{$docent->last_name}}}
+			</h2>
+			@if($docent->email)
+				<p><a href="mailto:{{{$docent->email}}}">{{{$docent->email}}}</a></p>
 			@endif
-			{{{$docent->first_name}}} {{{$docent->last_name}}}
-		</h2>
-		@if($docent->email)
-			<p><a href="mailto:{{{$docent->email}}}">{{{$docent->email}}}</a></p>
-		@endif
-		@if($phoneNumberDefault = $docent->phonePrivateDefault())
-		<p>{{{$phoneNumberDefault}}}</p>
-		@endif
+			@if($phoneNumberDefault = $docent->phonePrivateDefault())
+			<p>{{{$phoneNumberDefault}}}</p>
+			@endif
+			</div>
+			<div style="float: right;margin-top: 20px;">
+				<button type="button" class="btn btn-default btn-remove" title="Dozent in Papierkorb verschieben" data-toggle="modal" data-target="#modalDocentDelete" data-did="{{{$docent->did}}}">
+				  <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+				</button>
+			</div>
+
+		</div>
 		<div role="tabpanel">
 		  <ul class="nav nav-tabs" role="tablist">
 			<li role="presentation" class="active"><a href="#personaldata" aria-controls="personaldata" role="tab" data-toggle="tab">Personendaten</a></li>
