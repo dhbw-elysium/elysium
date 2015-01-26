@@ -187,6 +187,11 @@ class CoursesController extends BaseController {
 			$courseCreatedDate	= new DateTime($course->created_at);
 			$courseUpdatedDate	= new DateTime($course->updated_at);
 
+			$course->course_title		= e($course->course_title);
+			$course->group_title		= e($course->group_title);
+			$course->created_by_name	= e($course->created_by_name);
+			$course->updated_by_name	= e($course->updated_by_name);
+
 			$course->created_at	= $courseCreatedDate->format('d.m.Y H:i');
 			$course->updated_at	= $courseUpdatedDate->format('d.m.Y H:i');
 		}
