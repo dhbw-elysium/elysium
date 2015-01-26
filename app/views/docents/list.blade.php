@@ -21,16 +21,6 @@
 
 <div class="row" id="docent-list-page">
 	<div class="col-md-12">
-	<!--
-	<nav class="navbar navbar-default" role="navigation">
-	  <div class="container-fluid">
-		<div class="navbar-header">
-		  <a class="navbar-brand" href="#">
-		  </a>
-		</div>
-	  </div>
-	</nav>
-	-->
 	<div class="">
 		<div id="docent-list-toolbar" class="form-inline">
 
