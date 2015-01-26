@@ -94,7 +94,7 @@ class CreateStatusTable extends Migration {
 			array(
 				'title'			=> 'Absage Doz.',
 				'description'	=> 'Der Dozent hat eine Absage mitgeteilt',
-				'glyph'			=> 'glyphicon glyphicon-thumbs-down',
+				'glyph'			=> 'glyphicon glyphicon-remove',
 				'created_at'	=> new DateTime(),
 				'created_by'	=> 1,
 				'updated_at'	=> new DateTime(),
