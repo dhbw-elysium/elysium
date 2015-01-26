@@ -113,64 +113,43 @@
 </div><!-- /.modal -->
 
 
-<div class="row">
-	<div class="col-md-7">
+<div class="row" id="course-page">
+	<div class="col-md-8">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h2 class="panel-title">Vorlesungen</h2>
 			</div>
 		 	<div class="panel-body">
-				<table class="table table-striped table-grid">
-				  <thead>
-					<tr>
-						<th class="row-id">#</th>
-						<th>Titel</th>
-						<th>Themenbereich</th>
-						<th class="row-action">
-							<button type="button" class="btn btn-default btn-add btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="0" data-cgid="" data-title="" title="Neue Vorlesung hinzufügen">
-								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							</button>
-						</th>
-					</tr>
-				  </thead>
-				  <tbody>
-					@if (count($courses	= Course::orderBy('title')->paginate(15)))
-						@foreach ($courses as $course)
+				<table id="course-list" class="table table-grid table-docent-list table-hover" data-id-field="cid"
+					   data-toggle="table" data-url="courses/list.json" data-cache="false" data-pagination="true"
+					   data-side-pagination="client" data-show-refresh="true" data-show-columns="true" data-search="true"
+					   data-search-align="right" data-toolbar="#docent-list-toolbar" data-striped="true"
+					   data-show-filter="true" data-show-export="true">
+					<thead>
 						<tr>
-							<td class="row-id">{{{$course->cid}}}</td>
-							<td>{{{$course->title}}}</td>
-							<td>{{{$course->courseGroup->title}}}</td>
-							<td class="row-action">
-								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="{{{$course->cid}}}" data-cgid="{{{$course->cgid}}}" data-title="{{$course->title}}">
-								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalCourseDelete" data-cid="{{{$course->cid}}}" data-title="{{$course->title}}">
-								  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								</button>
-							</td>
+							<th data-field="cid" data-sortable="true" data-visible="false">#</th>
+							<th data-field="course_title" data-sortable="true">Vorlesung</th>
+							<th data-field="group_title" data-sortable="true" data-order="asc">Themen&shy;bereich</th>
+							<th data-field="created_at" data-sortable="true" data-visible="false">Erstellt am</th>
+							<th data-field="created_by_name" data-sortable="true" data-visible="false">Erstellt von</th>
+							<th data-field="updated_at" data-sortable="true" data-visible="false">Bearbeitet am</th>
+							<th data-field="updated_by_name" data-sortable="true" data-visible="false">Bearbeitet von</th>
+							<th data-sortable="false" data-formatter="courseButtonsFormatter" data-visible="true" data-align="right" data-width="60"><span>Aktion</span></th>
 						</tr>
-						@endforeach
-					@else
-						<tr>
-							<td colspan="4"><i>Keine Vorlesungen eingetragen</i></td>
-						</tr>
-					@endif
-				  </tbody>
+					</thead>
 				</table>
-				<div>
-					{{ $courses->links() }}
-				</div>
+
 			</div>
 		</div>
 
 	</div>
 
-	<div class="col-md-5">
+	<div class="col-md-4">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h2 class="panel-title">Themenbereiche</h2>
 			</div>
-		 	<div class="panel-body">
+		 	<div class="panel-body" style="padding-top: 31px;">
 				<table class="table table-striped table-grid">
 				  <thead>
 					<tr>
@@ -190,12 +169,14 @@
 							<td class="row-id">{{{$group->cgid}}}</td>
 							<td>{{{$group->title}}}</td>
 							<td class="row-action">
-								<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalCourseGroup" data-cgid="{{{$group->cgid}}}" data-title="{{$group->title}}">
-								  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-								</button>
-								<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalCourseGroupDelete" data-cgid="{{{$group->cgid}}}" data-title="{{$group->title}}">
-								  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
-								</button>
+								<div class="btn-group" role="group">
+									<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalCourseGroup" data-cgid="{{{$group->cgid}}}" data-title="{{$group->title}}">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+									<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalCourseGroupDelete" data-cgid="{{{$group->cgid}}}" data-title="{{$group->title}}">
+									  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+									</button>
+								</div>
 							</td>
 						</tr>
 						@endforeach

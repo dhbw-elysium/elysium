@@ -388,6 +388,28 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	float:right;
 }
 
+/** Course group **/
+#course-page .panel-body {
+	padding-top: 0;
+}
+
+#course-list thead th span {
+	font-size: 7px;
+	visibility: hidden;
+}
+
+table.table.table-grid tbody tr td {
+	padding: 6px;
+}
+
+.fixed-table-pagination .pull-left.pagination-detail {
+	margin-top: 20px;
+}
+
+.fixed-table-pagination .pull-left.pagination-detail, .fixed-table-pagination .pull-right.pagination {
+	font-size: 12px;
+}
+
 /** Zusatz Änderung ERBA**/
 
 

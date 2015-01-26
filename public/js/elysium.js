@@ -902,3 +902,18 @@ function docentStatusFormatter(value, row) {
 	return '<i class="glyphicon ' + row.status_glyph + '"></i> ' + value;
 }
 
+function courseButtonsFormatter(value, row) {
+	var tpl	= '';
+
+	tpl = tpl + '<div class="btn-group" role="group">';
+	tpl = tpl + '<button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="'+row.cid+'" data-cgid="'+row.cgid+'" data-title="'+row.course_title+'">';
+	tpl = tpl + '	  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>';
+	tpl = tpl + '</button>';
+	tpl = tpl + '<button type="button" class="btn btn-default btn-remove btn-xs" data-toggle="modal" data-target="#modalCourseDelete" data-cid="'+row.cid+'" data-title="'+row.course_title+'">';
+	tpl = tpl + '	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>';
+	tpl = tpl + '</button>';
+	tpl = tpl + '</div>';
+
+	return tpl;
+}
+

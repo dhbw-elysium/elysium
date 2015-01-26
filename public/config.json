@@ -406,6 +406,7 @@
     "modals.less"
   ],
   "js": [
+    "alert.js",
     "button.js",
     "dropdown.js",
     "modal.js",
@@ -416,5 +417,5 @@
     "scrollspy.js",
     "transition.js"
   ],
-  "customizerUrl": "http://getbootstrap.com/customize/?id=0d80e7406450a963bae5"
+  "customizerUrl": "http://getbootstrap.com/customize/?id=4e55062b6aba0717bd11"
 }
