@@ -276,8 +276,9 @@
 					<?php
 						try {
 							$status	= $docent->statusLatest();
-						} catch(\OutOfRangeException $e) {
 			  				echo '<span class="badge"><span class="'.e($status->glyph).'" aria-hidden="true" title="'.e($status->title).'"></span></span>';
+						} catch(\OutOfRangeException $e) {
+			  				echo '<span class="badge">?</span>';
 						}
 					?>
 			</h2>
