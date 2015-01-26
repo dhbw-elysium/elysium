@@ -73,7 +73,7 @@ $nrNewDocents=Docent::getNumberOfNewDocents(Session::get('last_login', 0));
 				<h2 class="panel-title">Dozenten mit folgendem Status im System</h2>
 			</div>
  <ul class="list-group">
-  @if (count($statusList	= Status::orderBy('sid')))
+  @if (count($statusList	= Status::orderBy('sid')->get()))
   @foreach ($statusList as $status)
   <a href="{{{ URL::to('docents?sid='.$status->sid) }}}" class="list-group-item">{{{$status->title}}}<span class="badge">{{count(Docent::docentListWithLatestStatus($status->sid))}}</span></a>
   @endforeach
