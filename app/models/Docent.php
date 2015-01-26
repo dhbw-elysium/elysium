@@ -174,7 +174,7 @@ class Docent extends Eloquent implements RemindableInterface {
 					 FROM docent_status ds, status s
 					WHERE s.sid = ds.sid
 					  AND ds.did =?
-				 ORDER BY created_at ASC
+				 ORDER BY ds.created_at DESC
 				    LIMIT 1';
 
 		$result	= DB::select($query, array($this->did));
@@ -482,22 +482,13 @@ class Docent extends Eloquent implements RemindableInterface {
 	public function modificationInformation() {
 		$msg	= '';
 
-		$creator	= User::find($this->created_by);
-		$created	= new DateTime($this->created_at);
-
-		$msg	.= 'Erstellt von ';
-		$msg	.= '<span>'.$creator->firstname.' '.$creator->lastname.'</span>';
-		$msg	.= ' (<span>'.$created->format('d.m.Y H:i').'</span>)';
-
 		$updater	= User::find($this->updated_by);
 		$updated	= new DateTime($this->updated_at);
 
 
-		if ($this->created_at != $this->updated_at) {
-			$msg	.= ', aktualisiert von ';
-			$msg	.= '<span>'.$updater->firstname.' '.$updater->lastname.'</span>';
-			$msg	.= ' (<span>'.$updated->format('d.m.Y H:i').'</span>)';
-		}
+		$msg	.= 'Zuletzt bearbeitet von ';
+		$msg	.= '<span>'.$updater->firstname.' '.$updater->lastname.'</span>';
+		$msg	.= ' (<span>'.$updated->format('d.m.Y H:i').'</span>)';
 
 		return $msg;
 	}
