@@ -271,6 +271,30 @@ class DocentController extends BaseController {
         return Response::json($form);
     }
 
+    /**
+     * Updated assigned courses of a docent
+     */
+    public function docentDataUpdateCourseList() {
+        $docent = Docent::findOrFail(Input::get('did'));
+
+        $currentList    = $docent->assignedCourseList();
+        $targetList     = Input::get('assignedCourse', array());
+        sort($currentList);
+        sort($targetList);
+
+        $courseRemove   = array_diff($currentList, $targetList);
+        $courseAdd      = array_diff($targetList, $currentList);
+
+        foreach($courseRemove as $cid) {
+            $docent->removeCourseAssignment($cid);
+        }
+
+        foreach($courseAdd as $cid) {
+            $docent->addCourseAssignment($cid);
+        }
+
+        return Response::make('', 200);
+    }
 
     /**
      * Update a docents property

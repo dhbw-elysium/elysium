@@ -6,6 +6,48 @@
 @stop
 
 @section('content')
+<!-- Modal	edit assigned courses of docent -->
+<div class="modal fade" id="modalDocentCourseList" tabindex="-1" nbrole="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Schließen</span></button>
+        <h4 class="modal-title">Zugewiesene Vorlesungen verwalten</h4>
+      </div>
+	  {{ Form::open() }}
+	  {{ Form::hidden('did', $docent->did)}}
+      <div class="modal-body">
+			<div class="form-group">
+				<?php
+				$courseIdList	= $docent->assignedCourseList();
+				?>
+				<label for="assignedCourse">Vorlesungen</label>
+				<div>
+					<select multiple class="docents-filter-dropdown filter-course" name="assignedCourse[]" id="assignedCourse">
+						@if (count($groups	= CourseGroup::orderBy('title')->get()))
+							@foreach ($groups as $group)
+								@if (count($courses	= Course::where('cgid', '=', $group->cgid)->orderBy('title')->get()))
+							  <optgroup label="{{{$group->title}}}">
+									@foreach ($courses as $course)
+									  <option value="{{$course->cid}}" {{(in_array($course->cid, $courseIdList) ? 'selected="selected"' : '')}}>{{{$course->title}}}</option>
+									@endforeach
+							  </optgroup>
+								@endif
+							@endforeach
+						@endif
+					</select>
+				</div>
+			</div>
+
+	  </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Abbrechen</button>
+		{{ Form::submit('Speichern', array('class' => 'btn btn-primary')) }}
+      </div>
+	  {{ Form::close() }}
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <!-- Modal	docent times -->
 <div class="modal fade" id="modalDocentTime" tabindex="-1" role="dialog" aria-hidden="true">
@@ -347,8 +389,8 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Abteilung</label>
 								<div class="col-md-8">
-									{{$docent->displayData('company_part')}}
-									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="company_part">
+									{{$docent->displayData('company_department')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="company_department">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
 								</div>
@@ -475,8 +517,8 @@
 							<div class="form-group">
 								<label class="col-md-4 control-label">Bevorzugtes Studienfach</label>
 								<div class="col-md-8">
-									{{$docent->displayData('xxx')}}
-									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="xxx">
+									{{$docent->displayData('course_group_preferred')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="course_group_preferred">
 									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
 									</button>
 								</div>
@@ -566,7 +608,13 @@
 
 	</div>
 	<div class="col-md-4">
-		<h3>Vorlesungen</h3>
+		<div id="docent-course-list">
+			<h3>
+				Vorlesungen
+				<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentCourseList">
+				  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+				</button>
+			</h3>
 			<div>
 				@if($courses = $docent->courses->toArray())
 				@foreach($courses as $course)
@@ -574,6 +622,7 @@
 				@endforeach
 				@endif
 			</div>
+		</div>
 		<h3>Verlauf</h3>
 
 		<div class="docent-status-list">

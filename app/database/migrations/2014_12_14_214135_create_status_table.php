@@ -81,7 +81,7 @@ class CreateStatusTable extends Migration {
 		);
 		DB::table('status')->insert(
 			array(
-				'title'			=> 'Gesgespräch vereinbart',
+				'title'			=> 'Gespräch vereinbart',
 				'description'	=> 'Der Bewerber wurde zum Bewerbungsgespräch eingeladen',
 				'glyph'			=> 'glyphicon glyphicon-phone-alt',
 				'created_at'	=> new DateTime(),

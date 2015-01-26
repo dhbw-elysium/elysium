@@ -631,6 +631,42 @@ $(function () {
 		});
 	});
 
+	$('#modalDocentCourseList').on('show.bs.modal', function (event) {
+		var modal = $(this);
+
+		$('#assignedCourse').multiselect({
+			nonSelectedText: '(keine Vorlesung ausgewählt)',
+			numberDisplayed: 4
+
+		});
+
+		modal.find('.btn-primary').unbind('click');
+		$('#modalDocentCourseList .btn-primary').click(function (e) {
+			e.preventDefault();
+			$(this).prop('disabled', true);
+			var buttonSubmit = this;
+
+			$.ajax({
+				type: 'POST',
+				url: 'update-course-list',
+                data: $(this).parent().parent().serializeArray(),
+				complete: function (jqXHR, status) {
+					$('#modalDocentCourseList').hide();
+					$(buttonSubmit).prop('disabled', false);
+					if (status == 'success') {
+						location.reload();
+					} else {
+						$.toaster({
+							title: 'Status',
+							priority: 'danger',
+							message: 'Beim speichern zugewiesenen Vorlesungen ist ein Fehler aufgetreten'
+						});
+					}
+				}
+			});
+		});
+	});
+
 	$('#modalPhoneNumber').on('show.bs.modal', function (event) {
 		var button = $(event.relatedTarget),
 			did = parseInt(button.data('did')),
