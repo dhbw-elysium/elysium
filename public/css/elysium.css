@@ -101,6 +101,10 @@ body h6
 
 /** **/
 
+.timestamps {
+	margin: 20px 0;
+}
+
 .text-label-empty {
 	color:gray;
 	font-style: italic;
@@ -280,6 +284,10 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 .docent-detail .control-label {
 	text-align: left;
 	padding-right: 0;
+}
+
+.docent-detail .table-docent-time td {
+	min-width: 40px;
 }
 
 .docent-detail .tab-pane {

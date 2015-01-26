@@ -604,6 +604,7 @@
 			</div>
 		  </div>
 
+		  <div class="col-md-12 timestamps">{{$docent->modificationInformation()}}</div>
 		</div>
 
 	</div>

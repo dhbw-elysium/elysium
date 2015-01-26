@@ -474,4 +474,30 @@ class Docent extends Eloquent implements RemindableInterface {
 			)
 		);
 	}
+
+	/**
+	 * Return information about who edited what when
+	 */
+	public function modificationInformation() {
+		$msg	= '';
+
+		$creator	= User::find($this->created_by);
+		$created	= new DateTime($this->created_at);
+
+		$msg	.= 'Erstellt von ';
+		$msg	.= '<span>'.$creator->firstname.' '.$creator->lastname.'</span>';
+		$msg	.= ' (<span>'.$created->format('d.m.Y H:i').'</span>)';
+
+		$updater	= User::find($this->updated_by);
+		$updated	= new DateTime($this->updated_at);
+
+
+		if ($this->created_at != $this->updated_at) {
+			$msg	.= ', aktualisiert von ';
+			$msg	.= '<span>'.$updater->firstname.' '.$updater->lastname.'</span>';
+			$msg	.= ' (<span>'.$updated->format('d.m.Y H:i').'</span>)';
+		}
+
+		return $msg;
+	}
 }
