@@ -50,6 +50,7 @@ $(function () {
 					return true;
 				}) : this.options.data;
 
+				s = $('#convert').text(s).html();
 				this.data = s ? $.grep(this.data, function (item, i) {
 					for (var key in item) {
 						key = $.isNumeric(key) ? parseInt(key, 10) : key;

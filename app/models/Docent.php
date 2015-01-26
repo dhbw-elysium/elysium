@@ -254,14 +254,18 @@ class Docent extends Eloquent implements RemindableInterface {
 		foreach ($docentsFlat as $docentData) {
 			$did	= (int)$docentData->did;
 
+			/*
+			 * Using htmlspecialchars() here to prevent special chars like "ö" from being
+			 * escaped which would make them unuseable in table search
+			 */
 			if (!isset($docents[$did])) {
 				$docents[$did]	= array(
 					'did'			=> $did,
 					'sid'			=> (int)$docentData->sid,
-					'first_name'	=> e($docentData->first_name),
-					'last_name'		=> e($docentData->last_name),
+					'first_name'	=> htmlspecialchars($docentData->first_name, ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8'),
+					'last_name'		=> htmlspecialchars($docentData->last_name, ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8'),
 					'status_glyph'	=> e($docentData->status_glyph),
-					'status'		=> e($docentData->status_title),
+					'status'		=> htmlspecialchars($docentData->status_title, ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8'),
 					'courses'		=> array()
 				);
 

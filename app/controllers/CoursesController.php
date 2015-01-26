@@ -187,10 +187,14 @@ class CoursesController extends BaseController {
 			$courseCreatedDate	= new DateTime($course->created_at);
 			$courseUpdatedDate	= new DateTime($course->updated_at);
 
-			$course->course_title		= e($course->course_title);
-			$course->group_title		= e($course->group_title);
-			$course->created_by_name	= e($course->created_by_name);
-			$course->updated_by_name	= e($course->updated_by_name);
+			/*
+			 * Using htmlspecialchars() here to prevent special chars like "ö" from being
+			 * escaped which would make them unuseable in table search
+			 */
+			$course->course_title		= htmlspecialchars($course->course_title, ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8');
+			$course->group_title		= htmlspecialchars($course->group_title, ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8');
+			$course->created_by_name	= htmlspecialchars($course->created_by_name, ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8');
+			$course->updated_by_name	= htmlspecialchars($course->updated_by_name, ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8');
 
 			$course->created_at	= $courseCreatedDate->format('d.m.Y H:i');
 			$course->updated_at	= $courseUpdatedDate->format('d.m.Y H:i');
