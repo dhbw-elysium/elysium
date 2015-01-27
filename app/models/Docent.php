@@ -4,6 +4,8 @@ use Illuminate\Auth\Reminders\RemindableTrait;
 use Illuminate\Auth\Reminders\RemindableInterface;
 use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
+use \Elysium\DocentData\TeachTimeSet;
+
 class Docent extends Eloquent implements RemindableInterface {
 
 	use RemindableTrait, SoftDeletingTrait;
@@ -489,6 +491,30 @@ class Docent extends Eloquent implements RemindableInterface {
 				'cid' => $cid
 			)
 		);
+	}
+
+	/**
+	 * Get the teach time set for this docent
+	 *
+	 * @return TeachTimeSet
+	 */
+	public function teachTimeSet() {
+		$set	= new TeachTimeSet();
+
+		$set->setTime('time_mo_am', $this->time_mo_am);
+		$set->setTime('time_tu_am', $this->time_tu_am);
+		$set->setTime('time_we_am', $this->time_we_am);
+		$set->setTime('time_th_am', $this->time_th_am);
+		$set->setTime('time_fr_am', $this->time_fr_am);
+
+
+		$set->setTime('time_mo_pm', $this->time_mo_pm);
+		$set->setTime('time_tu_pm', $this->time_tu_pm);
+		$set->setTime('time_we_pm', $this->time_we_pm);
+		$set->setTime('time_th_pm', $this->time_th_pm);
+		$set->setTime('time_fr_pm', $this->time_fr_pm);
+
+		return $set;
 	}
 
 	/**

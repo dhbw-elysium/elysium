@@ -290,8 +290,11 @@
 			@endif
 			</div>
 			<div style="float: right;margin-top: 20px;">
+				<a class="btn btn-default" title="Profil als Word-Datei exportieren" href="{{{$docent->did}}}/export">
+				  <span class="glyphicon glyphicon-save-file" aria-hidden="true"></span>
+				</a>
 				<button type="button" class="btn btn-default btn-remove" title="Dozent in Papierkorb verschieben" data-toggle="modal" data-target="#modalDocentDelete" data-did="{{{$docent->did}}}">
-				  <span class="glyphicon glyphicon glyphicon-trash" aria-hidden="true"></span>
+				  <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
 				</button>
 			</div>
 

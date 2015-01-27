@@ -19,26 +19,13 @@ class DocentController extends BaseController {
         $formatHeader   = array('name' => 'Tahoma', 'size' => 16, 'bold' => true);
         $formatLabel    = array('name' => 'Tahoma', 'size' => 10, 'bold' => true);
         $formatValue    = array('name' => 'Tahoma', 'size' => 10, 'bold' => false);
+        $formatComment  = array('name' => 'Tahoma', 'size' => 10, 'italic' => true);
         $paragraph      = array('pageBreakBefore' => false, 'keepNext' => true, 'space' => array('after' => 125));
 
         $phpWord->addParagraphStyle('pStyle', $paragraph);
+        $phpWord->addParagraphStyle('vStyle', array('pageBreakBefore' => false, 'keepNext' => true, 'space' => array('after' => 0)));
         $phpWord->addFontStyle('formatLabel', $formatLabel);
         $phpWord->addFontStyle('formatValue', $formatValue);
-
-        $section    = $phpWord->addSection();
-        $subsequent = $section->addHeader();
-        $subsequent->addText(
-            htmlspecialchars(
-                'Elysium - Dozentenverwaltung - Dozent: '.$docent->displayData('first_name', true).' '.$docent->displayData('last_name', true)
-            ),
-            array('name' => 'Tahoma', 'size' => 10)
-        );
-
-        $footer = $section->addFooter();
-        $footer->addPreserveText(htmlspecialchars('Seite {PAGE} von {NUMPAGES}'), array('align' => 'center'));
-
-        $section->addText(htmlspecialchars($docent->salution.' '.$docent->title.' '.$docent->first_name.' '.$docent->last_name), $formatHeader);
-        $section->addText("\n", $formatValue);
 
         $section = $phpWord->addSection(
             array(
@@ -48,122 +35,260 @@ class DocentController extends BaseController {
             )
         );
 
+        $footer = $section->addFooter();
+        $footer->addPreserveText(htmlspecialchars('Seite {PAGE} von {NUMPAGES} (Elysium - Dozentenverwaltung)'), array('align' => 'center'));
+
+        $header = $section->addHeader();
+        $header->addText(htmlspecialchars($docent->salution.' '.$docent->title.' '.$docent->first_name.' '.$docent->last_name), $formatHeader);
+
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Titel:\n", $formatLabel);
+        $textrun->addText("Titel:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('title', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Anrede:\n", $formatLabel);
+        $textrun->addText("Anrede:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('salution', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Titel:\n", $formatLabel);
-        $textrun->addText($docent->displayData('title', true), $formatValue, $paragraph);
-
-        $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Anrede:\n", $formatLabel);
+        $textrun->addText("Anrede:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('salution', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Vorname:\n", $formatLabel);
+        $textrun->addText("Vorname:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('first_name', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Nachname:\n", $formatLabel);
+        $textrun->addText("Nachname:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('last_name', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("E-Mail:\n", $formatLabel);
+        $textrun->addText("E-Mail:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('email', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Website:\n", $formatLabel);
+        $textrun->addText("Website:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('website', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Anschrift:\n", $formatLabel);
-        $textrun->addText($docent->displayData('xxx', true), $formatValue, $paragraph);
+        $textrun->addText("Anschrift (Privat):\r\n", $formatLabel);
+        $textrun->addTextBreak();
+        $address    = $docent->privateAddress();
+        if ($address->street || $address->city || $address->plz) {
+            $textrun->addText(htmlspecialchars($address->street)."\r\n", $formatValue, $paragraph);
+            $textrun->addTextBreak();
+            $textrun->addText(htmlspecialchars($address->plz).' '.htmlspecialchars($address->city), $formatValue, $paragraph);
+        } else {
+            $textrun->addText('(leer)', $formatValue, $paragraph);
+        }
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Telefon:\n", $formatLabel);
-        $textrun->addText($docent->displayData('xxx', true), $formatValue, $paragraph);
+        $textrun->addText("Telefon (Privat):\r\n", $formatLabel);
+        $textrun->addTextBreak();
+		foreach($docent->phoneNumbers as $phoneNumber) {
+			if ($phoneNumber->is_private && $phoneNumber->number) {
+				switch($phoneNumber->type) {
+					case PhoneNumber::TYPE_PHONE:
+						$title	= '(Festnetz)';
+						break;
+					case PhoneNumber::TYPE_MOBILE:
+						$title	= '(Mobil)';
+						break;
+					case PhoneNumber::TYPE_FAX:
+						$title	= '(Fax)';
+						break;
+					default:
+						$title	= '';
+						break;
+				}
+                $textrun->addText(sprintf("%s %s\r\n", htmlspecialchars($phoneNumber->number), $title), $formatValue, $paragraph);
+                $textrun->addTextBreak();
+			}
+		}
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Geburstag (Geburtsort):\n", $formatLabel);
+        $textrun->addText("Geburstag (Geburtsort):\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('birth_day', true).' ('.$docent->displayData('birth_place', true).')', $formatValue);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Firma:\n", $formatLabel);
+        $textrun->addText("Firma:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('company_name', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Abteilung:\n", $formatLabel);
+        $textrun->addText("Abteilung:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('company_department', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Beruf:\n", $formatLabel);
+        $textrun->addText("Beruf:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('company_job', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Anschrift:\n", $formatLabel);
-        $textrun->addText($docent->displayData('xxx', true), $formatValue, $paragraph);
+        $textrun->addText("Anschrift (Geschäftlich):\r\n", $formatLabel);
+        $textrun->addTextBreak();
+        $address    = $docent->companyAddress();
+        if ($address->street || $address->city || $address->plz) {
+            $textrun->addText(htmlspecialchars($address->street), $formatValue, $paragraph);
+            $textrun->addTextBreak();
+            $textrun->addText(htmlspecialchars($address->plz).' '.htmlspecialchars($address->city), $formatValue, $paragraph);
+        } else {
+            $textrun->addText('(leer)', $formatValue, $paragraph);
+        }
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Telefon:\n", $formatLabel);
-        $textrun->addText($docent->displayData('xxx', true), $formatValue, $paragraph);
+        $textrun->addText("Telefon (Geschäftlich):\r\n", $formatLabel);
+        $textrun->addTextBreak();
+		foreach($docent->phoneNumbers as $phoneNumber) {
+			if (!$phoneNumber->is_private && $phoneNumber->number) {
+				switch($phoneNumber->type) {
+					case PhoneNumber::TYPE_PHONE:
+						$title	= '(Festnetz)';
+						break;
+					case PhoneNumber::TYPE_MOBILE:
+						$title	= '(Mobil)';
+						break;
+					case PhoneNumber::TYPE_FAX:
+						$title	= '(Fax)';
+						break;
+					default:
+						$title	= '';
+						break;
+				}
+                $textrun->addText(sprintf("%s %s\r\n", htmlspecialchars($phoneNumber->number), $title), $formatValue, $paragraph);
+                $textrun->addTextBreak();
+			}
+		}
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Abschluss:\n", $formatLabel);
+        $textrun->addText("Abschluss:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('graduation', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Ehemaliger DHBW Student:\n", $formatLabel);
+        $textrun->addText("Ehemaliger DHBW Student:\r\n", $formatLabel);
+        $textrun->addTextBreak();
+
         $textrun->addText($docent->displayData('is_exdhbw', true), $formatValue, $paragraph);
 
+
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Lehraufträge und Lehrtätigkeiten:\n", $formatLabel);
+        $textrun->addText("Lehraufträge und Lehrtätigkeiten:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('activity_teach', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Praktische Tätigkeiten:\n", $formatLabel);
+        $textrun->addText("Praktische Tätigkeiten:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('activity_practical', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Weitere mögliche Vorlesungsbereiche sowie bereits gehaltene Vorlesungen:\n", $formatLabel);
+        $textrun->addText("Weitere mögliche Vorlesungsbereiche sowie bereits gehaltene Vorlesungen:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('course_extra', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Anmerkungen, Ergänzungen:\n", $formatLabel);
+        $textrun->addText("Anmerkungen, Ergänzungen:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('extra', true), $formatValue, $paragraph);
 
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Bevorzugtes Studienfach:\n", $formatLabel);
+        $textrun->addText("Bevorzugtes Studienfach:\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText($docent->displayData('course_group_preferred', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Bevorzugte Vorlesungszeiten:\n", $formatLabel);
-        $textrun->addText($docent->displayData('xxx', true), $formatValue, $paragraph);
+        $textrun->addText("Bevorzugte Vorlesungszeiten:\r\n", $formatLabel);
+        $textrun->addTextBreak();
+
+        $docentTime = $docent->teachTimeSet();
+        $times      = $docentTime->times();
+        $titles     = $docentTime->availableTimes();
+        $usedTitles = array();
+        foreach($times as $timeCode => $enabled) {
+            if ($enabled) {
+                $usedTitles[]   = $titles[$timeCode];
+            }
+        }
+        $textrun->addText(implode(', ', $usedTitles)."\r\n", $formatValue, $paragraph);
+
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Kontodaten (klassisch):\n", $formatLabel);
+        $textrun->addText("Kontodaten (klassisch):\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText('Name des Kreditinstituts: '.$docent->displayData('bank_name', true)."\n", $formatValue, $paragraph);
+        $textrun->addTextBreak();
         $textrun->addText('BLZ: '.$docent->displayData('bank_blz', true)."\n", $formatValue, $paragraph);
+        $textrun->addTextBreak();
         $textrun->addText('Kontonummer: '.$docent->displayData('bank_number', true)."\n", $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
-        $textrun->addText("Kontodaten (modern):\n", $formatLabel);
+        $textrun->addText("Kontodaten (modern):\r\n", $formatLabel);
+        $textrun->addTextBreak();
         $textrun->addText('Name des Kreditinstituts: '.$docent->displayData('bank_name', true)."\n", $formatValue, $paragraph);
+        $textrun->addTextBreak();
         $textrun->addText('IBAN: '.$docent->displayData('bank_iban', true)."\n", $formatValue, $paragraph);
+        $textrun->addTextBreak();
         $textrun->addText('BIC: '.$docent->displayData('bank_bic', true)."\n", $formatValue, $paragraph);
 
+        $textrun = $section->addTextRun('pStyle');
+        $textrun->addText("Vorlesungen:\r\n", $formatLabel);
+        $textrun->addTextBreak();
+        $courses = $docent->courses->toArray();
+        if (count($courses)) {
+            $courseTitleList    = array();
+            foreach($courses as $course) {
+                $courseTitleList[]  = htmlspecialchars($course['title']);
+            }
+            $textrun->addText(implode(', ', $courseTitleList), $formatValue, $paragraph);
+        } else {
+            $textrun->addText('(leer)', $formatValue, $paragraph);
+        }
+
+        $textrun = $section->addTextRun('pStyle');
+        $textrun->addText("Statusverlauf (absteigend):\r\n", $formatLabel);
+        $textrun->addTextBreak();
+		$statusList = $docent->statusHistory();
+        foreach($statusList as $status) {
+            $created = new \DateTime($status->created_at);
+            $textrun->addText(
+                htmlspecialchars($status->title),
+                $formatLabel,
+                $paragraph
+            );
+            $textrun->addText(
+                sprintf(" (%s %s am %s um %s)\r\n",  htmlspecialchars($status->firstname), htmlspecialchars($status->lastname), $created->format('d.m.Y'), $created->format('H:i')),
+                $formatValue,
+                $paragraph
+            );
+            $textrun->addTextBreak();
+            $textrun->addText(
+                htmlspecialchars($status->comment)."\r\n",
+                $formatComment,
+                $paragraph
+            );
+            $textrun->addTextBreak();
+        }
+        $textrun->addTextBreak();
 
 
-
-
+        $tempFile = tempnam(sys_get_temp_dir(), 'PHPWord');
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
-        $objWriter->save('/tmp/doc3.docx');
+        $objWriter->save($tempFile);
 
+        $fileLastName = preg_replace("/[^0-9^A-z^_^]/", "", $docent->last_name);
+        header("Content-Disposition: attachment; filename='Dozentenprofil ".$fileLastName.".docx'");
+        readfile($tempFile); // or echo file_get_contents($temp_file);
+        unlink($tempFile);  // remove temp file
     }
 
     /**
