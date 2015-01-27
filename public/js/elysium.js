@@ -962,17 +962,19 @@ $(function () {
 			window.location.href = 'docent/'+row.did;
 		}).on('load-success.bs.table', function(data) {
 			if (!$('#docent-list-clear').length) {
-				var tpl	= '';
+				var searchBar = $('.columns.columns-right.btn-group.pull-right'),
+					tpl	= '';
 				tpl = tpl + '<button type="button" class="btn btn-default" id="docent-list-clear" title="Filter und Suchfeld zurücksetzen">';
 				tpl = tpl + '	  <span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>';
 				tpl = tpl + '</button>';
 
-			  	$('.columns.columns-right.btn-group.pull-right').append(tpl);
+			  	searchBar.append(tpl);
 				$('#docent-list-clear').click(function (e) {
 					e.preventDefault();
 					$('.docents-filter-dropdown').multiselect('deselectAll', false);
 					$('.docents-filter-dropdown').multiselect('refresh');
-					$('#docent-list').bootstrapTable('refresh');
+					$('.pull-right.search input').val('');
+					$('.pull-right.search input').trigger('keyup');
 				});
 
 			}
