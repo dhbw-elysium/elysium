@@ -58,7 +58,7 @@
 			   data-toggle="table" data-url="docents/list.json" data-cache="false" data-pagination="true"
 			   data-side-pagination="client" data-show-refresh="true" data-show-columns="false" data-search="true"
 			   data-search-align="right" data-toolbar="#docent-list-toolbar" data-striped="true"
-			   data-show-filter="true" data-show-export="true">
+			   data-show-filter="true">
 			<thead>
 				<tr>
 					<th data-field="did" data-sortable="true" data-visible="false">#</th>
