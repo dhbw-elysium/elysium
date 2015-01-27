@@ -285,7 +285,7 @@ class DocentController extends BaseController {
         $objWriter = \PhpOffice\PhpWord\IOFactory::createWriter($phpWord, 'Word2007');
         $objWriter->save($tempFile);
 
-        $fileLastName = preg_replace("/[^0-9^A-z^_^]/", "", $docent->last_name);
+        $fileLastName = preg_replace("/[^0-9^A-z^_^ä^ö^ü^Ä^Ö^Ü^ß^]/", "", $docent->last_name);
         header("Content-Disposition: attachment; filename='Dozentenprofil ".$fileLastName.".docx'");
         readfile($tempFile); // or echo file_get_contents($temp_file);
         unlink($tempFile);  // remove temp file
