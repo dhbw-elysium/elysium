@@ -344,6 +344,7 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	opacity: 0.5;
 }
 
+.docent-detail .col-md-4 #docent-course-list .btn-edit-inline:hover,
 .docent-detail .col-md-8 > .btn-edit-inline:hover {
 	opacity: 1;
 }
