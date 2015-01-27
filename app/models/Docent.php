@@ -266,14 +266,14 @@ class Docent extends Eloquent implements RemindableInterface {
 					'sid'			=> (int)$docentData->sid,
 					'first_name'	=> htmlspecialchars($docentData->first_name, ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8'),
 					'last_name'		=> htmlspecialchars($docentData->last_name, ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8'),
-					'status_glyph'	=> e($docentData->status_glyph),
+					'status_glyph'	=> htmlspecialchars($docentData->status_glyph, ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8'),
 					'status'		=> htmlspecialchars($docentData->status_title, ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8'),
 					'courses'		=> array()
 				);
 
 			}
 
-			$docents[$did]['courses'][$docentData->course_cid]	= e($docentData->course_title);
+			$docents[$did]['courses'][$docentData->course_cid]	= htmlspecialchars($docentData->course_title,  ENT_QUOTES|ENT_SUBSTITUTE|ENT_DISALLOWED|ENT_HTML5, 'UTF-8');
 		}
 
 		return $docents;
