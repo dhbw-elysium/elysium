@@ -292,7 +292,8 @@ class DocentController extends BaseController {
         header('Content-Transfer-Encoding: binary');
         header('Content-Length: ' . filesize($tempFile));
         header('Content-Type: application/octet-stream');
-        header("Content-Disposition: attachment; filename='Dozentenprofil ".$fileLastName.".docx'");
+        header('Content-Disposition: attachment; filename="Dozentenprofil '.$fileLastName.'.docx"');
+
         readfile($tempFile); // or echo file_get_contents($temp_file);
         unlink($tempFile);  // remove temp file
     }
