@@ -422,9 +422,9 @@ form .glyph-list li .glyph-list-preview .glyphicon-class {
 	padding-top: 0;
 }
 
-#course-list thead th span {
-	font-size: 7px;
-	visibility: hidden;
+.bootstrap-table label span.action,
+#course-list thead th span.title {
+	display: none;
 }
 
 table.table.table-grid tbody tr td {

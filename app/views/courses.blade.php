@@ -134,7 +134,14 @@
 							<th data-field="created_by_name" data-sortable="true" data-visible="false">Erstellt von</th>
 							<th data-field="updated_at" data-sortable="true" data-visible="false">Bearbeitet am</th>
 							<th data-field="updated_by_name" data-sortable="true" data-visible="false">Bearbeitet von</th>
-							<th data-sortable="false" data-formatter="courseButtonsFormatter" data-visible="true" data-align="right" data-width="60"><span>Aktion</span></th>
+							<th data-sortable="false" data-formatter="courseButtonsFormatter" data-visible="true" data-align="right" data-width="60">
+								<span class="title">Aktion</span>
+								<span class="action">
+									<button type="button" class="btn btn-default btn-add btn-xs" data-toggle="modal" data-target="#modalCourse" data-cid="0" data-cgid="" data-title="" title="Neue Vorlesung hinzufügen">
+										<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+									</button>
+								</span>
+							</th>
 						</tr>
 					</thead>
 				</table>
