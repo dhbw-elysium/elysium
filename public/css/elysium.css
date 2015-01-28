@@ -71,6 +71,12 @@ body h6
 	background-color: #cccccc;
 }
 
+html .form-control:focus {
+	border-color: #86b933;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(200, 255, 55, 0.70);
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(201, 255, 54, 0.70);
+}
+
 #header .navbar.navbar-default .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
 	color: #698b22;
 	background-color: #c3c3c3;

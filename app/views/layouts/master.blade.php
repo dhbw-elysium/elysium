@@ -111,7 +111,6 @@
         @else
 			{{ HTML::script('js/all.js') }}
         @endif
-			{{ HTML::script('js/tableExport.js') }}
     <div id="convert" style="display:none;"></div>
     </body>
 </html>
