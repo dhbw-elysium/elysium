@@ -174,6 +174,11 @@ class DocentController extends BaseController {
         $textrun->addText($docent->displayData('graduation', true), $formatValue, $paragraph);
 
         $textrun = $section->addTextRun('pStyle');
+        $textrun->addText("LBV-Nummer:\r\n", $formatLabel);
+        $textrun->addTextBreak();
+        $textrun->addText($docent->displayData('lbv', true), $formatValue, $paragraph);
+
+        $textrun = $section->addTextRun('pStyle');
         $textrun->addText("Ehemaliger DHBW Student:\r\n", $formatLabel);
         $textrun->addTextBreak();
 
@@ -312,7 +317,7 @@ class DocentController extends BaseController {
 
         $textareaElements   = array('activity_teach', 'activity_practical', 'course_extra', 'extra');
         $textElements       = array('title', 'salution', 'birth_place', 'website', 'email', 'company_name',
-            'company_department', 'company_job', 'graduation', 'course_group_preferred');
+            'company_department', 'company_job', 'graduation', 'course_group_preferred', 'lbv');
 
         if (in_array($targetElement, $textElements )) {
             $property   = $targetElement;
@@ -326,6 +331,9 @@ class DocentController extends BaseController {
                     break;
                 case 'salution':
                     $label      = 'Anrede';
+                    break;
+                case 'lbv':
+                    $label      = 'LBV-Nummer';
                     break;
                 case 'graduation':
                     $label      = 'Abschluss';
@@ -611,7 +619,7 @@ class DocentController extends BaseController {
 
         $textElements   = array(
             'title', 'salution', 'birth_place', 'website', 'email', 'company_name', 'company_department', 'company_job',
-            'activity_teach', 'activity_practical', 'course_extra', 'extra', 'graduation', 'course_group_preferred'
+            'activity_teach', 'activity_practical', 'course_extra', 'extra', 'graduation', 'course_group_preferred', 'lbv'
         );
 
         if (in_array($targetElement, $textElements )) {
@@ -622,6 +630,7 @@ class DocentController extends BaseController {
             switch($targetElement) {
                 case 'title':
                 case 'salution':
+                case 'lbv':
                 case 'graduation':
                 case 'birth_place':
                 case 'website':

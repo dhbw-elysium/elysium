@@ -493,6 +493,17 @@
 						</div>
 						<div class="col-sm-12 col-lg-12">
 							<div class="form-group">
+								<label class="col-md-4 control-label">LBV-Nummer</label>
+								<div class="col-md-8">
+									{{$docent->displayData('lbv')}}
+									<button type="button" class="btn btn-default btn-xs btn-edit-inline" data-toggle="modal" data-target="#modalDocentData" data-did="{{{$docent->did}}}" data-property="lbv">
+									  <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-sm-12 col-lg-12">
+							<div class="form-group">
 								<label class="col-md-4 control-label" title="Ehemaliger DHBW Absolvent">Ehemalige(r)</label>
 								<div class="col-md-8">
 									{{$docent->displayData('is_exdhbw')}}
