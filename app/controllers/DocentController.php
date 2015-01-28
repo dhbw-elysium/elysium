@@ -286,6 +286,12 @@ class DocentController extends BaseController {
         $objWriter->save($tempFile);
 
         $fileLastName = preg_replace("/[^0-9^A-z^_^ä^ö^ü^Ä^Ö^Ü^ß^]/", "", $docent->last_name);
+
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate');
+        header('Content-Transfer-Encoding: binary');
+        header('Content-Length: ' . filesize($tempFile));
+        header('Content-Type: application/octet-stream');
         header("Content-Disposition: attachment; filename='Dozentenprofil ".$fileLastName.".docx'");
         readfile($tempFile); // or echo file_get_contents($temp_file);
         unlink($tempFile);  // remove temp file
