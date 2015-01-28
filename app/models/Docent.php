@@ -524,11 +524,18 @@ class Docent extends Eloquent implements RemindableInterface {
 		$msg	= '';
 
 		$updater	= User::find($this->updated_by);
-		$updated	= new DateTime($this->updated_at);
+		try {
+			$updated	= new DateTime($this->updated_at);
+		} catch (Exception $e) {
+			return '';
+		}
 
-
-		$msg	.= 'Zuletzt bearbeitet von ';
-		$msg	.= '<span>'.$updater->firstname.' '.$updater->lastname.'</span>';
+		if ($updater) {
+			$msg	.= 'Zuletzt bearbeitet von ';
+			$msg	.= '<span>'.$updater->firstname.' '.$updater->lastname.'</span>';
+		} else {
+			$msg	.= 'Letzte Änderung vom System';
+		}
 		$msg	.= ' (<span>'.$updated->format('d.m.Y H:i').'</span>)';
 
 		return $msg;
