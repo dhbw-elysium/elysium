@@ -111,4 +111,30 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
         return ($this->uid == $uid);
     }
 
+
+    /**
+     * Check if the given email is active at a user (or inactive)
+     *
+     * @param   string      $email      Email address to search
+     * @param   boolean     $active     If set to true search for users which are currently active (not deleted)
+     * @return  string
+     */
+    public static function uidByEmail($email, $active = true) {
+        $count  = DB::table('user')->select('uid')->where('email','=', $email);
+
+        if ($active) {
+            $count->whereNull('deleted_by');
+        } else {
+            $count->whereNotNull('deleted_by');
+        }
+        $result = $count->get();
+
+        if (count($result) == 0) {
+            return 0;
+        } elseif (count($result) > 1) {
+            return false;
+        } else {
+            return $result[0]->uid;
+        }
+    }
 }

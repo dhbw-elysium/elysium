@@ -71,20 +71,17 @@ class UserController extends BaseController {
                 'email'	=> 'required|email'
             );
 
-        $messages = array(
-            'firstname.required' => 'Es muss ein Vorname angegeben werden',
-            'lastname.required'      => 'Der Nachname muss angegeben werden',
-            'email.required'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
-            'email.email'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
-            'email.unique'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden'
-        );
+            $messages = array(
+                'firstname.required' => 'Es muss ein Vorname angegeben werden',
+                'lastname.required'      => 'Der Nachname muss angegeben werden',
+                'email.required'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
+                'email.email'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
+            );
 
-
-          if(Input::has('role')){
+            if(Input::has('role')){
                 $data['role']   = Input::get('role');
                 $rules['role']  = 'required';
-
-           }
+            }
 
 
             $validator = Validator::make($data, $rules, $messages);
@@ -98,9 +95,17 @@ class UserController extends BaseController {
                     $user->firstname = $data['firstname'];
                     $user->lastname = $data['lastname'];
 
-                    if (Validator::make(array('email' => $data['email']), array('email' => 'unique:user,email,NULL,email' . $user->email))->passes()) {
-                        $user->email = $data['email'];
+                    $emailUid   = User::uidByEmail($data['email']);
+
+                    if ($emailUid > 0 && $data['uid'] != $emailUid) {
+                        $msg    = 'Es ist bereits ein Benutzer mit dieser E-Mail Adresse aktiv. Verwenden sie eine andere Adresse oder löschen sie den bereits vorhandenen Benutzer.';
+                        if(Auth::user()->isAdmin()){
+                            return Redirect::to('user/list')->with('danger', $msg);
+                        }
+                        return Redirect::to('user/edit/'.$user->uid)->with('danger', $msg);
                     }
+
+                    $user->email = $data['email'];
                     if (Auth::user()->isAdmin()){
                     if(!Auth::user()->isCurrentUser($user->uid)){
                             $user->role = $data['role'];
@@ -159,7 +164,7 @@ class UserController extends BaseController {
                 'lastname.required'      => 'Der Nachname muss angegeben werden',
                 'email.required'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
                 'email.email'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
-                'email.unique'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden',
+                'email.unique'      => 'Die gewünschte E-Mail Adresse wird bereits von einem anderen Benuter verwendet',
                 'password.required'      => 'Es muss ein 5 stelliges Passwort angegeben werden',
                 'password.min'      => 'Es muss eine E-Mail im Format "example@example.com" angegeben werden'
 
