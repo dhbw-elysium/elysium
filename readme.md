@@ -9,6 +9,9 @@ Check that following php extensions are enabled (which are usually disabled on a
 
 * php_openssl
 * php_fileinfo
+
+There is a [German installation instruction](install-de.pdf) available for windows servers.
+
  
 ## Laravel PHP Framework
 
