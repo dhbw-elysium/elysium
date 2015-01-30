@@ -828,11 +828,13 @@ $(function () {
 			comment = button.data('comment'),
 			modal = $(this);
 
-		if (sid) {
-	        modal.find('#docentUpdateDsid').val(dsid);
-    	    modal.find('#statusSid').val(sid);
-    	    modal.find('#statusComment').val(comment);
+		if (dsid == 0) {
+			sid	= 0;
+			comment	= '';
 		}
+		modal.find('#docentUpdateDsid').val(dsid);
+		modal.find('#statusSid').val(sid);
+		modal.find('#statusComment').val(comment);
 
 		modal.find('.btn-primary').unbind('click');
 		$('#modalDocentStatus .btn-primary').click(function (e) {
