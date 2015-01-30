@@ -4,7 +4,8 @@ This application is used to manage docents at dhbw stuttgart
 
 ## Requirements
 
-The elysium application needs the following php extensions enabled (which are usually disabled on a windows xampp installation):
+The elysium application uses the laravel framework, so make shure your server fulfills its requirements (look at laravels documentation).
+Check that following php extensions are enabled (which are usually disabled on a windows xampp installation):
 
 * php_openssl
 * php_fileinfo
@@ -33,4 +34,4 @@ Documentation for the entire framework can be found on the [Laravel website](htt
 
 ### License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+The Laravel framework and elysium is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
